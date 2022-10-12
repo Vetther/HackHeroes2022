@@ -9,4 +9,9 @@ public enum ResponseError {
     INVALID_EMAIL,
     INVALID_USERNAME,
     INVALID_PASSWORD,
+
+    /** Event Controller **/
+    EVENT_NOT_FOUND,
+    INVALID_EVENT,
+    INVALID_EVENT_CREATOR
 }

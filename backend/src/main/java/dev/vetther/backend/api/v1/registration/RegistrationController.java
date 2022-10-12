@@ -1,4 +1,4 @@
-package dev.vetther.backend.api.v1;
+package dev.vetther.backend.api.v1.registration;
 
 import dev.vetther.backend.api.v1.request.RegistrationRequest;
 import dev.vetther.backend.api.v1.response.Response;
