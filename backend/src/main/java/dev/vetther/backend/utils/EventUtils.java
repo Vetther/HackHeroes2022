@@ -9,10 +9,12 @@ public class EventUtils {
     }
 
     public boolean isShortDesc(String shortDescription) {
-        return shortDescription.length() >= 6 && shortDescription.length() <= 100;
+        return shortDescription != null && shortDescription.length() >= 6 && shortDescription.length() <= 100 &&
+                !shortDescription.isBlank();
     }
 
     public boolean isLongDesc(String longDescription) {
-        return longDescription.length() >= 16 && longDescription.length() <= 326;
+        return longDescription != null && longDescription.length() >= 16 && longDescription.length() <= 326 &&
+                !longDescription.isBlank();
     }
 }
