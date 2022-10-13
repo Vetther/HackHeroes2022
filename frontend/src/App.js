@@ -10,7 +10,7 @@ export default function App() {
     <Autocomplete
       apiKey={'AIzaSyCmgoNY4M_yFr_gE703rDfc7RLkzfgHflA'}
       onPlaceSelected={(place) => {
-        // console.log(place)
+        //console.log(place)
         setAddress(place.formatted_address)
       }}
       options={{
