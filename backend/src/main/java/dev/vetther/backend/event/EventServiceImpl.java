@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +22,8 @@ public class EventServiceImpl {
     private final ImageService imageService;
     private final EventRepository eventRepository;
 
-    public Event createEvent(User creator, Image image, String title, String shortDesc, String longDesc) {
-        Event event = new Event(null, image, title, shortDesc, longDesc, creator, new HashSet<>());
+    public Event createEvent(User creator, Image image, String title, String address, Instant eventDate, Instant publicationDate, String shortDesc, String longDesc) {
+        Event event = new Event(null, image, title, address, shortDesc, longDesc, publicationDate, eventDate, creator, new HashSet<>());
         return this.eventRepository.save(event);
     }
 
