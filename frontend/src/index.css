@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.pac-logo {
-    padding: 10px 0;
+/* GOOGLE MAPS */
+
+#root {
+    margin: 25px;
 }
+
 .pac-logo::after {
     display: none;
 }
@@ -15,7 +18,21 @@
     left: 0 !important;
     right: 0 !important;
     display: block !important;
+    margin: 0 20px 20px 20px !important;
+    border-color: hsl(var(--bc) / var(--tw-border-opacity));
+    border-width: 1px;
+    border-radius: var(--rounded-btn, 0.5rem);
+    box-shadow: none;
 }
+
+.pac-item {
+    padding: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
 .pac-container:empty{
     display: none !important;
 }
+
+/* ========== */
