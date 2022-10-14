@@ -2,40 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* GOOGLE MAPS */
-
-body {
-    margin: 25px;
-}
-
-.pac-logo::after {
-    display: none;
+/* .pac-logo::after {
+  display: none;
 }
 .pac-container {
-    z-index: 10000 !important;
-    width: auto !important;
-    position: initial !important;
-    display: block !important;
-    margin-top: 5px !important;
-    /*border-color: hsl(var(--bc) / var(--tw-border-opacity));*/
-    border-width: 1px;
-    border-radius: var(--rounded-btn, 0.5rem);
-    box-shadow: none;
-    border-top: none;
+  z-index: 10000 !important;
+  width: auto !important;
+  position: initial !important;
+  display: block !important;
+  margin-top: 5px !important;
+  border-color: hsl(var(--bc) / var(--tw-border-opacity));
+  border-width: 1px;
+  border-radius: var(--rounded-btn, 0.5rem);
+  box-shadow: none;
+  border-top: none;
 }
 
 input:focus {
-    outline: none !important;
+  outline: none !important;
 }
 
 .pac-item {
-    padding: 5px;
-    margin: 0 5px;
-    cursor: pointer;
+  padding: 5px;
+  margin: 0 5px;
+  cursor: pointer;
 }
 
 .pac-container:empty{
-    display: none !important;
-}
-
-/* ========== */
+  display: none !important;
+} */
