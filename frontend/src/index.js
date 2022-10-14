@@ -6,9 +6,12 @@ import App from './App'
 import Geocode from './Geocode'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
 root.render(
-  <Router>
-    <App />
-      <Geocode />
-  </Router>
+    <><Router>
+
+        <Geocode />
+        <App/>
+
+    </Router></>
 )

@@ -11,12 +11,12 @@ export default function Geocode() {
     <GeoapifyContext apiKey="8d4075d6768247d9b9c64794d4ea8dc4">
 
         <GeoapifyGeocoderAutocomplete placeholder="Enter address here"
-                                      //type='street'
-                                      lang='pl'
-                                      countryCodes={"pl"}
-                                      limit='5'
+                                      lang={'pl'}
+                                      filterByCountryCode={['pl']}
+                                      limit={10}
                                       placeSelect={onPlaceSelect}
                                       suggestionsFilter={filter}
+                                      skipIcons={true}
         />
     </GeoapifyContext>
     )
@@ -27,6 +27,8 @@ export default function Geocode() {
 
     function filter(suggestions) {
         const returned = [];
+
+        console.log(suggestions)
 
         // suggestions.forEach(value => {
         //     if (value.properties.result_type === "street" || value.properties.result_type === "building" || value.properties.result_type === "city") {
