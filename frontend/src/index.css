@@ -4,7 +4,7 @@
 
 /* GOOGLE MAPS */
 
-#root {
+body {
     margin: 25px;
 }
 
@@ -15,14 +15,17 @@
     z-index: 10000 !important;
     width: auto !important;
     position: initial !important;
-    left: 0 !important;
-    right: 0 !important;
     display: block !important;
-    margin: 0 20px 20px 20px !important;
-    border-color: hsl(var(--bc) / var(--tw-border-opacity));
+    margin-top: 5px !important;
+    /*border-color: hsl(var(--bc) / var(--tw-border-opacity));*/
     border-width: 1px;
     border-radius: var(--rounded-btn, 0.5rem);
     box-shadow: none;
+    border-top: none;
+}
+
+input:focus {
+    outline: none !important;
 }
 
 .pac-item {
