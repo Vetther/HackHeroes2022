@@ -8,13 +8,16 @@ export default function App() {
 
   return (
     <Autocomplete
+        className={'input input-bordered w-full max-w-xs'}
+        style={{margin: 20}}
+
       apiKey={'AIzaSyCmgoNY4M_yFr_gE703rDfc7RLkzfgHflA'}
       onPlaceSelected={(place) => {
-        //console.log(place)
+        console.log(place)
         setAddress(place.formatted_address)
       }}
       options={{
-        types: ["address"],
+        types: [], // address lub establishment(szkoly etc.)
         // fields: ["address_components", "geometry"],
         componentRestrictions: { country: "pl" },
       }}
