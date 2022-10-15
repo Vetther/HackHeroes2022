@@ -63,7 +63,7 @@ public class RegistrationController {
 
         User user = this.userService.createUser(
                 request.getUsername(),
-                encoder.encode(request.getPassword()),
+                request.getPassword(),
                 request.getEmail(),
                 List.of(this.roleService.getRole("USER")
                         .orElseThrow(() -> new NullPointerException("Role not found")))
