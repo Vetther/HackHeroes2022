@@ -23,7 +23,7 @@ export default function Event({ event }) {
               <p className='text-gray-500 ml-2'>{event.creator}</p>
             </div>
           </div>
-          <p className="font-medium">{event.description}</p>
+          <p className="font-medium pr-3">{event.description}</p>
         </div>
       </div>
       <div className='flex flex-col justify-between'>
