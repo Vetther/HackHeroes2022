@@ -6,6 +6,6 @@ import lombok.Data;
 public class Response {
 
     private final boolean success;
-    private final ResponseError error;
+    private final Object error;
     private final Object data;
 }

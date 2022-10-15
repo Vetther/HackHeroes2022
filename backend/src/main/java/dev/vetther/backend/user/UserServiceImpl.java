@@ -3,9 +3,11 @@ package dev.vetther.backend.user;
 import dev.vetther.backend.role.Role;
 import dev.vetther.backend.role.RoleService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,15 +17,18 @@ class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        return getUser(usernameOrEmail).orElseThrow(() -> new UsernameNotFoundException("Username or email not found"));
+        User user = getUser(usernameOrEmail).orElseThrow(() -> new UsernameNotFoundException("Username or email not found"));
+        Collection<SimpleGrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
     @Override
     public User createUser(String name, String password, String email, Collection<Role> roles) {
-        return this.userRepository.save(new User(null, name, password, email, new HashSet<>(roles)));
+        return this.userRepository.save(new User(null, name, passwordEncoder.encode(password), email, new HashSet<>(roles)));
     }
 
     @Override

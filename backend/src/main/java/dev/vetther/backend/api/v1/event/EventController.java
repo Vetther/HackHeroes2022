@@ -33,7 +33,7 @@ public class EventController {
     private final TagService tagService;
 
     @PostMapping("/event/create")
-    public ResponseEntity<Response> createEvent(@RequestBody EventRequest event) {
+    public ResponseEntity<Response> createEvent(@RequestBody EventRequest event, Principal principal) {
 
         if (!EventUtils.isLongDesc(event.getLongDescription())) {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_LONG_DESCRIPTION, null));
@@ -47,13 +47,9 @@ public class EventController {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_IMAGE, null));
         }
 
-        if (event.getCreatorId() == null) {
-            return ResponseEntity.ok(new Response(false, INVALID_EVENT_CREATOR, null));
-        }
+        Optional<User> user = this.userService.getUser(principal.getName());
 
-        Optional<User> creator = userService.getUser(event.getCreatorId());
-
-        if (creator.isEmpty()) {
+        if (user.isEmpty()) {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_CREATOR, null));
         }
 
@@ -80,7 +76,7 @@ public class EventController {
 
         Instant publicationDate = Instant.now();
 
-        Event e = this.eventService.createEvent(creator.get(), event.getImage(), event.getTitle(), event.getAddress(), Instant.ofEpochSecond(event.getEventTime()), publicationDate, event.getShortDescription(), event.getLongDescription(), tags);
+        Event e = this.eventService.createEvent(user.get(), event.getImage(), event.getTitle(), event.getAddress(), Instant.ofEpochSecond(event.getEventTime()), publicationDate, event.getShortDescription(), event.getLongDescription(), tags);
 
         return ResponseEntity.ok(new Response(true, null, e));
     }
@@ -100,11 +96,8 @@ public class EventController {
     @DeleteMapping("/event/{id}")
     public ResponseEntity<Response> deleteEvent(@PathVariable long id, Principal principal) {
 
-        //if (!(principal instanceof UserDetails userDetails)) {
-        //    return ResponseEntity.badRequest().body(new Response(false, AUTH_ERROR, null));
-        //}
-
-        //User user = this.userService.getUser(userDetails.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        System.out.println(principal.getName());
+        User user = this.userService.getUser(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         Optional<Event> eventOpt = this.eventService.getEvent(id);
 
@@ -112,9 +105,9 @@ public class EventController {
             return ResponseEntity.ok(new Response(false, EVENT_NOT_FOUND, null));
         }
 
-        //if (!Objects.equals(eventOpt.get().getCreator().getId(), user.getId())) {
-        //    return ResponseEntity.badRequest().body(new Response(false, ACCESS_DENIED, null));
-        //}
+        if (!Objects.equals(eventOpt.get().getCreator().getId(), user.getId())) {
+            return ResponseEntity.badRequest().body(new Response(false, ACCESS_DENIED, null));
+        }
 
         this.eventService.removeEvent(eventOpt.get().getId());
 
