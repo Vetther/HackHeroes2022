@@ -8,6 +8,8 @@ import ToggleSidebar from './components/ToggleSidebar'
 import Events from './pages/Events'
 import EventInfo from './pages/EventInfo'
 import Polls from './pages/Polls'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 import bb from './bb.jpg'
 
@@ -87,6 +89,8 @@ export default function App() {
             <Route exact path='/events' element={<Events events={events} setEvents={setEvents} />} />
             <Route path='/event/:id' element={<EventInfo events={events} />} />
             <Route exact path='/polls' element={<Polls />} />
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/register' element={<Register />} />
           </Routes>
         </div>
       </div>

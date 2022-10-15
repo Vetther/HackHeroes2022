@@ -28,7 +28,7 @@ export default function Sidebar() {
           path: '/onas',
           icon: <FontAwesomeIcon icon={faInfoCircle} style={{marginRight: 10, width: 25, height: 25}}/>
       },
-      4: {
+      4: { 
           name: 'Zaloguj się',
           path: '/login',
           icon: <FontAwesomeIcon icon={faRightToBracket} style={{marginRight: 10, width: 25, height: 25}}/>

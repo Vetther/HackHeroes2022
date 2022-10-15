@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 
 export default function Event({ event }) {
   return (
-    <div className="md:flex justify-between bg-white rounded-lg p-4 drop-shadow-md">
+    <div className="md:flex justify-between bg-white rounded-lg p-4 shadow-md">
       <div className='sm:flex'>
-        <img src={event.img} alt={event.title} className='rounded-lg object-cover' />
+        <img src={event.img} alt={event.title} className='rounded-lg object-cover shadow-xl' />
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
           <div>
             <p className='text-black text-xl font-bold mb-1.5'>{event.title}</p>

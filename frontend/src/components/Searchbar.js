@@ -7,7 +7,9 @@ export default function Searchbar({ setValue }) {
       apiKey={'AIzaSyCmgoNY4M_yFr_gE703rDfc7RLkzfgHflA'}
       onPlaceSelected={place => {
         // console.log(place)
-        setValue(place.formatted_address)
+        if(place.formatted_address) {
+          setValue(place.formatted_address)
+        }
       }}
       options={{
         types: ["address"],
