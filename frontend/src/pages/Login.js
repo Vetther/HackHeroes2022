@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 export default function Login({ login }) {
   const [usernameEmail, setUsernameEmail] = useState('')
   const [password, setPassword] = useState('')
-  const inputClass = 'border-b border-gray-300 focus:outline-none focus:border-primary w-full pb-2'
+  const inputClass = 'border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
 
   return (
     <div className='flex justify-center items-center h-full'>
-      <div className="md:w-2/5 w-2/3 border border-gray-300 bg-white rounded-lg px-8 py-6">
+      <div className="md:w-2/5 w-2/3 border border-base-300 bg-base-100 rounded-lg px-8 py-6">
         <p className="font-bold text-3xl text-primary mb-12">Logowanie</p>
         {/* <form className="flex flex-col gap-y-8" onSubmit={() => login(usernameEmail, password)}>
           <input type="text" placeholder='Nazwa Użytkownika lub Email' value={usernameEmail} onChange={e => setUsernameEmail(e.target.value)} className={inputClass} />

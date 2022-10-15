@@ -30,18 +30,18 @@ export default function Register({ Login }) {
 
   return (
     <div className='flex justify-center items-center h-full'>
-      <div className="md:w-2/5 w-2/3 border border-gray-300 bg-white rounded-lg px-8 py-6">
+      <div className="md:w-2/5 w-2/3 border border-base-300 bg-base-100 rounded-lg px-8 py-6">
         <p className="font-bold text-3xl text-primary mb-12">Rejestracja</p>
         {/* <form className="flex flex-col gap-y-8" onSubmit={register}> */}
         <div className="flex flex-col gap-y-8">
           <div>
-            <input 
+            <input
               type="text" 
               placeholder='Nazwa Użytkownika' 
               value={username} 
-              onChange={e => setUsername(e.target.value)} 
+              onChange={e => setUsername(e.target.value)}
               onBlur={() => setCorrectUsername(username.match("^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"))} 
-              className='border-b border-gray-300 focus:outline-none focus:border-primary w-full pb-2'
+              className='border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
             />
             <p className={`text-red-700 ${correctUsername && 'hidden'}`}>Nieprawidłowa Nazwa Użytkownika</p>
           </div>
@@ -52,7 +52,7 @@ export default function Register({ Login }) {
               value={email} 
               onChange={e => setEmail(e.target.value)} 
               onBlur={() => setCorrectEmail(email.match("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$") && email.length >= 3 && email.length <= 320)}
-              className='border-b border-gray-300 focus:outline-none focus:border-primary w-full pb-2'
+              className='border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
             />
             <p className={`text-red-700 ${correctEmail && 'hidden'}`}>Nieprawidłowy Email</p>
           </div>
@@ -64,7 +64,7 @@ export default function Register({ Login }) {
               value={password} 
               onChange={e => setPassword(e.target.value)} 
               onBlur={() => setCorrectPassword(password.length >= 6 && password.length <= 100)}
-              className='border-b border-gray-300 focus:outline-none focus:border-primary w-full pb-2'
+              className='border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
             />
             <p className={`text-red-700 ${correctPassword && 'hidden'}`}>Nieprawidłowe Hasło</p>
           </div>
