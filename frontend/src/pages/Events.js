@@ -17,10 +17,28 @@ export default function Events() {
           <Button color='primary'>Stwórz</Button>
         </div>
         <div className="xl:flex gap-x-2">
-          <div className='xl:w-3/12 mb-4 xl:mb-0 bg-slate-300 rounded-lg p-4 drop-shadow-lg xl:order-last'>
-            
+          <div className='xl:w-3/12 xl:h-1/6 mb-4 xl:mb-0 bg-slate-300 rounded-lg p-4 drop-shadow-lg xl:order-last'>
+
           </div>
-          <div className='xl:w-9/12'>
+          <div className='flex flex-col xl:w-9/12 gap-y-4'>
+            <Event 
+              img={bb} 
+              title={'Urodziny Macieja'}
+              address={'Katowicka 10, Bielsko-Biala'}
+              creator={'Maciej'}
+              description={'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii'}
+              datetime={'20/10/2022 21:30'} 
+              participating={54}
+            />
+            <Event 
+              img={bb} 
+              title={'Urodziny Macieja'}
+              address={'Katowicka 10, Bielsko-Biala'}
+              creator={'Maciej'}
+              description={'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii'}
+              datetime={'20/10/2022 21:30'} 
+              participating={54}
+            />
             <Event 
               img={bb} 
               title={'Urodziny Macieja'}
