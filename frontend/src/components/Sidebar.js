@@ -1,9 +1,5 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Drawer } from 'react-daisyui'
-
-import megaphone from '../svgs/megaphone.svg'
-import poll from '../svgs/poll.svg'
 
 export default function Sidebar() {
   const location = useLocation()
