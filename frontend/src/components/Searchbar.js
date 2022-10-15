@@ -16,7 +16,7 @@ export default function Searchbar({ setValue }) {
         // fields: ["address_components", "geometry"],
         componentRestrictions: { country: "pl" },
       }}
-      className='border border-gray-300 focus:outline-none focus:border-primary rounded-md w-full p-2'
+      className='input border border-base-300 focus:outline-none focus:border-primary rounded-md w-full p-2'
     />
   )
 }

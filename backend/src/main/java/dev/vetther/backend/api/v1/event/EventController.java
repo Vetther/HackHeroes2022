@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 import static dev.vetther.backend.api.v1.response.ResponseError.*;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @AllArgsConstructor
 @RequestMapping(path = "api/v1")

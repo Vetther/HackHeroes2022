@@ -52,7 +52,7 @@ export default function Events({ events, setEvents }) {
   return (
     <>
       <div className="flex flex-col w-5/6 mx-auto mt-8 gap-y-4">
-        <input type="text" placeholder='Wyszukaj wydarzenia...' className='border border-gray-300 focus:outline-none focus:border-primary rounded-md w-full p-2' />
+        <input type="text" placeholder='Wyszukaj wydarzenia...' className='border border-base-300 focus:outline-none focus:border-primary rounded-md w-full p-2 input' />
         <div className="flex justify-end">
           <Button color='primary' onClick={() => setModal(true)}>Stwórz</Button>
         </div>

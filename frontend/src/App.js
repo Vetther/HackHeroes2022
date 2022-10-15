@@ -75,23 +75,26 @@ export default function App() {
       formData.append('username', username)
       formData.append('password', password)
 
-      fetch('http://141.147.1.251:5000/login', {
+      fetch('http://141.147.1.251:5000/api/v1/auth/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'form-data'
+          'Content-Type': 'application/json',
         },
-        body: formData,
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        })
       })
-      .then(response => response.text())
-      .then(data => console.log(data ? JSON.parse(data) : {}))
+          .then(response => response.text())
+          .then(data => console.log(data ? JSON.parse(data) : {}))
     }
   }
 
   return (
     <>
-      <div className='flex w-full h-screen bg-gray-100'>
+      <div className='flex w-full h-screen bg-base-200'>
         {(windowWidth >= hideSidebar && !visible) &&
-          <div className="w-1/6 bg-white border-r border-gray-300">
+          <div className="w-1/6 border-r border-base-300">
             <Sidebar />
           </div>
         }
