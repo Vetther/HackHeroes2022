@@ -17,7 +17,7 @@ public class EventUtils {
     }
 
     public boolean isLongDesc(String longDescription) {
-        return longDescription != null && longDescription.length() >= 16 && longDescription.length() <= 326 &&
+        return longDescription != null && longDescription.length() >= 16 && longDescription.length() <= 800 &&
                 !longDescription.isBlank();
     }
 }
