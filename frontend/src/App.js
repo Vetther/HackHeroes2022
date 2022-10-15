@@ -82,9 +82,8 @@ export default function App() {
         },
         body: formData,
       })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.log(error))
+      .then(response => response.text())
+      .then(data => console.log(data ? JSON.parse(data) : {}))
     }
   }
 

@@ -23,9 +23,8 @@ export default function Register({ Login }) {
           password: password,
         })
       })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.log(error))
+      .then(response => response.text())
+      .then(data => console.log(data ? JSON.parse(data) : {}))
     }
   }
 
