@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCalendarDays,
-    faInfo,
     faInfoCircle,
     faRightToBracket,
     faSquarePollVertical
@@ -43,10 +42,10 @@ export default function Sidebar() {
 
         <ul className="menu bg-base-100 w-100 p-2 font-semibold text-lg xl:pl-6 pl-2">
           {Object.entries(pages).map(page => (
-            <li key={page[1]["path"]} className={page[1]["path"] !== location.pathname ? 'text-gray-600 mb-3' : 'mb-3'}>
+            <li key={page[1]["path"]} className={page[1]["path"] !== location.pathname ? 'text-gray-500 mb-3 pr-4' : 'mb-3 pr-3 border-r-4 border-primary'}>
               <Link to={page[1]["path"]}>
 
-                  <span className={page[1]["path"] !== location.pathname ? 'text-gray-600 ' : 'text-primary'}>
+                  <span className={page[1]["path"] !== location.pathname ? 'text-gray-500 ' : 'text-primary'}>
                       {page[1]["icon"]}
                   </span>
 

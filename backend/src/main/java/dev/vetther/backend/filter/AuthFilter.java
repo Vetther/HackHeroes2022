@@ -3,7 +3,10 @@ package dev.vetther.backend.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.vetther.backend.config.KeyConfiguration;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,9 +31,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final KeyConfiguration keyConfiguration;
 
-    public AuthFilter(AuthenticationManager authenticationManager) {
+    public AuthFilter(AuthenticationManager authenticationManager, KeyConfiguration keyConfiguration) {
         this.authenticationManager = authenticationManager;
+        this.keyConfiguration = keyConfiguration;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+        Algorithm algorithm = Algorithm.HMAC256(keyConfiguration.secret_key.getBytes());
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))

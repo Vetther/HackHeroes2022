@@ -37,7 +37,7 @@ public class BackendApplication {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    /*@Bean
     CommandLineRunner run(RoleService roleService) {
         return args -> {
             roleService.createRole("USER");
@@ -64,5 +64,6 @@ public class BackendApplication {
             imageService.createImage("IMG", null);
         };
     }
+     */
 
 }

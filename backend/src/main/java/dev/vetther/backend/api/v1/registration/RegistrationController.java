@@ -61,6 +61,16 @@ public class RegistrationController {
             return ResponseEntity.badRequest().body(response);
         }
 
+        if (this.userService.getUser(request.getUsername()).isPresent()) {
+            Response response = new Response(false, USERNAME_EXISTS, null);
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        if (this.userService.getUser(request.getEmail()).isPresent()) {
+            Response response = new Response(false, EMAIL_EXISTS, null);
+            return ResponseEntity.badRequest().body(response);
+        }
+
         User user = this.userService.createUser(
                 request.getUsername(),
                 request.getPassword(),
