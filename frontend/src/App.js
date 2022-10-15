@@ -69,6 +69,25 @@ export default function App() {
     },
   ])
 
+  const login = (username, password) => {
+    if(username && password) {
+      let formData = new FormData()
+      formData.append('username', username)
+      formData.append('password', password)
+
+      fetch('http://141.147.1.251:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'form-data'
+        },
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error))
+    }
+  }
+
   return (
     <>
       <div className='flex w-full h-screen bg-gray-100'>
@@ -89,8 +108,8 @@ export default function App() {
             <Route exact path='/events' element={<Events events={events} setEvents={setEvents} />} />
             <Route path='/event/:id' element={<EventInfo events={events} />} />
             <Route exact path='/polls' element={<Polls />} />
-            <Route exact path='/login' element={<Login />} />
-            <Route exact path='/register' element={<Register />} />
+            <Route exact path='/login' element={<Login login={login} />} />
+            <Route exact path='/register' element={<Register login={login} />} />
           </Routes>
         </div>
       </div>
