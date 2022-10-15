@@ -25,7 +25,7 @@ export default function Events() {
               img={bb} 
               title={'Urodziny Macieja'}
               address={'Katowicka 10, Bielsko-Biala'}
-              description={'Zapraszam wszystkich swietowac urodziny Macka!'}
+              description={'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii'}
               datetime={'20/10/2022 21:30'} 
               participating={54}
             />

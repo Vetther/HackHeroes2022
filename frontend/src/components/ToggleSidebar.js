@@ -5,7 +5,7 @@ export default function ToggleSidebar({ children, visible, setVisible }) {
 
   useEffect(() => {
     window.onclick = (e) => {
-      if(e.target.contains(ref.current) && e.target == ref.current) {
+      if(e.target.contains(ref.current) && e.target === ref.current) {
         setVisible(false)
       }
     }
