@@ -5,16 +5,20 @@ import dev.vetther.backend.api.v1.request.SearchbarRequest;
 import dev.vetther.backend.api.v1.response.Response;
 import dev.vetther.backend.event.Event;
 import dev.vetther.backend.event.EventServiceImpl;
+import dev.vetther.backend.tag.Tag;
+import dev.vetther.backend.tag.TagService;
 import dev.vetther.backend.user.User;
 import dev.vetther.backend.user.UserService;
 import dev.vetther.backend.utils.EventUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.Instant;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 import static dev.vetther.backend.api.v1.response.ResponseError.*;
@@ -26,16 +30,16 @@ public class EventController {
 
     private final EventServiceImpl eventService;
     private final UserService userService;
-    private final EventUtils eventUtils;
+    private final TagService tagService;
 
     @PostMapping("/event/create")
     public ResponseEntity<Response> createEvent(@RequestBody EventRequest event) {
 
-        if (!eventUtils.isLongDesc(event.getLongDescription())) {
+        if (!EventUtils.isLongDesc(event.getLongDescription())) {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_LONG_DESCRIPTION, null));
         }
 
-        if (!eventUtils.isShortDesc(event.getShortDescription())) {
+        if (!EventUtils.isShortDesc(event.getShortDescription())) {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_SHORT_DESCRIPTION, null));
         }
 
@@ -61,9 +65,22 @@ public class EventController {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_ADDRESS, null));
         }
 
+        if (event.getTagId() == null || event.getTagId().length == 0) {
+            return ResponseEntity.ok(new Response(false, INVALID_EVENT_TAG, null));
+        }
+
+        Set<Tag> tags = new HashSet<>();
+        for (Long tagId : event.getTagId()) {
+            Optional<Tag> tagOpt = tagService.getTag(tagId);
+            if (tagOpt.isEmpty()) {
+                return ResponseEntity.ok(new Response(false, INVALID_EVENT_TAG, null));
+            }
+            tags.add(tagOpt.get());
+        }
+
         Instant publicationDate = Instant.now();
 
-        Event e = this.eventService.createEvent(creator.get(), event.getImage(), event.getTitle(), event.getAddress(), Instant.ofEpochSecond(event.getEventTime()), publicationDate, event.getShortDescription(), event.getLongDescription());
+        Event e = this.eventService.createEvent(creator.get(), event.getImage(), event.getTitle(), event.getAddress(), Instant.ofEpochSecond(event.getEventTime()), publicationDate, event.getShortDescription(), event.getLongDescription(), tags);
 
         return ResponseEntity.ok(new Response(true, null, e));
     }
@@ -78,6 +95,30 @@ public class EventController {
         }
 
         return ResponseEntity.ok(new Response(true, null, eventOpt.get()));
+    }
+
+    @DeleteMapping("/event/{id}")
+    public ResponseEntity<Response> deleteEvent(@PathVariable long id, Principal principal) {
+
+        //if (!(principal instanceof UserDetails userDetails)) {
+        //    return ResponseEntity.badRequest().body(new Response(false, AUTH_ERROR, null));
+        //}
+
+        //User user = this.userService.getUser(userDetails.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        Optional<Event> eventOpt = this.eventService.getEvent(id);
+
+        if (eventOpt.isEmpty()) {
+            return ResponseEntity.ok(new Response(false, EVENT_NOT_FOUND, null));
+        }
+
+        //if (!Objects.equals(eventOpt.get().getCreator().getId(), user.getId())) {
+        //    return ResponseEntity.badRequest().body(new Response(false, ACCESS_DENIED, null));
+        //}
+
+        this.eventService.removeEvent(eventOpt.get().getId());
+
+        return ResponseEntity.ok(new Response(true, null, null));
     }
 
     @PostMapping("/event")

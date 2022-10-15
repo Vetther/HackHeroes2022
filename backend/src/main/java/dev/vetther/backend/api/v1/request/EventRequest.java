@@ -16,6 +16,7 @@ public class EventRequest implements Serializable {
     private final String shortDescription;
     private final String longDescription;
     private final String address;
+    private final Long[] tagId;
     private final Long eventTime;
     private final Long creatorId;
 }

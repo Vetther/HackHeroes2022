@@ -2,6 +2,7 @@ package dev.vetther.backend.event;
 
 import dev.vetther.backend.image.Image;
 import dev.vetther.backend.image.ImageService;
+import dev.vetther.backend.tag.Tag;
 import dev.vetther.backend.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,8 +23,8 @@ public class EventServiceImpl {
     private final ImageService imageService;
     private final EventRepository eventRepository;
 
-    public Event createEvent(User creator, Image image, String title, String address, Instant eventDate, Instant publicationDate, String shortDesc, String longDesc) {
-        Event event = new Event(null, image, title, address, shortDesc, longDesc, publicationDate, eventDate, creator, new HashSet<>());
+    public Event createEvent(User creator, Image image, String title, String address, Instant eventDate, Instant publicationDate, String shortDesc, String longDesc, Set<Tag> tags) {
+        Event event = new Event(null, image, title, address, shortDesc, longDesc, publicationDate, eventDate, creator, new HashSet<>(), tags);
         return this.eventRepository.save(event);
     }
 
@@ -45,7 +46,7 @@ public class EventServiceImpl {
 
     public void removeEvent(long eventId) {
         Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new NullPointerException("Event not found"));
-        this.imageService.removeImage(event.getImage().getId());
         this.eventRepository.delete(event);
+        this.imageService.removeImage(event.getImage().getId());
     }
 }
