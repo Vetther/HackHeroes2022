@@ -6,9 +6,15 @@ import Sidebar from './components/Sidebar'
 import ToggleSidebar from './components/ToggleSidebar'
 
 import Events from './pages/Events'
+import EventInfo from './pages/EventInfo'
 import Polls from './pages/Polls'
 
+import bb from './bb.jpg'
+
 export default function App() {
+  // const [events, setEvents] = useState([])
+  // const [polls, setPolls] = useState([])
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [visible, setVisible] = useState(false)
   const hideSidebar = 1024  // Amount of pixels when to hide sidebar
@@ -24,6 +30,42 @@ export default function App() {
     window.addEventListener('resize', resize)
     return () => window.removeEventListener('resize', resize)
   }, [])
+
+  const [events, setEvents] = useState([
+    {
+      id: 0,
+      img: bb,
+      title: 'Urodziny Macieja',
+      address: 'Katowicka 10, Bielsko-Biala',
+      creator: 'Maciej',
+      summary: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
+      description: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
+      datetime: '20/10/2022 21:30' ,
+      participating: 54,
+    },
+    {
+      id: 1,
+      img: bb,
+      title: 'Urodziny Macieja',
+      address: 'Katowicka 10, Bielsko-Biala',
+      creator: 'Maciej',
+      summary: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
+      description: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
+      datetime: '20/10/2022 21:30' ,
+      participating: 54,
+    },
+    {
+      id: 2,
+      img: bb,
+      title: 'Urodziny Macieja',
+      address: 'Katowicka 10, Bielsko-Biala',
+      creator: 'Maciej',
+      summary: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
+      description: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
+      datetime: '20/10/2022 21:30' ,
+      participating: 54,
+    },
+  ])
 
   return (
     <>
@@ -42,7 +84,8 @@ export default function App() {
             </Button>
           }
           <Routes>
-            <Route exact path='/events' element={<Events />} />
+            <Route exact path='/events' element={<Events events={events} setEvents={setEvents} />} />
+            <Route path='/event/:id' element={<EventInfo events={events} />} />
             <Route exact path='/polls' element={<Polls />} />
           </Routes>
         </div>
