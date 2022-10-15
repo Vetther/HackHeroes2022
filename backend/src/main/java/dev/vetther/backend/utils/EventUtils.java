@@ -1,5 +1,8 @@
 package dev.vetther.backend.utils;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class EventUtils {
 
     public static final String ALPHANUMERATIC_REGEX = "/^[a-zA-Z0-9 ]*$/";

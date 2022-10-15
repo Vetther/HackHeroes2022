@@ -1,6 +1,7 @@
 package dev.vetther.backend.event;
 
 import dev.vetther.backend.image.Image;
+import dev.vetther.backend.tag.Tag;
 import dev.vetther.backend.user.User;
 import lombok.*;
 
@@ -37,4 +38,8 @@ public class Event {
     @ManyToMany
     @JoinTable(name = "event_interested")
     private Set<User> interested;
+
+    @ManyToMany
+    @JoinTable(name = "event_tags")
+    private Set<Tag> tags;
 }

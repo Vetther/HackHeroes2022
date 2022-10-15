@@ -1,26 +1,32 @@
 import React from 'react'
 import { Card, Button } from 'react-daisyui'
 
-export default function Event({ img, title, address, description, datetime, participating }) {
+export default function Event({ img, title, address, creator, description, datetime, participating }) {
   return (
-    <div className="md:flex justify-between bg-white border border-gray-300 rounded-lg p-4 drop-shadow-lg">
+    <div className="md:flex justify-between bg-white rounded-lg p-4 drop-shadow-md">
       <div className='sm:flex'>
-        <img src={img} alt={title} className='rounded-lg' />
+        <img src={img} alt={title} className='rounded-lg object-cover' />
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
           <div>
-            <p className='text-primary text-2xl font-bold mb-1.5'>{title}</p>
-            <div className='flex items-center'>
+            <p className='text-black text-xl font-bold mb-1.5'>{title}</p>
+            <div className='flex items-center mb-1'>
               <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24'>
                 <path fill='#6b7280' d='M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z'/>
               </svg>
-              <p className='text-gray-500'>{address}</p>
+              <p className='text-gray-500 ml-2'>{address}</p>
+            </div>
+            <div className='flex items-center mb-4'>
+              <svg xmlns="http://www.w3.org/2000/svg" width='18' height='18' viewBox="0 0 448 512">
+               <path fill='#6b7280' d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+              </svg>
+              <p className='text-gray-500 ml-2'>{creator}</p>
             </div>
           </div>
           <p className="font-medium">{description}</p>
         </div>
       </div>
       <div className='flex flex-col justify-between'>
-        <p className='md:text-end text-lg font-medium my-3 md:my-0'>{datetime}</p>
+        <p className='md:text-end text-md font-medium my-3 md:my-0'>{datetime}</p>
         <div className="flex justify-between">
           <div className='flex items-center mr-6'>
             <svg xmlns="http://www.w3.org/2000/svg" width='20' height='20' viewBox="0 0 485 485">
