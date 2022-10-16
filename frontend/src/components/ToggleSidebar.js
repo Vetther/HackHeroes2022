@@ -9,7 +9,7 @@ export default function ToggleSidebar({ children, visible, setVisible }) {
         setVisible(false)
       }
     }
-  }, [])
+  }, [setVisible])
   
   return (
     <>

@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import AuthContext from '../AuthContext'
 import { Button, Modal } from 'react-daisyui'
+import jwtDecode from 'jwt-decode'
 
 import Event from '../components/Event'
 import ModalInput from '../components/ModalInput'
@@ -11,12 +13,11 @@ export default function Events() {
   const [modalValues, setModalValues] = useState({
     img: '',
     title: '',
-    creatorName: '',
-    creatorLastName: '',
     summary: '',
     description: '',
     datetime: '',
   })
+  const user = useContext(AuthContext)
 
   useEffect(() => {
     fetch('http://141.147.1.251:5000/api/v1/events')
@@ -24,40 +25,49 @@ export default function Events() {
     .then(data => setEvents([...data.data.content]))
   }, [])
 
-  for(const event of events) {
-    console.log(event)
-  }
-
   const isDisabled = () => {
     return (modalValues.img === '' || modalValues.title === '' || address === '' || 
-            modalValues.creatorName === '' || modalValues.summary === '' || modalValues.description === '' || 
+            modalValues.summary === '' || modalValues.description === '' || 
             modalValues.datetime === '')
   }
 
-  const addEvent = () => {
-    setEvents([...events, {
-      id: Object.keys(events).length,
-      img: modalValues.img,
-      title: modalValues.title,
-      address: address,
-      creator: `${modalValues.creatorName}${modalValues.creatorLastName && ' ' + modalValues.creatorLastName}`,
-      summary: modalValues.summary,
-      description: modalValues.description,
-      datetime: modalValues.datetime,
-      participating: 0,
-    }])
-
+  const resetModal = () => {
     setAddress('')
     setModalValues({
       img: '',
       title: '',
-      creatorName: '',
-      creatorLastName: '',
       summary: '',
       description: '',
       datetime: '',
     })
     setModal(false)
+  }
+
+  const addEvent = async () => {
+    const response = await fetch('http://141.147.1.251:5000/api/v1/event/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.authTokens.access_token}`,
+      },
+      body: JSON.stringify({
+        imageUrl: modalValues.img,
+        title: modalValues.title,
+        address: address,
+        shortDescription: modalValues.summary,
+        longDescription: modalValues.description,
+        eventTime: Math.floor(new Date(modalValues.datetime).getTime() / 1000),
+        creator_id: user.user.id,
+        tagId: [1],
+      })
+    })
+    const data = response.json()
+
+    if(response.status === 200) {
+      
+    }
+    
+    resetModal()
   }
 
   return (
@@ -77,7 +87,7 @@ export default function Events() {
                 key={event.id} 
                 id={event.id} 
                 address={event.address}
-                creator={event.creator.name}
+                creator={event.creator}
                 eventDate={event.eventDate}
                 img={event.imageUrl}
                 interested={event.interested.length}
@@ -98,10 +108,6 @@ export default function Events() {
           <ModalInput title='Zdjęcie(url)' required type='text' value={modalValues.img} onChange={e => setModalValues({...modalValues, img: e.target.value})} />
           <ModalInput title='Tytuł' required type='text' value={modalValues.title} onChange={e => setModalValues({...modalValues, title: e.target.value})} />
           <ModalInput title='Adres' required type='searchbar' onChange={setAddress}  />
-          <div className='flex justify-between'>
-            <ModalInput title='Imię' required type='text' value={modalValues.creatorName} onChange={e => setModalValues({...modalValues, creatorName: e.target.value})} />
-            <ModalInput title='Nazwisko' type='text' value={modalValues.creatorLastName} onChange={e => setModalValues({...modalValues, creatorLastName: e.target.value})} />
-          </div>
           <ModalInput title='Krótki Opis' required type='text' value={modalValues.summary} onChange={e => setModalValues({...modalValues, summary: e.target.value})} />
           <ModalInput title='Opis' required type='textarea' value={modalValues.description} onChange={e => setModalValues({...modalValues, description: e.target.value})} />
           <ModalInput title='Data Wydarzenia' required type='datetime-local' value={modalValues.datetime} onChange={e => setModalValues({...modalValues, datetime: e.target.value})} />

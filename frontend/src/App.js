@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Button } from 'react-daisyui'
-import { useJwt } from 'react-jwt'
 
 import Sidebar from './components/Sidebar'
 import ToggleSidebar from './components/ToggleSidebar'
@@ -22,22 +21,24 @@ export default function App() {
   const [visible, setVisible] = useState(false)
   const hideSidebar = 1024  // Amount of pixels when to hide sidebar
 
-  const resize = () => {
-    setWindowWidth(window.innerWidth)
-    if(windowWidth >= hideSidebar) {
-      setVisible(false)
-    }
-  }
-
   useEffect(() => {
     themeChange(false)
+    
+    const resize = () => {
+      setWindowWidth(window.innerWidth)
+      if(windowWidth >= hideSidebar) {
+        setVisible(false)
+      }
+    }
+
     window.addEventListener('resize', resize)
+
     return () => window.removeEventListener('resize', resize)
-  }, [])
+  }, [windowWidth])
 
   return (
     <AuthProvider>
-      <div className='flex w-full h-screen bg-base-200'>
+      <div className='flex w-full bg-base-200'>
         {(windowWidth >= hideSidebar && !visible) &&
           <div className="w-1/6 border-r border-base-300">
             <Sidebar />

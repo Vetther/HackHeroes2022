@@ -3,7 +3,7 @@ import React from 'react'
 import Searchbar from './Searchbar'
 
 export default function ModalInput({ title, required, type, value, onChange }) {
-  const inputClass = 'input border border-base-300 focus:outline-none focus:border-primary rounded-md w-full p-2'
+  const inputClass = 'border border-base-300 focus:outline-none focus:border-primary rounded-md w-full p-2'
 
   return (
     <label className='block'>
@@ -20,7 +20,7 @@ export default function ModalInput({ title, required, type, value, onChange }) {
         : type === 'textarea' ?
         <textarea rows='3' className={inputClass} value={value} onChange={onChange} />
       :
-        <input type={type} className={inputClass} value={value} onChange={onChange} />
+        <input type={type} className={`input ${inputClass}`} value={value} onChange={onChange} />
       }
     </label>
   )

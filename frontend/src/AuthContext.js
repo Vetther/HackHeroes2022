@@ -33,6 +33,10 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const updateToken = async () => {
+    
+  }
+
   const logout = () => {
     setAuthTokens(null)
     setUser(null)
