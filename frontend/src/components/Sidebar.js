@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import AuthContext from '../AuthContext';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCalendarDays,
@@ -14,6 +15,8 @@ import { Theme } from 'react-daisyui'
 import Tab from './Tab';
 
 export default function Sidebar() {
+    const {user} = useContext(AuthContext)
+
   const categories = {
     'główne dane' : [
         {
@@ -32,12 +35,15 @@ export default function Sidebar() {
             icon: <FontAwesomeIcon icon={faHandshakeAngle} style={{marginRight: 4, width: 20, height: 20}}/>
         },
     ],
-    'informacje o użytkowniku': [
+    'informacje o użytkowniku': !user ? [
         {
             name: 'Zaloguj się',
             path: '/login',
             icon: <FontAwesomeIcon icon={faRightToBracket} style={{marginRight: 4, width: 20, height: 20}}/>
-        },
+        } 
+    ]
+    :
+    [
         {
             name: 'Twój Profil',
             path: '/profile',
