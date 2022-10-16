@@ -44,7 +44,7 @@ public class EventController {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_SHORT_DESCRIPTION, null));
         }
 
-        if (event.getImage() == null) {
+        if (event.getImageUrl() == null) {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_IMAGE, null));
         }
 
@@ -77,7 +77,7 @@ public class EventController {
 
         Instant publicationDate = Instant.now();
 
-        Event e = this.eventService.createEvent(user.get(), event.getImage(), event.getTitle(), event.getAddress(), Instant.ofEpochSecond(event.getEventTime()), publicationDate, event.getShortDescription(), event.getLongDescription(), tags);
+        Event e = this.eventService.createEvent(user.get(), event.getImageUrl(), event.getTitle(), event.getAddress(), Instant.ofEpochSecond(event.getEventTime()), publicationDate, event.getShortDescription(), event.getLongDescription(), tags);
 
         return ResponseEntity.ok(new Response(true, null, e));
     }

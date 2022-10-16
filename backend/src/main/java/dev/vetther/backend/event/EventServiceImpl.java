@@ -23,8 +23,8 @@ public class EventServiceImpl {
     private final ImageService imageService;
     private final EventRepository eventRepository;
 
-    public Event createEvent(User creator, Image image, String title, String address, Instant eventDate, Instant publicationDate, String shortDesc, String longDesc, Set<Tag> tags) {
-        Event event = new Event(null, image, title, address, shortDesc, longDesc, publicationDate, eventDate, creator, new HashSet<>(), tags);
+    public Event createEvent(User creator, String imageUrl, String title, String address, Instant eventDate, Instant publicationDate, String shortDesc, String longDesc, Set<Tag> tags) {
+        Event event = new Event(null, imageUrl, title, address, shortDesc, longDesc, publicationDate, eventDate, creator, new HashSet<>(), tags);
         return this.eventRepository.save(event);
     }
 
@@ -47,6 +47,5 @@ public class EventServiceImpl {
     public void removeEvent(long eventId) {
         Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new NullPointerException("Event not found"));
         this.eventRepository.delete(event);
-        this.imageService.removeImage(event.getImage().getId());
     }
 }

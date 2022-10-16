@@ -74,6 +74,6 @@ public class RegistrationController {
                         .orElseThrow(() -> new NullPointerException("Role not found")))
         );
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new Response(true, null, null));
     }
 }

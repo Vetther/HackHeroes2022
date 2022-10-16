@@ -16,8 +16,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private Image image;
+    private String imageUrl;
 
     private String title;
 

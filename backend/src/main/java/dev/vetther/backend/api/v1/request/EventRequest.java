@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class EventRequest implements Serializable {
 
-    private final Image image;
+    private final String imageUrl;
     private final String title;
     private final String shortDescription;
     private final String longDescription;
