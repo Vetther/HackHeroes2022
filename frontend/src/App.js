@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 
 import bb from './bb.jpg'
+import {themeChange} from "theme-change";
 
 export default function App() {
   // const [events, setEvents] = useState([])
@@ -29,6 +30,7 @@ export default function App() {
   }
 
   useEffect(() => {
+    themeChange(false)
     window.addEventListener('resize', resize)
     return () => window.removeEventListener('resize', resize)
   }, [])
