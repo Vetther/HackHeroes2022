@@ -4,7 +4,8 @@ import { Button, Modal } from 'react-daisyui'
 import Event from '../components/Event'
 import ModalInput from '../components/ModalInput'
 
-export default function Events({ events, setEvents }) {
+export default function Events() {
+  const [events, setEvents] = useState([])
   const [modal, setModal] = useState(false)
   const [address, setAddress] = useState('')
   const [modalValues, setModalValues] = useState({

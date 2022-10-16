@@ -36,65 +36,6 @@ export default function App() {
     return () => window.removeEventListener('resize', resize)
   }, [])
 
-  const [events, setEvents] = useState([
-    {
-      id: 0,
-      img: bb,
-      title: 'Urodziny Macieja',
-      address: 'Katowicka 10, Bielsko-Biala',
-      creator: 'Maciej',
-      summary: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
-      description: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
-      datetime: '20/10/2022 21:30' ,
-      participating: 54,
-    },
-    {
-      id: 1,
-      img: bb,
-      title: 'Urodziny Macieja',
-      address: 'Katowicka 10, Bielsko-Biala',
-      creator: 'Maciej',
-      summary: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
-      description: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
-      datetime: '20/10/2022 21:30' ,
-      participating: 54,
-    },
-    {
-      id: 2,
-      img: bb,
-      title: 'Urodziny Macieja',
-      address: 'Katowicka 10, Bielsko-Biala',
-      creator: 'Maciej',
-      summary: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
-      description: 'Zapraszam wszystkich swietowac urodziny Macka! Dluzszy opis danego elementu test dwoch linii',
-      datetime: '20/10/2022 21:30' ,
-      participating: 54,
-    },
-  ])
-
-  const login = (username, password) => {
-    if(username && password) {
-      fetch('http://141.147.1.251:5000/api/v1/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        })
-      })
-      .then(response => response.text())
-      .then(data => {
-        if(data) {
-          data = JSON.parse(data)
-          localStorage.setItem('access_token', data.access_token)
-          console.log(data)
-        }
-      })
-    }
-  }
-
   return (
     <AuthProvider>
       <div className='flex w-full h-screen bg-base-200'>
@@ -112,8 +53,8 @@ export default function App() {
             </Button>
           }
           <Routes>
-            <Route exact path='/events' element={<Events events={events} setEvents={setEvents} />} />
-            <Route path='/event/:id' element={<EventInfo events={events} />} />
+            <Route exact path='/events' element={<Events />} />
+            <Route path='/event/:id' element={<EventInfo />} />
             <Route exact path='/polls' element={<Polls />} />
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/register' element={<Register />} />
