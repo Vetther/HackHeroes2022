@@ -1,16 +1,18 @@
 import React, { useState, createContext } from 'react'
 import jwt_decode from 'jwt-decode'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const AuthContext = createContext()
 
 export default AuthContext
 
 export function AuthProvider({ children }) {
-  const [authTokens, setAuthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
-  const [user, setUser] = useState(()=> localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
+  const [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
+  const [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   const login = async (username, password) => {
     const response = await fetch('http://141.147.1.251:5000/api/v1/auth/login', {
@@ -33,9 +35,9 @@ export function AuthProvider({ children }) {
     }
   }
 
-  const updateToken = async () => {
-    
-  }
+  /* const updateToken = async () => {
+
+  } */
 
   const logout = () => {
     setAuthTokens(null)
@@ -43,6 +45,12 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('authTokens')
     navigate('/login')
   }
+
+  useEffect(() => {
+    if(authTokens && jwt_decode(authTokens.access_token).exp < Date.now() / 100) {
+      logout()
+    }
+  }, [location.pathname])
 
   const contextData = {
     user: user,
@@ -57,3 +65,4 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   )
 }
+ 

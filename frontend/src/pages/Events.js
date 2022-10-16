@@ -19,10 +19,14 @@ export default function Events() {
   })
   const user = useContext(AuthContext)
 
-  useEffect(() => {
+  const getEvents = () => {
     fetch('http://141.147.1.251:5000/api/v1/events')
     .then(response => response.json())
     .then(data => setEvents([...data.data.content]))
+  }
+
+  useEffect(() => {
+    getEvents()
   }, [])
 
   const isDisabled = () => {
@@ -64,9 +68,10 @@ export default function Events() {
     const data = response.json()
 
     if(response.status === 200) {
-      
+
     }
     
+    getEvents()
     resetModal()
   }
 
