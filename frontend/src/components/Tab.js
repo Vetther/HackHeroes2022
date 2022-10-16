@@ -5,7 +5,7 @@ export default function Tab({ title, data }) {
   const location = useLocation()
 
   return (
-    <>
+    <div>
       <span className="text-xs xl:pl-4 pl-2 ml-2 uppercase text-gray-400">{title}</span>
       <ul className="menu w-100 p-2 font-medium text-sm xl:pl-4 pl-2">
         {data.map(tab => (
@@ -22,6 +22,6 @@ export default function Tab({ title, data }) {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   )
 }
