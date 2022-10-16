@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vetther.backend.api.v1.request.LoginRequest;
 import dev.vetther.backend.api.v1.response.Response;
 import dev.vetther.backend.config.KeyConfiguration;
+import dev.vetther.backend.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,6 +35,7 @@ public class LoginController {
 
     private final AuthenticationManager authenticationManager;
     private final KeyConfiguration keyConfiguration;
+    private final UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest,
@@ -53,6 +55,7 @@ public class LoginController {
                 .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .withClaim("id", this.userService.getUser(user.getUsername()).get().getId())
                 .sign(algorithm);
         String refresh_token = JWT.create()
                 .withSubject(user.getUsername())

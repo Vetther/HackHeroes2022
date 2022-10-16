@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 import static dev.vetther.backend.api.v1.response.ResponseError.*;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @AllArgsConstructor
 @RequestMapping(path = "api/v1")
@@ -33,6 +33,7 @@ public class EventController {
     private final UserService userService;
     private final TagService tagService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/event/create")
     public ResponseEntity<Response> createEvent(@RequestBody EventRequest event, Principal principal) {
 
@@ -46,6 +47,10 @@ public class EventController {
 
         if (event.getImageUrl() == null) {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_IMAGE, null));
+        }
+
+        if (principal == null) {
+            return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
         }
 
         Optional<User> user = this.userService.getUser(principal.getName());
