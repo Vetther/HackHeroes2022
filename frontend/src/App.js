@@ -1,23 +1,23 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Button } from 'react-daisyui'
+import { useJwt } from 'react-jwt'
 
 import Sidebar from './components/Sidebar'
 import ToggleSidebar from './components/ToggleSidebar'
+import { AuthProvider } from './AuthContext'
 
 import Events from './pages/Events'
 import EventInfo from './pages/EventInfo'
 import Polls from './pages/Polls'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Logout from './pages/Logout'
 
 import bb from './bb.jpg'
 import {themeChange} from "theme-change";
 
 export default function App() {
-  // const [events, setEvents] = useState([])
-  // const [polls, setPolls] = useState([])
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [visible, setVisible] = useState(false)
   const hideSidebar = 1024  // Amount of pixels when to hide sidebar
@@ -73,10 +73,6 @@ export default function App() {
 
   const login = (username, password) => {
     if(username && password) {
-      let formData = new FormData()
-      formData.append('username', username)
-      formData.append('password', password)
-
       fetch('http://141.147.1.251:5000/api/v1/auth/login', {
         method: 'POST',
         headers: {
@@ -87,13 +83,19 @@ export default function App() {
           password: password,
         })
       })
-          .then(response => response.text())
-          .then(data => console.log(data ? JSON.parse(data) : {}))
+      .then(response => response.text())
+      .then(data => {
+        if(data) {
+          data = JSON.parse(data)
+          localStorage.setItem('access_token', data.access_token)
+          console.log(data)
+        }
+      })
     }
   }
 
   return (
-    <>
+    <AuthProvider>
       <div className='flex w-full h-screen bg-base-200'>
         {(windowWidth >= hideSidebar && !visible) &&
           <div className="w-1/6 border-r border-base-300">
@@ -112,14 +114,15 @@ export default function App() {
             <Route exact path='/events' element={<Events events={events} setEvents={setEvents} />} />
             <Route path='/event/:id' element={<EventInfo events={events} />} />
             <Route exact path='/polls' element={<Polls />} />
-            <Route exact path='/login' element={<Login login={login} />} />
-            <Route exact path='/register' element={<Register login={login} />} />
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/register' element={<Register />} />
+            <Route exact path='/logout' element={<Logout />} />
           </Routes>
         </div>
       </div>
       <ToggleSidebar visible={visible} setVisible={setVisible}>
         <Sidebar />
       </ToggleSidebar>
-    </>
+      </AuthProvider>
   )
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCalendarDays,
@@ -12,92 +11,71 @@ import {
 import {faCalendar, faCalendarCheck} from "@fortawesome/free-regular-svg-icons";
 import { Theme } from 'react-daisyui'
 
+import Tab from './Tab';
+
 export default function Sidebar() {
-  const location = useLocation()
-
-  const main_category = {
-      0: {
-          name: 'Wydarzenia',
-          path: '/events',
-          icon: <FontAwesomeIcon icon={faCalendar} style={{marginRight: 4, width: 20, height: 20}}/>
-      },
-      1: {
-          name: 'Ankiety',
-          path: '/polls',
-          icon: <FontAwesomeIcon icon={faSquarePollVertical} style={{marginRight: 4, width: 20, height: 20}}/>
-      },
-      2: {
-          name: 'Zrzutki Funduszy',
-          path: '/zrzutki',
-          icon: <FontAwesomeIcon icon={faHandshakeAngle} style={{marginRight: 4, width: 20, height: 20}}/>
-      }
-  }
-
-  const user_category = {
-      0: {
-          name: 'Zaloguj się',
-          path: '/login',
-          icon: <FontAwesomeIcon icon={faRightToBracket} style={{marginRight: 4, width: 20, height: 20}}/>
-      },
-  }
-
-    const user_logged_category = {
-        0: {
+  const categories = {
+    'główne dane' : [
+        {
+            name: 'Wydarzenia',
+            path: '/events',
+            icon: <FontAwesomeIcon icon={faCalendar} style={{marginRight: 4, width: 20, height: 20}}/>
+        },
+        {
+            name: 'Ankiety',
+            path: '/polls',
+            icon: <FontAwesomeIcon icon={faSquarePollVertical} style={{marginRight: 4, width: 20, height: 20}}/>
+        },
+        {
+            name: 'Zrzutki Funduszy',
+            path: '/zrzutki',
+            icon: <FontAwesomeIcon icon={faHandshakeAngle} style={{marginRight: 4, width: 20, height: 20}}/>
+        },
+    ],
+    'informacje o użytkowniku': [
+        {
+            name: 'Zaloguj się',
+            path: '/login',
+            icon: <FontAwesomeIcon icon={faRightToBracket} style={{marginRight: 4, width: 20, height: 20}}/>
+        },
+        {
             name: 'Twój Profil',
             path: '/profile',
             icon: <FontAwesomeIcon icon={faUser} style={{marginRight: 4, width: 20, height: 20}}/>
         },
-        1: {
+        {
             name: 'Twoje Wydarzenia',
-            path: '/twoje-wydarzenia',
+            path: '/your-events',
             icon: <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: 4, width: 20, height: 20}}/>
         },
-        2: {
+        {
             name: 'Twoje Ankiety',
-            path: '/twoje-ankiety',
+            path: '/your-polls',
             icon: <FontAwesomeIcon icon={faSquarePollHorizontal} style={{marginRight: 4, width: 20, height: 20}}/>
         },
-        3: {
+        {
             name: 'Twoje Zrzutki',
-            path: '/twoje-zrzutki',
+            path: '/your-zrzutki',
             icon: <FontAwesomeIcon icon={faHandHoldingHeart} style={{marginRight: 4, width: 20, height: 20}}/>
         },
-        4: {
+        {
             name: 'Wyloguj się',
-            path: '/wyloguj-sie',
+            path: '/logout',
             icon: <FontAwesomeIcon icon={faRightFromBracket} style={{marginRight: 4, width: 20, height: 20}}/>
-        }
-    }
-
-  const website_category = {
-      0: {
-          name: 'O nas',
-          path: '/o-nas',
-          icon: <FontAwesomeIcon icon={faInfoCircle} style={{marginRight: 4, width: 20, height: 20}}/>
-      },
-      1: {
-          name: 'Dane techniczne',
-          path: '/dane-techniczne',
-          icon: <FontAwesomeIcon icon={faFlag} style={{marginRight: 4, width: 20, height: 20}}/>
-      },
-  }
-
-  function printCategory(array) {
-      return (
-          Object.entries(array).map(page => (
-              <li key={page[1]["path"]}
-                  className={page[1]["path"] !== location.pathname ? 'text-gray-500 mb-1 pr-4' : 'mb-1 pr-4 border-r-4 border-primary'}>
-
-                  <Link to={page[1]["path"]} className={'p-2'}>
-                      <span className={page[1]["path"] !== location.pathname ? 'text-gray-500 flex' : 'text-primary flex'}>
-                          {page[1]["icon"]}
-                      </span>
-
-                      <span>{page[1]["name"]}</span>
-                  </Link>
-              </li>
-          ))
-      )
+        },
+    ],
+    'informacje o witrynie': [
+        {
+            name: 'O nas',
+            path: '/about-us',
+            icon: <FontAwesomeIcon icon={faInfoCircle} style={{marginRight: 4, width: 20, height: 20}}/>
+        },
+        {
+            name: 'Dane techniczne',
+            path: '/dane-techniczne',
+            icon: <FontAwesomeIcon icon={faFlag} style={{marginRight: 4, width: 20, height: 20}}/>
+        },
+    ]
   }
 
   return (
@@ -116,18 +94,9 @@ export default function Sidebar() {
               </svg>
           </label>
       </div>
-
-        <span className="text-xs xl:pl-4 pl-2 ml-2 uppercase text-gray-400">główne dane</span>
-        <ul className="menu w-100 p-2 font-medium text-sm xl:pl-4 pl-2"> {printCategory(main_category)} </ul>
-
-        <span className="text-xs xl:pl-4 pl-2 ml-2 uppercase text-gray-400 mt-3">informacje o użytkowniku</span>
-        <ul className="menu w-100 p-2 font-medium text-sm xl:pl-4 pl-2"> {printCategory(user_category)} </ul>
-
-        <span className="text-xs xl:pl-4 pl-2 ml-2 uppercase text-gray-400 mt-3">informacje o użytkowniku</span>
-        <ul className="menu w-100 p-2 font-medium text-sm xl:pl-4 pl-2"> {printCategory(user_logged_category)} </ul>
-
-        <span className="text-xs xl:pl-4 pl-2 ml-2 uppercase text-gray-400 mt-3">informacje o witrynie</span>
-        <ul className="menu w-100 p-2 font-medium text-sm xl:pl-4 pl-2"> {printCategory(website_category)} </ul>
+        {Object.entries(categories).map(category => (
+            <Tab key={category[0]} title={category[0]} data={category[1]} />
+        ))}
     </div>
   )
 }

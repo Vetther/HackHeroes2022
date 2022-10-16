@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import AuthContext from '../AuthContext'
 import { Button } from 'react-daisyui'
 import { Link } from 'react-router-dom'
 
-export default function Register({ Login }) {
+export default function Register() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [correctUsername, setCorrectUsername] = useState(true)
   const [correctEmail, setCorrectEmail] = useState(true)
   const [correctPassword, setCorrectPassword] = useState(true)
+  const {login} = useContext(AuthContext)
 
-  const register = () => {
+  const register = async () => {
     if(username && correctUsername && email && correctEmail && password && correctPassword) {
-      fetch('http://141.147.1.251:5000/register', {
+      const response = await fetch('http://141.147.1.251:5000/api/v1/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -23,8 +25,10 @@ export default function Register({ Login }) {
           password: password,
         })
       })
-      .then(response => response.text())
-      .then(data => console.log(data ? JSON.parse(data) : {}))
+
+      if(response.states === 200) {
+        login()
+      }
     }
   }
 
@@ -33,7 +37,7 @@ export default function Register({ Login }) {
       <div className="md:w-2/5 w-2/3 border border-base-300 bg-base-100 rounded-lg px-8 py-6">
         <p className="font-bold text-3xl text-primary mb-12">Rejestracja</p>
         {/* <form className="flex flex-col gap-y-8" onSubmit={register}> */}
-        <div className="flex flex-col gap-y-8">
+        <div className='flex flex-col gap-y-8'>
           <div>
             <input
               type="text" 
@@ -69,7 +73,7 @@ export default function Register({ Login }) {
             <p className={`text-red-700 ${correctPassword && 'hidden'}`}>Nieprawidłowe Hasło</p>
           </div>
           <Button color='primary' onClick={register}>Zarejestruj</Button>
-          <p>Masz już konto? <Link to='/login' className='text-violet-300 hover:text-violet-400'>Zaloguj się</Link></p>
+          <p>Masz już konto? <Link to='/logowanie' className='text-violet-300 hover:text-violet-400'>Zaloguj się</Link></p>
         {/* </form> */}
         </div>
       </div>
