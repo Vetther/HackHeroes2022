@@ -67,6 +67,8 @@ export default function Events() {
     })
     const data = response.json()
 
+    console.log();
+
     if(response.status === 200) {
 
     }

@@ -46,11 +46,11 @@ export function AuthProvider({ children }) {
     navigate('/login')
   }
 
-  // useEffect(() => {
-  //   if(authTokens && jwt_decode(authTokens.access_token).exp < Date.now() / 100) {
-  //     logout()
-  //   }
-  // }, [location.pathname])
+  useEffect(() => {
+    if (authTokens && jwt_decode(authTokens.access_token).exp < Date.now()/1000) {
+      logout()
+    }
+  }, [location.pathname])
 
   const contextData = {
     user: user,

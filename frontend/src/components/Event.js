@@ -14,7 +14,7 @@ export default function Event({ id, address, creator, eventDate, img, interested
         <img src={img} alt={title} className='rounded-lg object-cover shadow-md w-32 h-32'/>
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
           <div>
-            <p className='base-content text-xl font-semibold mb-2'>{title}</p>
+            <p className='text-base-content text-xl font-semibold mb-2'>{title}</p>
             <div className='flex items-center mb-2'>
               <Tooltip message={'Lokalizacja'} className={'flex tooltip-left'}>
                 <FontAwesomeIcon icon={faLocationDot} className={'info-content'} style={{color: '#6b7280', width:17, height: 17}}/>
