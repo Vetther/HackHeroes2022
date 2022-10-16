@@ -14,7 +14,6 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Logout from './pages/Logout'
 
-import bb from './bb.jpg'
 import {themeChange} from "theme-change";
 import AboutUs from "./pages/AboutUs";
 
