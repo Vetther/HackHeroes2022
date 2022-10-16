@@ -7,7 +7,7 @@ export default function Tab({ title, data }) {
   return (
     <div>
       <span className="text-xs xl:pl-4 pl-2 ml-2 uppercase text-gray-400">{title}</span>
-      <ul className="menu w-100 p-2 font-medium text-sm xl:pl-4 pl-2 mb-3">
+      <ul className="menu w-100 p-2 font-medium text-sm xl:pl-4 pl-2">
         {data.map(tab => (
           <li 
             key={tab.path} 
