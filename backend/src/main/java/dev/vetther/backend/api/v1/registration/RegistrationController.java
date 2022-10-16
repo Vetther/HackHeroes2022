@@ -8,7 +8,6 @@ import dev.vetther.backend.user.UserService;
 import dev.vetther.backend.utils.RegistrationUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,15 +16,14 @@ import static dev.vetther.backend.api.v1.response.ResponseError.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping(path = "register")
+@RequestMapping(path = "/api/v1/auth")
 @AllArgsConstructor
 public class RegistrationController {
 
-    private final BCryptPasswordEncoder encoder;
     private final UserService userService;
     private final RoleService roleService;
 
-    @PostMapping()
+    @PostMapping("/register")
     public ResponseEntity<Response> register(@RequestBody RegistrationRequest request) {
 
         if (request.getUsername() == null) {

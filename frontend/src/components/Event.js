@@ -9,20 +9,20 @@ export default function Event({ event }) {
   return (
     <div className="md:flex justify-between bg-base-100 rounded-lg p-4 drop-shadow">
       <div className='sm:flex'>
-        <img src={event.img} alt={event.title} className='rounded-lg object-cover shadow-xl' />
+        <img src={event.img} alt={event.title} className='rounded-lg object-cover shadow-md' />
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
           <div>
             <p className='base-content text-xl font-semibold mb-2'>{event.title}</p>
             <div className='flex items-center mb-2'>
               <Tooltip message={'Lokalizacja'} className={'flex tooltip-left'}>
                 <FontAwesomeIcon icon={faLocationDot} className={'info-content'} style={{color: '#6b7280', width:17, height: 17}}/>
-                <p className='ml-2 text-sm info-content'>{event.address}</p>
+                <p className='ml-2 text-sm text-base-content/70'>{event.address}</p>
               </Tooltip>
             </div>
             <div className='flex items-center mb-4'>
               <Tooltip message={'Organizator'} position={"left"} className={'flex tooltip-left'}>
                 <FontAwesomeIcon icon={faUser} className={''} style={{color: '#6b7280', width:17, height: 17}}/>
-                <p className='info-content ml-2 text-sm'>{event.creator}</p>
+                <p className='text-base-content/70 ml-2 text-sm'>{event.creator}</p>
               </Tooltip>
             </div>
           </div>

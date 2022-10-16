@@ -9,7 +9,21 @@ module.exports = {
     extend: {},
   },
   daisyui: {
-    themes: ["light", "dark"],
+    themes: [
+      {
+        dark: {
+          ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
+          primary: "#8957f4",
+          "primary-focus": "#8957f4",
+        },
+        // light: {
+        //   ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+        //   primary: "#8957f4",
+        //   "primary-focus": "#8957f4",
+        // },
+      },
+      "light",
+    ],
     darkTheme: "light",
   },
   plugins: [require("daisyui")],

@@ -1,16 +1,12 @@
 import React from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faCalendarDays,
-    faInfo,
     faInfoCircle,
     faRightToBracket,
     faSquarePollVertical,
-    faFlag, faSquarePollHorizontal, faRightFromBracket, faUser, faHandshakeAngle, faHandHoldingHeart
+    faFlag, faSquarePollHorizontal, faRightFromBracket, faUser, faHandshakeAngle, faHandHoldingHeart, faNewspaper
 } from "@fortawesome/free-solid-svg-icons";
 import {faCalendar, faCalendarCheck} from "@fortawesome/free-regular-svg-icons";
-import { Theme } from 'react-daisyui'
-
 import Tab from './Tab';
 
 export default function Sidebar() {
@@ -30,6 +26,11 @@ export default function Sidebar() {
             name: 'Zrzutki Funduszy',
             path: '/zrzutki',
             icon: <FontAwesomeIcon icon={faHandshakeAngle} style={{marginRight: 4, width: 20, height: 20}}/>
+        },
+        {
+            name: 'Wiadomości',
+            path: '/news',
+            icon: <FontAwesomeIcon icon={faNewspaper} style={{marginRight: 4, width: 20, height: 20}}/>
         },
     ],
     'informacje o użytkowniku': [
@@ -78,10 +79,11 @@ export default function Sidebar() {
     ]
   }
 
+
   return (
     <div className="bg-base-100 flex flex-col w-full h-full">
       <div className='flex p-6 mb-10'>
-        <p className="font-bold text-2xl text-primary">JA-Obywatel</p>
+        <p className="font-bold text-2xl text-primary">CitizenHub.pl</p>
 
           <label className="swap swap-rotate ml-3">
               <input type="checkbox" data-toggle-theme="light,dark" data-act-class="ACTIVECLASS"/>

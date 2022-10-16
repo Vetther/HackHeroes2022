@@ -26,7 +26,7 @@ export default function Register() {
         })
       })
 
-      if(response.states === 200) {
+      if(response.status === 200) {
         login()
       }
     }

@@ -16,6 +16,7 @@ import Logout from './pages/Logout'
 
 import bb from './bb.jpg'
 import {themeChange} from "theme-change";
+import AboutUs from "./pages/AboutUs";
 
 export default function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
@@ -117,6 +118,7 @@ export default function App() {
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/register' element={<Register />} />
             <Route exact path='/logout' element={<Logout />} />
+            <Route exact path='/aboutus' element={<AboutUs />} />
           </Routes>
         </div>
       </div>
