@@ -12,16 +12,15 @@ export function AuthProvider({ children }) {
 
   const navigate = useNavigate()
 
-  const login = async e => {
-    e.preventDefault()
+  const login = async (username, password) => {
     const response = await fetch('http://141.147.1.251:5000/api/v1/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: e.target.username.value,
-        password: e.target.password.value,
+        username: username,
+        password: password,
       })
     })
     const data = await response.json()

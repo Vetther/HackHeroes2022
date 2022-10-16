@@ -27,7 +27,7 @@ export default function Register() {
       })
 
       if(response.status === 200) {
-        login()
+        login(username, password)
       }
     }
   }
@@ -36,7 +36,6 @@ export default function Register() {
     <div className='flex justify-center items-center h-full'>
       <div className="md:w-2/5 w-2/3 border border-base-300 bg-base-100 rounded-lg px-8 py-6">
         <p className="font-bold text-3xl text-primary mb-12">Rejestracja</p>
-        {/* <form className="flex flex-col gap-y-8" onSubmit={register}> */}
         <div className='flex flex-col gap-y-8'>
           <div>
             <input
@@ -73,8 +72,7 @@ export default function Register() {
             <p className={`text-red-700 ${correctPassword && 'hidden'}`}>Nieprawidłowe Hasło</p>
           </div>
           <Button color='primary' onClick={register}>Zarejestruj</Button>
-          <p>Masz już konto? <Link to='/logowanie' className='text-violet-300 hover:text-violet-400'>Zaloguj się</Link></p>
-        {/* </form> */}
+          <p>Masz już konto? <Link to='/login' className='text-violet-300 hover:text-violet-400'>Zaloguj się</Link></p>
         </div>
       </div>
     </div>

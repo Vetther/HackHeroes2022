@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-daisyui'
 
 import Event from '../components/Event'
@@ -17,6 +17,17 @@ export default function Events() {
     description: '',
     datetime: '',
   })
+
+  useEffect(() => {
+    // const response = await fetch('http://141.147.1.251:5000/api/v1/events')
+    // const data = await response.json()
+    // console.log(data.data.content)
+    fetch('http://141.147.1.251:5000/api/v1/events')
+    .then(response => response.json())
+    .then(data => setEvents([...data.data.content]))
+  }, [])
+
+  console.log(events)
 
   const isDisabled = () => {
     return (modalValues.img === '' || modalValues.title === '' || address === '' || 
@@ -62,9 +73,7 @@ export default function Events() {
 
           </div>
           <div className='flex flex-col xl:w-9/12 gap-y-4'>
-            {events.map(event => (
-              <Event key={event.id} event={event} />
-            ))}
+            
           </div>
         </div>
       </div>
