@@ -11,9 +11,11 @@ export default function ModalInput({ title, required, type, value, onChange }) {
         {title}
         {required && <sup className='text-red-700'>*</sup>}
       </span>
-      {type === 'file' ?
-        <input type="file" accept="image/png, image/jpeg" value={value} onChange={onChange} className='input file:rounded-2xl file:border-0 pl-0 hover:file:bg-primary hover:file:cursor-pointer file:base-content file:p-2' />
-        : type === 'searchbar' ?
+      {
+        // type === 'file' ?
+        // <input type="file" accept="image/png, image/jpeg" value={value} onChange={onChange} className='input file:rounded-2xl file:border-0 pl-0 hover:file:bg-primary hover:file:cursor-pointer file:base-content file:p-2' />
+        // : 
+        type === 'searchbar' ?
           <Searchbar setValue={onChange} />
         : type === 'textarea' ?
         <textarea rows='3' className={inputClass} value={value} onChange={onChange} />

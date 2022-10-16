@@ -19,15 +19,14 @@ export default function Events() {
   })
 
   useEffect(() => {
-    // const response = await fetch('http://141.147.1.251:5000/api/v1/events')
-    // const data = await response.json()
-    // console.log(data.data.content)
     fetch('http://141.147.1.251:5000/api/v1/events')
     .then(response => response.json())
     .then(data => setEvents([...data.data.content]))
   }, [])
 
-  console.log(events)
+  for(const event of events) {
+    console.log(event)
+  }
 
   const isDisabled = () => {
     return (modalValues.img === '' || modalValues.title === '' || address === '' || 
@@ -73,7 +72,20 @@ export default function Events() {
 
           </div>
           <div className='flex flex-col xl:w-9/12 gap-y-4'>
-            
+            {events.map(event => (
+              <Event 
+                key={event.id} 
+                id={event.id} 
+                address={event.address}
+                creator={event.creator.name}
+                eventDate={event.eventDate}
+                img={event.imageUrl}
+                interested={event.interested.length}
+                summary={event.shortDescription}
+                // tags={event.tags}
+                title={event.title}
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -83,7 +95,7 @@ export default function Events() {
           <Button size='sm' onClick={() => setModal(false)}>X</Button>
         </Modal.Header>
         <Modal.Body className='flex flex-col gap-y-4'>
-          <ModalInput title='Zdjęcie' required type='file' value={modalValues.img} onChange={e => setModalValues({...modalValues, img: e.target.value})} />
+          <ModalInput title='Zdjęcie(url)' required type='text' value={modalValues.img} onChange={e => setModalValues({...modalValues, img: e.target.value})} />
           <ModalInput title='Tytuł' required type='text' value={modalValues.title} onChange={e => setModalValues({...modalValues, title: e.target.value})} />
           <ModalInput title='Adres' required type='searchbar' onChange={setAddress}  />
           <div className='flex justify-between'>
