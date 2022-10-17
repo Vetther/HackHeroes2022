@@ -5,7 +5,13 @@ import {
     faInfoCircle,
     faRightToBracket,
     faSquarePollVertical,
-    faFlag, faSquarePollHorizontal, faRightFromBracket, faUser, faHandshakeAngle, faHandHoldingHeart, faNewspaper
+    faFlag, 
+    faSquarePollHorizontal, 
+    faRightFromBracket, 
+    faUser, 
+    faHandshakeAngle, 
+    faHandHoldingHeart, 
+    faNewspaper
 } from "@fortawesome/free-solid-svg-icons";
 import {faCalendar, faCalendarCheck} from "@fortawesome/free-regular-svg-icons";
 import Tab from './Tab';

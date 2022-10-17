@@ -44,7 +44,7 @@ export default function App() {
             <Sidebar />
           </div>
         }
-        <div className='w-full pb-4' style={{minHeight: '100vh'}}>
+        <div className='w-full pb-4 min-h-[100vh]'>
           {windowWidth < hideSidebar &&
             <Button color='primary' className='ml-1.5 mt-1.5' onClick={() => setVisible(true)}>
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import AuthContext from '../AuthContext'
 import { Button, Modal } from 'react-daisyui'
 import jwtDecode from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 
 import Event from '../components/Event'
 import ModalInput from '../components/ModalInput'
@@ -17,7 +18,8 @@ export default function Events() {
     description: '',
     datetime: '',
   })
-  const user = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const getEvents = () => {
     fetch('http://141.147.1.251:5000/api/v1/events')
@@ -30,9 +32,7 @@ export default function Events() {
   }, [])
 
   const isDisabled = () => {
-    return (modalValues.img === '' || modalValues.title === '' || address === '' || 
-            modalValues.summary === '' || modalValues.description === '' || 
-            modalValues.datetime === '')
+    return ([address, ...Object.values(modalValues)].some(val => val === ''))
   }
 
   const resetModal = () => {
@@ -82,7 +82,7 @@ export default function Events() {
       <div className="flex flex-col w-5/6 mx-auto mt-8 gap-y-4">
         <input type="text" placeholder='Wyszukaj wydarzenia...' className='border border-base-300 focus:outline-none focus:border-primary rounded-md w-full p-2 input' />
         <div className="flex justify-end">
-          <Button color='primary' onClick={() => setModal(true)}>Stwórz</Button>
+          <Button color='primary' onClick={() => user ? setModal(true) : navigate('/login')}>Stwórz</Button>
         </div>
         <div className="xl:flex gap-x-2">
           <div className='xl:w-3/12 xl:h-1/6 mb-4 xl:mb-0 bg-slate-300 rounded-lg p-4 drop-shadow-lg xl:order-last'>
