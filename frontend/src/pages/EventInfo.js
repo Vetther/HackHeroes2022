@@ -66,7 +66,7 @@ export default function EventInfo() {
                   </Tooltip>
                 </div>
               </div>
-              {user?.id === event.creator?.id &&
+              {user && user?.id === event.creator?.id &&
                 <div>
                   <Button color='error' className='text-white' onClick={deleteEvent}>Usuń</Button>
                 </div>
