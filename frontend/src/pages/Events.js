@@ -18,7 +18,7 @@ export default function Events() {
     description: '',
     datetime: '',
   })
-  const {user} = useContext(AuthContext)
+  const { user, authTokens } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const getEvents = () => {
@@ -52,7 +52,7 @@ export default function Events() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.authTokens.access_token}`,
+        'Authorization': `Bearer ${authTokens.access_token}`,
       },
       body: JSON.stringify({
         imageUrl: modalValues.img,
@@ -61,7 +61,7 @@ export default function Events() {
         shortDescription: modalValues.summary,
         longDescription: modalValues.description,
         eventTime: Math.floor(new Date(modalValues.datetime).getTime() / 1000),
-        creator_id: user.user.id,
+        creator_id: user.id,
         tagId: [1],
       })
     })

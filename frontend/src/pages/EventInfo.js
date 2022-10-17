@@ -47,7 +47,7 @@ export default function EventInfo() {
       <div className='bg-base-100 border border-base-300 rounded-lg p-4 w-2/3'>
         <div className="lg:flex justify-between">
           <div className="md:flex pr-3">
-            <img src={event.imageUrl} alt={event.title} className='rounded-lg object-cover shadow-md w-60'/>
+            <img src={event.imageUrl} alt={event.title} className='rounded-lg object-cover shadow-md w-60 h-60'/>
             <div className="flex flex-col justify-between md:ml-6 mt-3 md:mt-0">
               <div>
                 <p className='text-base-content text-xl font-semibold mb-2'>{event.title}</p>
