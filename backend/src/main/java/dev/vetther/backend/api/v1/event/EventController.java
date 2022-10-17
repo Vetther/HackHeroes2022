@@ -37,6 +37,10 @@ public class EventController {
     @PostMapping("/event/create")
     public ResponseEntity<Response> createEvent(@RequestBody EventRequest event, Principal principal) {
 
+        if (principal == null) {
+            return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
+        }
+
         if (!EventUtils.isLongDesc(event.getLongDescription())) {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_LONG_DESCRIPTION, null));
         }
@@ -102,6 +106,10 @@ public class EventController {
     @DeleteMapping("/event/{id}")
     public ResponseEntity<Response> deleteEvent(@PathVariable long id, Principal principal) {
 
+        if (principal == null) {
+            return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
+        }
+
         System.out.println(principal.getName());
         User user = this.userService.getUser(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
@@ -116,6 +124,77 @@ public class EventController {
         }
 
         this.eventService.removeEvent(eventOpt.get().getId());
+
+        return ResponseEntity.ok(new Response(true, null, null));
+    }
+
+    @GetMapping("/event/{id}/join")
+    public ResponseEntity<Response> joinEvent(@PathVariable long id, Principal principal) {
+
+        if (principal == null) {
+            return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
+        }
+
+        Optional<User> userOpt = this.userService.getUser(principal.getName());
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
+        }
+        User user = userOpt.get();
+
+        Optional<Event> eventOpt = this.eventService.getEvent(id);
+
+        if (eventOpt.isEmpty()) {
+            return ResponseEntity.ok(new Response(false, EVENT_NOT_FOUND, null));
+        }
+
+        if (Objects.equals(eventOpt.get().getCreator().getId(), user.getId())) {
+            return ResponseEntity.badRequest().body(new Response(false, EVENT_CREATOR_ERROR, null));
+        }
+
+        if (eventOpt.get().getInterested()
+                .stream()
+                .map(User::getName)
+                .anyMatch(userName -> userName.equalsIgnoreCase(user.getName()))) {
+            return ResponseEntity.badRequest().body(new Response(false, EVENT_ALREADY_INTERESTED, null));
+        }
+
+        this.eventService.joinEvent(id, user);
+
+        return ResponseEntity.ok(new Response(true, null, null));
+    }
+
+    @GetMapping("/event/{id}/quit")
+    public ResponseEntity<Response> quitEvent(@PathVariable long id, Principal principal) {
+
+        if (principal == null) {
+            return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
+        }
+
+        Optional<User> userOpt = this.userService.getUser(principal.getName());
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
+        }
+        User user = userOpt.get();
+
+        Optional<Event> eventOpt = this.eventService.getEvent(id);
+
+        if (eventOpt.isEmpty()) {
+            return ResponseEntity.ok(new Response(false, EVENT_NOT_FOUND, null));
+        }
+
+        if (Objects.equals(eventOpt.get().getCreator().getId(), user.getId())) {
+            return ResponseEntity.badRequest().body(new Response(false, EVENT_CREATOR_ERROR, null));
+        }
+
+        if (eventOpt.get().getInterested()
+                .stream()
+                .map(User::getName)
+                .noneMatch(userName -> userName.equalsIgnoreCase(user.getName()))) {
+
+            return ResponseEntity.badRequest().body(new Response(false, EVENT_NOT_INTERESTED, null));
+        }
+
+        this.eventService.quitEvent(id, user);
 
         return ResponseEntity.ok(new Response(true, null, null));
     }

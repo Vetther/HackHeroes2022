@@ -4,6 +4,7 @@ import dev.vetther.backend.image.Image;
 import dev.vetther.backend.image.ImageService;
 import dev.vetther.backend.tag.Tag;
 import dev.vetther.backend.user.User;
+import dev.vetther.backend.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +21,6 @@ import java.util.concurrent.ExecutionException;
 @AllArgsConstructor
 public class EventServiceImpl {
 
-    private final ImageService imageService;
     private final EventRepository eventRepository;
 
     public Event createEvent(User creator, String imageUrl, String title, String address, Instant eventDate, Instant publicationDate, String shortDesc, String longDesc, Set<Tag> tags) {
@@ -47,5 +47,21 @@ public class EventServiceImpl {
     public void removeEvent(long eventId) {
         Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new NullPointerException("Event not found"));
         this.eventRepository.delete(event);
+    }
+
+    public void joinEvent(long eventId, User user) {
+        Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new NullPointerException("Event not found"));
+        Set<User> interested = event.getInterested();
+        interested.add(user);
+        event.setInterested(interested);
+        this.eventRepository.save(event);
+    }
+
+    public void quitEvent(long eventId, User user) {
+        Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new NullPointerException("Event not found"));
+        Set<User> interested = event.getInterested();
+        interested.remove(user);
+        event.setInterested(interested);
+        this.eventRepository.save(event);
     }
 }
