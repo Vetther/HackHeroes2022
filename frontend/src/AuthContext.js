@@ -47,7 +47,7 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    if (authTokens && jwt_decode(authTokens.access_token).exp < Date.now()/1000) {
+    if (authTokens && jwt_decode(authTokens.access_token).exp < Date.now() / 1000) {
       logout()
     }
   }, [location.pathname])

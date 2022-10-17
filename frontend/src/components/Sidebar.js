@@ -41,7 +41,12 @@ export default function Sidebar() {
             name: 'Zaloguj się',
             path: '/login',
             icon: <FontAwesomeIcon icon={faRightToBracket} style={{marginRight: 4, width: 20, height: 20}}/>
-        } 
+        },
+        /* {
+            name: 'Zarejestruj się',
+            path: '/register',
+            icon: <FontAwesomeIcon icon={faRightToBracket} style={{marginRight: 4, width: 20, height: 20}}/>
+        }, */
     ]
     :
     [
