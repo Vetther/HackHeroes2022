@@ -1,5 +1,6 @@
 package dev.vetther.backend.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.vetther.backend.role.Role;
 import dev.vetther.backend.security.AesEncryptor;
 import lombok.*;
@@ -24,11 +25,16 @@ public class User implements UserDetails {
     private Long id;
 
     private String name;
+
+    @JsonIgnore
     private String password;
 
-    @Convert(converter = AesEncryptor.class)  private String email;
+    @Convert(converter = AesEncryptor.class)
+    @JsonIgnore
+    private String email;
 
     @ManyToMany(fetch = EAGER)
+    @JsonIgnore
     private Collection<Role> roles = new ArrayList<>();
 
     @Override
@@ -45,6 +51,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
@@ -52,26 +59,31 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return this.name;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }
