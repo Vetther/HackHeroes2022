@@ -1,7 +1,7 @@
 import Searchbar from './Searchbar'
 
 export default function ModalInput({ title, required, type, value, onChange, onBlur, error }) {
-  const inputClass = 'border border-base-300 focus:outline-none focus:border-primary rounded-md w-full p-2'
+  const inputClass = 'border border-base-300 bg-base-100 focus:outline-none focus:border-primary rounded-md w-full p-2'
 
   return (
     <div>

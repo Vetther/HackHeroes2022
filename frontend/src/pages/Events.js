@@ -124,7 +124,7 @@ export default function Events() {
         </div>
         }
         <div className="xl:flex gap-x-2">
-          <div className='xl:w-3/12 xl:h-1/6 mb-4 xl:mb-0 bg-slate-300 rounded-lg p-4 drop-shadow-lg xl:order-last'>
+          <div className='xl:w-3/12 xl:h-1/6 mb-4 xl:mb-0 bg-base-100 rounded-lg p-4 drop-shadow-lg xl:order-last'>
 
           </div>
           <div className='flex flex-col xl:w-9/12 gap-y-4'>

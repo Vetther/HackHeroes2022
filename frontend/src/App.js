@@ -14,6 +14,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Logout from './pages/Logout'
 import Profile from './pages/Profile'
+import UserEvents from './pages/UserEvents'
 
 import {themeChange} from "theme-change";
 import AboutUs from "./pages/AboutUs";
@@ -59,6 +60,7 @@ export default function App() {
           <Routes>
             <Route exact path='/events' element={<Events />} />
             <Route path='/event/:id' element={<EventInfo />} />
+            <Route path='/your-events' element={<UserEvents />} />
             <Route exact path='/polls' element={<Polls />} />
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/register' element={<Register />} />
