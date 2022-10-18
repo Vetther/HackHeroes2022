@@ -4,7 +4,7 @@ import { Button } from 'react-daisyui'
 
 import Sidebar from './components/Sidebar'
 import ToggleSidebar from './components/ToggleSidebar'
-import AuthContext, { AuthProvider } from './AuthContext'
+import { AuthProvider } from './AuthContext'
 import Alert from './components/Alert'
 
 import Events from './pages/Events'
@@ -13,6 +13,7 @@ import Polls from './pages/Polls'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Logout from './pages/Logout'
+import Profile from './pages/Profile'
 
 import {themeChange} from "theme-change";
 import AboutUs from "./pages/AboutUs";
@@ -62,7 +63,8 @@ export default function App() {
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/register' element={<Register />} />
             <Route exact path='/logout' element={<Logout />} />
-            <Route exact path='/aboutus' element={<AboutUs />} />
+            <Route exact path='/about-us' element={<AboutUs />} />
+            <Route exact path='/profile/:user' element={<Profile />} />
           </Routes>
         </div>
       </div>

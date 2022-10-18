@@ -3,17 +3,7 @@ import AuthContext from '../AuthContext'
 import { Button } from 'react-daisyui'
 import { Link } from 'react-router-dom'
 
-const Input = ({ type, placeholder, value, setValue, onBlur, ...args }) => {
-  return <input 
-    type={type}
-    placeholder={placeholder}
-    value={value} 
-    onChange={setValue} 
-    onBlur={onBlur}
-    className='border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
-    {...args}
-  />
-}
+import RegisterInput from '../components/RegisterInput'
 
 export default function Register() {
   const [username, setUsername] = useState('')
@@ -98,15 +88,15 @@ export default function Register() {
         <p className="font-bold text-3xl text-primary mb-12">Rejestracja</p>
         <form className='flex flex-col gap-y-8' onSubmit={e => {register(); e.preventDefault()}}>
           <div>
-            <Input type='text' placeholder='Nazwa Użytkownika' value={username} onChange={e => setUsername(e.target.value)} onBlur={isCorrectUsername} />
+            <RegisterInput type='text' placeholder='Nazwa Użytkownika' value={username} onChange={e => setUsername(e.target.value)} onBlur={isCorrectUsername} />
             {!usernameError.valid && <p className='text-red-700'>{usernameError.message}</p>}
           </div>
           <div>
-            <Input type='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} onBlur={isCorrectEmail} />
+            <RegisterInput type='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} onBlur={isCorrectEmail} />
             {!emailError.valid && <p className='text-red-700'>{emailError.message}</p>}
           </div>
           <div>
-            <Input type='password' autoComplete='on' placeholder='Hasło' value={password} onChange={e => setPassword(e.target.value)} onBlur={isCorrectPassword} />
+            <RegisterInput type='password' autoComplete='on' placeholder='Hasło' value={password} onChange={e => setPassword(e.target.value)} onBlur={isCorrectPassword} />
             {!passwordError.valid && <p className='text-red-700'>{passwordError.message}</p>}
           </div>
           <Button color='primary' disabled={isDisabled()}>Zarejestruj</Button>

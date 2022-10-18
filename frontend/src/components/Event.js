@@ -24,7 +24,7 @@ export default function Event({ id, address, creator, eventDate, img, interested
             <div className='flex items-center mb-4'>
               <Tooltip message='Organizator' position="left" className='flex tooltip-left'>
                 <FontAwesomeIcon icon={faUser} style={{color: '#6b7280', width:17, height: 17}}/>
-                <Link to='/profile'>
+                <Link to={`/profile/${creator.name}`}>
                   <p className='text-base-content/70 ml-2 text-sm'>{creator.name}</p>
                 </Link>
               </Tooltip>

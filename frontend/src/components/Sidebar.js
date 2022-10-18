@@ -58,7 +58,7 @@ export default function Sidebar() {
     [
         {
             name: 'Profil ' + user.sub,
-            path: '/profile',
+            path: `/profile/${user.sub}`,
             icon: <FontAwesomeIcon icon={faUser} style={{marginRight: 4, width: 20, height: 20}}/>
         },
         {
