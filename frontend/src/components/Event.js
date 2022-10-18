@@ -34,7 +34,13 @@ export default function Event({ id, address, creator, eventDate, img, interested
         </div>
       </div>
       <div className='flex flex-col justify-between'>
-        <p className='md:text-end text-md font-medium my-3 md:my-0'>{datetime.toLocaleString()}</p>
+        <p className='md:text-end text-md font-medium my-3 md:my-0'>{datetime.toLocaleTimeString([], {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+        })}</p>
         <div className="flex justify-between">
           <div className='flex items-center mr-6'>
             <Tooltip message='Zainteresowani' className='flex'>

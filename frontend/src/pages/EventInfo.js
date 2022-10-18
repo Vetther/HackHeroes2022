@@ -5,6 +5,12 @@ import { Tooltip, Button, Modal } from 'react-daisyui'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faUser, faHand } from "@fortawesome/free-solid-svg-icons";
 
+function useForceUpdate(){
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update state to force render
+  // An function that increment 👆🏻 the previous state like here
+  // is better than directly setting `value + 1`
+}
 
 export default function EventInfo() {
   const { id } = useParams()
@@ -12,6 +18,8 @@ export default function EventInfo() {
   const [ modal, setModal ] = useState(false)
   const { user, authTokens } = useContext(AuthContext)
   const navigate = useNavigate()
+  const forceUpdate = useForceUpdate();
+  const [rerender, setRerender] = useState(false);
 
   useEffect(() => {
     fetch(`http://141.147.1.251:5000/api/v1/event/${id}`)
@@ -19,29 +27,35 @@ export default function EventInfo() {
     .then(data => setEvent({...data.data, eventDate: new Date(data.data.eventDate)}))
   }, [])
 
-  const join = () => {
-    if(!user) {
+  const join = async () => {
+    if (!user) {
       navigate('/login')
-    } 
-    else {
-      fetch(`http://141.147.1.251:5000/api/v1/event/${id}/join`,{
+    } else {
+      const response = await fetch(`http://141.147.1.251:5000/api/v1/event/${id}/join`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${authTokens.access_token}`,
         }
       })
-      .then(window.location.reload())
+      const data = await response.json()
+      if (data.success === true) {
+        window.location.reload()
+      }
+      console.log(data)
     }
   }
-
-  const quit = () => {
-    fetch(`http://141.147.1.251:5000/api/v1/event/${id}/quit`,{
+  const quit = async () => {
+    const response = await fetch(`http://141.147.1.251:5000/api/v1/event/${id}/quit`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${authTokens.access_token}`,
       }
     })
-    .then(window.location.reload())
+    const data = await response.json()
+    if (data.success === true) {
+      window.location.reload()
+    }
+    console.log(data)
   }
 
   const deleteEvent = async () => {
@@ -87,7 +101,13 @@ export default function EventInfo() {
               </div>
             </div> 
             <div className="md:flex flex-col justify-between mt-3 lg:mt-0">
-              <p className='lg:text-end text-md font-medium my-3 md:my-0'>{event.eventDate?.toLocaleString()}</p>
+              <p className='lg:text-end text-md font-medium my-3 md:my-0'>{event.eventDate?.toLocaleTimeString([], {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+              })}</p>
               <div className='flex justify-between h-12'>
                 <div className='flex items-center mr-6'>
                   <Tooltip message='Zainteresowani' className='flex'>
@@ -95,14 +115,17 @@ export default function EventInfo() {
                     <p className='text-lg ml-1'>{event.interested?.length}</p>
                   </Tooltip>
                 </div>
-                {event.creator?.id !== user.id ?
-                  (!event.interested?.some(int => int.id === user.id) ?
-                  <Button color='primary' onClick={join}>Dołącz</Button>
-                  :
-                  <Button color='primary' onClick={quit}>Zrezygnuj</Button>
-                  )
-                :
-                <Button color='error' className='text-white' onClick={deleteEvent}>Usuń</Button>
+                {
+                  !user
+                      ? <Button color='primary' onClick={join}>Dołącz</Button>
+
+                      : (event.creator?.id !== user.id)
+
+                          ? !event.interested?.some(int => int.id === user.id)
+                              ? <Button color='primary' onClick={join}>Dołącz</Button>
+                              : <Button color='primary' onClick={quit}>Zrezygnuj</Button>
+
+                          : <Button color='error' className='text-white' onClick={deleteEvent}>Usuń</Button>
                 }
               </div>
             </div>

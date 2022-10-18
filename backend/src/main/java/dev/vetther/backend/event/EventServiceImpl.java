@@ -46,6 +46,8 @@ public class EventServiceImpl {
 
     public void removeEvent(long eventId) {
         Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new NullPointerException("Event not found"));
+        event.setInterested(new HashSet<>());
+        this.eventRepository.save(event);
         this.eventRepository.delete(event);
     }
 
