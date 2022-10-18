@@ -2,12 +2,13 @@ import React, { useState, createContext } from 'react'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Alert } from 'react-daisyui'
 
 const AuthContext = createContext()
 
 export default AuthContext
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children, setAlert }) {
   const [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
   const [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
 
@@ -25,13 +26,17 @@ export function AuthProvider({ children }) {
         password: password,
       })
     })
-    const data = await response.json()
+    if(response.ok) {
+      const data = await response.json()
 
-    if(response.status === 200) {
       setAuthTokens(data)
       setUser(jwt_decode(data.access_token))
       localStorage.setItem('authTokens', JSON.stringify(data))
       navigate('/events')
+    }
+    else {
+      setAlert(response.status)
+      return true  // resets inputs when invalid
     }
   }
 
@@ -39,6 +44,12 @@ export function AuthProvider({ children }) {
 
   } */
 
+  useEffect(() => {
+    if (authTokens && jwt_decode(authTokens.access_token).exp < Date.now() / 1000) {
+      logout()
+    }
+  }, [location.pathname])
+  
   const logout = () => {
     setAuthTokens(null)
     setUser(null)
@@ -46,15 +57,10 @@ export function AuthProvider({ children }) {
     navigate('/login')
   }
 
-  useEffect(() => {
-    if (authTokens && jwt_decode(authTokens.access_token).exp < Date.now() / 1000) {
-      logout()
-    }
-  }, [location.pathname])
-
   const contextData = {
     user: user,
     authTokens: authTokens,
+    setAlert: setAlert,
     login: login,
     logout: logout,
   }

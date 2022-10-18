@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Autocomplete from "react-google-autocomplete"
 
-export default function Searchbar({ setValue }) {
+export default function Searchbar({ setPlace }) {
   return (
     <Autocomplete
       apiKey={'AIzaSyCmgoNY4M_yFr_gE703rDfc7RLkzfgHflA'}
       onPlaceSelected={place => {
         // console.log(place)
         if(place.formatted_address) {
-          setValue(place.formatted_address)
+          setPlace(place.formatted_address)
         }
       }}
       options={{

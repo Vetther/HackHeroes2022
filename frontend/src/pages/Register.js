@@ -3,34 +3,93 @@ import AuthContext from '../AuthContext'
 import { Button } from 'react-daisyui'
 import { Link } from 'react-router-dom'
 
+const Input = ({ type, placeholder, value, setValue, onBlur, ...args }) => {
+  return <input 
+    type={type}
+    placeholder={placeholder}
+    value={value} 
+    onChange={setValue} 
+    onBlur={onBlur}
+    className='border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
+    {...args}
+  />
+}
+
 export default function Register() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [correctUsername, setCorrectUsername] = useState(true)
-  const [correctEmail, setCorrectEmail] = useState(true)
-  const [correctPassword, setCorrectPassword] = useState(true)
-  const {login} = useContext(AuthContext)
+  const [usernameError, setUsernameError] = useState({valid: false, message: ''})
+  const [emailError, setEmailError] = useState({valid: false, message: ''})
+  const [passwordError, setPasswordError] = useState({valid: false, message: ''})
+  const { login, setAlert } = useContext(AuthContext)
 
   const register = async () => {
-    if(username && correctUsername && email && correctEmail && password && correctPassword) {
-      const response = await fetch('http://141.147.1.251:5000/api/v1/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: username,
-          email: email,
-          password: password,
-        })
+    const response = await fetch('http://141.147.1.251:5000/api/v1/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
       })
-      const data = await response.json()
+    })
+    const data = await response.json()
 
-      if(response.status === 200) {
-        login(username, password)
-      }
+    if(response.status === 200) {
+      login(username, password)
     }
+    else if(response.status === 400) {
+      setAlert(data.error)
+    }
+  }
+
+  const isCorrectUsername = () => {
+    if(username.length < 4) {
+      setUsernameError({valid: false, message: 'Nazwa Użytkownika za krótka (<4)'})
+    }
+    else if(username.length > 20) {
+      setUsernameError({valid: false, message: 'Nazwa Użytkownika za długa (>20)'})
+    }
+    else if(!username.match("^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$")) {
+      setUsernameError({valid: false, message: 'Błędna Nazwa Użytkownika'})
+    }
+    else {
+      setUsernameError({valid: true, message: ''})
+    }
+  }
+
+  const isCorrectEmail = () => {
+    if(email.length < 3) {
+      setEmailError({valid: false, message: 'Email za krótki (<3)'})
+    }
+    else if(email.length > 320) {
+      setEmailError({valid: false, message: 'Email za długi (>320)'})
+    }
+    else if(!email.match("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
+      setEmailError({valid: false, message: 'Błędny Email'})
+    }
+    else {
+      setEmailError({valid: true, message: ''})
+    }
+  }
+
+  const isCorrectPassword = () => {
+    if(password.length < 6) {
+      setPasswordError({valid: false, message: 'Hasło za krótkie (<6)'})
+    }
+    else if(password.length > 100) {
+      setPasswordError({valid: false, message: 'Hasło za długie (>100)'})
+    }
+    else {
+      setPasswordError({valid: true, message: ''})
+    }
+  }
+
+  const isDisabled = () => {
+    return !usernameError.valid || !emailError.valid || !passwordError.valid
   }
 
   return (
@@ -39,40 +98,18 @@ export default function Register() {
         <p className="font-bold text-3xl text-primary mb-12">Rejestracja</p>
         <form className='flex flex-col gap-y-8' onSubmit={e => {register(); e.preventDefault()}}>
           <div>
-            <input
-              type="text" 
-              placeholder='Nazwa Użytkownika' 
-              value={username} 
-              onChange={e => setUsername(e.target.value)}
-              onBlur={() => setCorrectUsername(username.match("^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"))} 
-              className='border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
-            />
-            <p className={`text-red-700 ${correctUsername && 'hidden'}`}>Nieprawidłowa Nazwa Użytkownika</p>
+            <Input type='text' placeholder='Nazwa Użytkownika' value={username} onChange={e => setUsername(e.target.value)} onBlur={isCorrectUsername} />
+            {!usernameError.valid && <p className='text-red-700'>{usernameError.message}</p>}
           </div>
           <div>
-            <input 
-              type="email" 
-              placeholder='Email' 
-              value={email} 
-              onChange={e => setEmail(e.target.value)} 
-              onBlur={() => setCorrectEmail(email.match("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$") && email.length >= 3 && email.length <= 320)}
-              className='border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
-            />
-            <p className={`text-red-700 ${correctEmail && 'hidden'}`}>Nieprawidłowy Email</p>
+            <Input type='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} onBlur={isCorrectEmail} />
+            {!emailError.valid && <p className='text-red-700'>{emailError.message}</p>}
           </div>
           <div>
-            <input 
-              type="password" 
-              autoComplete="on" 
-              placeholder='Hasło' 
-              value={password} 
-              onChange={e => setPassword(e.target.value)} 
-              onBlur={() => setCorrectPassword(password.length >= 6 && password.length <= 100)}
-              className='border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
-            />
-            <p className={`text-red-700 ${correctPassword && 'hidden'}`}>Nieprawidłowe Hasło</p>
+            <Input type='password' autoComplete='on' placeholder='Hasło' value={password} onChange={e => setPassword(e.target.value)} onBlur={isCorrectPassword} />
+            {!passwordError.valid && <p className='text-red-700'>{passwordError.message}</p>}
           </div>
-          <Button color='primary'>Zarejestruj</Button>
+          <Button color='primary' disabled={isDisabled()}>Zarejestruj</Button>
           <p>Masz już konto? <Link to='/login' className='text-violet-300 hover:text-violet-400'>Zaloguj się</Link></p>
         </form>
       </div>

@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Button } from 'react-daisyui'
 
 import Sidebar from './components/Sidebar'
 import ToggleSidebar from './components/ToggleSidebar'
-import { AuthProvider } from './AuthContext'
+import AuthContext, { AuthProvider } from './AuthContext'
+import Alert from './components/Alert'
 
 import Events from './pages/Events'
 import EventInfo from './pages/EventInfo'
@@ -20,6 +21,7 @@ export default function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [visible, setVisible] = useState(false)
   const hideSidebar = 1024  // Amount of pixels when to hide sidebar
+  const [alert, setAlert] = useState('')
 
   useEffect(() => {
     themeChange(false)
@@ -37,7 +39,7 @@ export default function App() {
   }, [windowWidth])
 
   return (
-    <AuthProvider>
+    <AuthProvider setAlert={setAlert}>
       <div className='flex w-full bg-base-200'>
         {(windowWidth >= hideSidebar && !visible) &&
           <div className="w-1/6 border-r border-base-300">
@@ -45,6 +47,7 @@ export default function App() {
           </div>
         }
         <div className='w-full pb-4 min-h-[100vh]'>
+          <Alert error={alert} setVisible={setAlert} />
           {windowWidth < hideSidebar &&
             <Button color='primary' className='ml-1.5 mt-1.5' onClick={() => setVisible(true)}>
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
