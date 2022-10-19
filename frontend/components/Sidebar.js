@@ -34,7 +34,7 @@ const Sidebar = () => {
   useEffect(() => {
     if(windowWidth >= range) {
       setVisible(false)
-    } 
+    }
   }, [windowWidth])
 
   return (

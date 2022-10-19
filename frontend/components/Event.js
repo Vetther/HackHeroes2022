@@ -1,7 +1,7 @@
 import { Tooltip, Button } from "react-daisyui"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
-import { faUser, faHand } from "@fortawesome/free-regular-svg-icons"
+import {faLocationDot, faUser} from "@fortawesome/free-solid-svg-icons"
+import { faHand } from "@fortawesome/free-regular-svg-icons"
 import Link from "next/link"
 
 import Box from "./Box"
@@ -10,17 +10,17 @@ const Event = ({ event }) => {
   event = {...event, eventDate: new Date(event.eventDate)}
 
   return (
-    <Box md='flex' className='justify-between'>
+    <Box className='md:flex justify-between bg-base-100 rounded-lg p-4 drop-shadow'>
       <div className="sm:flex">
         <img src={event.imageUrl} className='rounded-lg object-cover shadow-md w-32 h-32' />
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
           <div>
             <p className='text-base-content text-xl font-semibold mb-2'>{event.title}</p>
-            <Tooltip message='Lokalizacja' position='left' className='flex mb-2'>
+            <Tooltip message='Lokalizacja' className='flex mb-2 tooltip-left'>
               <FontAwesomeIcon icon={faLocationDot} className={'info-content'} style={{color: '#6b7280', width:17, height: 17}}/>
               <p className='ml-2 text-sm text-base-content/70'>{event.address}</p>
             </Tooltip>
-            <Tooltip message='Organizator' position='left' className='flex'>
+            <Tooltip message='Organizator' className='flex tooltip-left'>
               <FontAwesomeIcon icon={faUser} style={{color: '#6b7280', width:17, height: 17}}/>
               <Link href={`/${event.creator.name}`}>
                 <a className='text-base-content/70 ml-2 text-sm'>{event.creator.name}</a>
