@@ -24,9 +24,9 @@ const Events = ({ events }) => {
         </div>
         {user && <Button color='primary' onClick={() => setVisible(true)}>Stwórz</Button>}
         <div className="xl:flex gap-x-2">
-          <Box xl='w-3/12 h-1/6 order-last mb-0' className='mb-10'>
+          {/* <Box xl='w-3/12 h-1/6 order-last mb-0' className='mb-10'>
 
-          </Box>
+          </Box> */}
           <div className="flex flex-col xl:w-9/12 gap-y-4">
             {events?.data.content.map(event => (
               <Event key={event.id} event={event} />
