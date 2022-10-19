@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import Autocomplete from "react-google-autocomplete"
 
 export default function Searchbar({ setPlace }) {
