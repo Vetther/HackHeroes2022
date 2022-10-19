@@ -2,9 +2,9 @@ import { useContext } from "react"
 import { Button, Table } from "react-daisyui"
 // import Link from "next/link"
 
-import AuthContext from "../../contexts/auth"
+import AuthContext from "../../../contexts/auth"
 
-import Box from "../../components/Box"
+import Box from "../../../components/Box"
 
 const Events = ({ events }) => {
   const { user } = useContext(AuthContext)
