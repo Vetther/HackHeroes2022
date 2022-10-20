@@ -1,16 +1,34 @@
-import { useContext } from 'react'
-import { Button } from 'react-daisyui'
+import {useContext, useEffect, useState} from 'react'
+import {Button, Countdown, Divider, Tooltip} from 'react-daisyui'
 import Router, { useRouter } from 'next/router'
 
 import AuthContext from '../../contexts/auth'
 
 import Box from '../../components/Box'
+import Link from "next/link";
 
 const UserEvent = ({ event }) => {
   const { user, tokens } = useContext(AuthContext)
   const router = useRouter()
 
-  event = { ...event?.data, eventDate: new Date(event?.data.eventDate) }
+  const [seconds, setSeconds] = useState(0);
+
+  event = { ...event?.data, eventDate: new Date(event?.data.eventDate)}
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+
+      let diff = Math.abs(event.eventDate - new Date())
+      setSeconds(diff)
+
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // console.log('D: ' + Math.floor(seconds / 1000 / 60 / 60 / 24))
+  // console.log('H: ' + Math.floor(seconds / 1000 / 60 / 60 % 24))
+  // console.log('M: ' + Math.floor(seconds / 1000 / 60 % 60))
+  // console.log('S: ' + Math.floor(seconds / 1000 % 60))
 
   const join = async () => {
     if(!user) {
@@ -59,16 +77,73 @@ const UserEvent = ({ event }) => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <Box className='w-7/12'>
-        <p>{event.creator.name}</p>
-        <p>{event.interested.length}</p>
-        {user && (user?.id !== event.creator.id ?
-          !event.interested.some(int => int.id === user?.id) ?
-            <Button color='success' onClick={join}>Dołącz</Button>
-          :
-            <Button color='warning' onClick={quit}>Zrezygnuj</Button>
-        :
-          <Button color='error' onClick={deleteEvent}>Usuń</Button>)}
+      <Box className='items-center md:w-3/6'>
+
+        <div className="avatar w-full justify-center mt-4">
+          <div className="w-48 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img src={event.imageUrl}/>
+          </div>
+        </div>
+
+        <p className={"text-2xl w-full text-center mt-6 font-semibold"}>{event.title}</p>
+
+        <Divider className={'mb-2'}/>
+
+        <div style={{textAlign: "center"}}>
+
+          <p className={'text-base-content/70 text-md mb-1'}>
+            Data:<span className='font-medium pt-1 ml-2'>{event.eventDate?.toLocaleTimeString([], {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+          })}</span>
+          </p>
+
+          <p className={'text-base-content/70 text-md'}>Organizator:
+            <Link href={`/profile/${event.creator.name}`}>
+              <a className='text-base-content/70 ml-2 text-md font-medium'>{event.creator.name}</a>
+            </Link>
+          </p>
+
+          <p className='text-md text-base-content/70 font-medium pt-1'>{event.address}</p>
+
+        </div>
+
+        <div className={'justify-center items-center text-center mt-6'}>
+          {user && (user?.id !== event.creator.id
+              ? !event.interested.some(int => int.id === user?.id) ?
+                  <Button color='success' onClick={join}>Dołącz</Button>
+                  :
+                  <Button color='warning' onClick={quit}>Zrezygnuj</Button>
+              :
+              <Button color='error' onClick={deleteEvent}>Usuń</Button>
+          )}
+        </div>
+
+        <p className={'mt-12 break-all'}>{event.longDescription}</p>
+
+        <div className="stats stats-vertical lg:stats-horizontal mt-12 w-full justify-center items-center text-center">
+
+          <div className="stat">
+            <div className="stat-title text-right">Zainteresowani</div>
+            <div className="stat-value font-mono text-3xl text-right">{event.interested.length}</div>
+          </div>
+
+          <div className="stat">
+            <div className="stat-title" style={{textAlign: "right"}}>Odbędzie się za:</div>
+            <div className="stat-value text-right">
+              <span className="font-mono text-3xl">
+                <Countdown value={Math.floor(seconds / 1000 / 60 / 60 / 24) > 99 ? 99 : Math.floor(seconds / 1000 / 60 / 60 / 24)} />:
+                <Countdown value={Math.floor(seconds / 1000 / 60 / 60 % 24)} />:
+                <Countdown value={Math.floor(seconds / 1000 / 60 % 60)} />:
+                <Countdown value={Math.floor(seconds / 1000 % 60)} />
+              </span>
+            </div>
+          </div>
+        </div>
+
       </Box>
     </div>
   )
@@ -85,3 +160,22 @@ export const getServerSideProps = async (context) => {
 }
 
 export default UserEvent
+
+// <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
+//     <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+//     <Countdown className="font-mono text-2xl" value={Math.floor(seconds / 1000 / 60 / 60 / 24)} />
+// days
+// </div>
+// <div className="flex flex-col p-2 text-neutral">
+//   <Countdown className="font-mono text-2xl" value={Math.floor(seconds / 1000 / 60 / 60 % 24)} />
+//   hours
+// </div>
+// <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+//   <Countdown className="font-mono text-2xl" value={Math.floor(seconds / 1000 / 60 % 60)} />
+//   min
+// </div>
+// <div className="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+//   <Countdown className="font-mono text-2xl" value={Math.floor(seconds / 1000 % 60)} />
+//   sec
+// </div>
+// </div>

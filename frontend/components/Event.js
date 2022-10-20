@@ -1,4 +1,4 @@
-// import { useContext } from "react" 
+// import { useContext } from "react"
 import { Tooltip, Button } from "react-daisyui"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faLocationDot, faUser} from "@fortawesome/free-solid-svg-icons"
@@ -21,7 +21,7 @@ const Event = ({ event }) => {
         <img src={event.imageUrl} className='rounded-lg object-cover shadow-md w-32 h-32' />
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
           <div>
-            <p className='text-base-content text-xl font-semibold mb-2'>
+            <p className='text-base-content text-xl font-semibold mb-2 break-all'>
               {/* {(event.title.includes(' ') && event.title.split(' ').length > 2) ?
                 `${event.title.split(' ').slice(0, 2).join(' ')}...`
               : event.title.length > maxTitleLength ?
@@ -31,7 +31,7 @@ const Event = ({ event }) => {
             </p>
             <Tooltip message='Lokalizacja' className='flex mb-2 tooltip-left'>
               <FontAwesomeIcon icon={faLocationDot} className={'info-content'} style={{color: '#6b7280', width:17, height: 17}}/>
-              <p className='ml-2 text-sm text-base-content/70'>{event.address}</p>
+              <p className='ml-2 text-sm text-base-content/70 text-left'>{event.address}</p>
             </Tooltip>
             <Tooltip message='Organizator' className='flex tooltip-left'>
               <FontAwesomeIcon icon={faUser} style={{color: '#6b7280', width:17, height: 17}}/>
@@ -40,7 +40,7 @@ const Event = ({ event }) => {
               </Link>
             </Tooltip>
           </div>
-          <p className="font-medium pr-3 text-md font-normal base-content mt-2">{event.shortDescription}</p>
+          <p className="font-medium pr-3 text-md font-normal base-content mt-2 break-all">{event.shortDescription}</p>
         </div>
       </div>
       <div className='flex flex-col justify-between'>
