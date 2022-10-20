@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Modal, Button } from "react-daisyui"
 import Router from 'next/router'
 
@@ -109,6 +109,18 @@ const EventModal = ({ open, onClickBackdrop, ...args }) => {
     }
   }
 
+  /* useEffect(() => {
+    isCorrectImg()
+    isCorrectTitle()
+    isCorrectSummary()
+    isCorrectDescription()
+    isCorrectDatetime()
+  }, [input]) */
+
+  const isDisabled = () => {
+    return Object.values(errors).some(error => !error.valid)
+  }
+  
   const reset = () => {
     setInput(Object.fromEntries(Object.keys(input).map(input => [input, ''])))
   }
@@ -193,7 +205,7 @@ const EventModal = ({ open, onClickBackdrop, ...args }) => {
           onChange={e => setInput({ ...input, datetime: e.target.value })}
           onBlur={isCorrectDatetime}
         />
-        <Button color='primary' onClick={addEvent}>Stwórz</Button>
+        <Button color='primary' onClick={addEvent} disabled={isDisabled()}>Stwórz</Button>
       </Modal.Body>
     </Modal>
   )
