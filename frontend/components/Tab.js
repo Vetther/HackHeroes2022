@@ -1,14 +1,11 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
-import {useContext} from "react";
-import AuthContext from "../contexts/auth";
+import {useContext} from "react"
+import AuthContext from "../contexts/auth"
 
 const Tab = ({ title, data }) => {
-    const router = useRouter()
-
-    const { user } = useContext(AuthContext)
-
-    console.log(router.pathname)
+  const { user } = useContext(AuthContext)
+  const router = useRouter()
 
   return (
     <div className='text-sm'>
@@ -17,7 +14,7 @@ const Tab = ({ title, data }) => {
         {data.map(tab => (
           <li
             key={tab.name}
-            className={`${tab.path !== router.pathname.replace("[user]", user?.sub) ? 'text-base-content/70' : 'border-r-4 border-primary text-base-content'} mb-1 pr-4`}
+            className={`${tab.path !== router.pathname.replace("[user]", user?.sub) ? 'text-base-content/70' : 'border-r-4 border-primary text-base-content'} mb-1 -mr-1.5`}
           >
               <Link href={tab.path} className='p-2'>
                   <a className='flex'>

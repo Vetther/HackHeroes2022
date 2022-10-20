@@ -1,8 +1,17 @@
-const Input = ({ title, required, error, ...args }) => {
+import GoogleSearchbar from '../components/GoogleSearchbar'
+
+const Input = ({ type, error, onPlaceSelected, ...args }) => {
+  const className = 'border-b border-b-base-content focus:outline-none focus:border-primary w-full pb-2'
+
   return (
     <div>
-      {title && <p>{title}{required && <sup className='text-red-700'>*</sup>}</p>}
-      <input className='border-b border-base-100 bg-base-100 border-b-base-content focus:outline-none focus:border-primary w-full pb-2' {...args} />
+      {type === 'address' ? 
+        <GoogleSearchbar className={className} onPlaceSelected={onPlaceSelected} { ...args } />
+      : type === 'textarea' ?
+        <textarea className={className} { ...args } />
+      :
+        <input type={type} className={className} {...args} />
+      }
       {!error?.valid && <p className='text-red-700'>{error?.message}</p>}
     </div>
   )

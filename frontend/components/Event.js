@@ -10,7 +10,7 @@ const Event = ({ event }) => {
   event = {...event, eventDate: new Date(event.eventDate)}
 
   return (
-    <Box className='md:flex justify-between bg-base-100 rounded-lg p-4 drop-shadow'>
+    <Box md='flex' className='justify-between bg-base-100 rounded-lg p-4 drop-shadow'>
       <div className="sm:flex">
         <img src={event.imageUrl} className='rounded-lg object-cover shadow-md w-32 h-32' />
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
@@ -22,7 +22,7 @@ const Event = ({ event }) => {
             </Tooltip>
             <Tooltip message='Organizator' className='flex tooltip-left'>
               <FontAwesomeIcon icon={faUser} style={{color: '#6b7280', width:17, height: 17}}/>
-              <Link href={`/${event.creator.name}`}>
+              <Link href={`/profile/${event.creator.name}`}>
                 <a className='text-base-content/70 ml-2 text-sm'>{event.creator.name}</a>
               </Link>
             </Tooltip>

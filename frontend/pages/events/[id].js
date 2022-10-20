@@ -6,7 +6,7 @@ const UserEvent = ({ event }) => {
   return (
     <div className="flex justify-center items-center h-screen">
       <Box md='flex' className='justify-between'>
-
+        
       </Box>
     </div>
   )
