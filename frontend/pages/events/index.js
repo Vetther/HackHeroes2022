@@ -15,19 +15,19 @@ const Events = ({ events }) => {
 
   return (
     <>
-      <div className="xl:flex flex-col gap-y-10 w-3/4 mx-auto sm:py-8 pb-8 pt-16">
+      <div className="flex flex-col gap-y-6 w-7/12 mx-auto sm:py-8 pb-8 pt-16">
         <div className="relative">
           <Input className='w-full focus:outline-none focus:border-primary text-lg' placeholder='Wyszukaj Wydarzenie...' />
           <Button color='ghost' className="absolute inset-y-0 right-0">
             <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
           </Button>
         </div>
-        {user && <Button color='primary' onClick={() => setVisible(true)}>Stwórz</Button>}
+        {user && <Button color='primary' onClick={() => setVisible(true)} className='ml-auto'>Stwórz</Button>}
         <div className="xl:flex gap-x-2">
           {/* <Box xl='w-3/12 h-1/6 order-last mb-0' className='mb-10'>
 
           </Box> */}
-          <div className="flex flex-col xl:w-9/12 gap-y-4">
+          <div className="flex flex-col gap-y-4 w-full">
             {events?.data.content.map(event => (
               <Event key={event.id} event={event} />
             ))}

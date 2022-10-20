@@ -60,22 +60,22 @@ const SidebarBody = () => {
     [
       {
           name: `Profil ${user.sub}`,
-          path: `/${user.sub}`,
+          path: `/profile/${user.sub}`,
           icon: <FontAwesomeIcon icon={faUser} style={{marginRight: 4, width: 20, height: 20}}/>
       },
       {
           name: 'Twoje Wydarzenia',
-          path: `/${user.sub}/events`,
+          path: `/profile/${user.sub}/events`,
           icon: <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: 4, width: 20, height: 20}}/>
       },
       {
           name: 'Twoje Ankiety',
-          path: `/${user.sub}/polls`,
+          path: `/profile/${user.sub}/polls`,
           icon: <FontAwesomeIcon icon={faSquarePollHorizontal} style={{marginRight: 4, width: 20, height: 20}}/>
       },
       {
           name: 'Twoje Zrzutki',
-          path: `/${user.sub}/zrzutki`,
+          path: `/profile/${user.sub}/zrzutki`,
           icon: <FontAwesomeIcon icon={faHandHoldingHeart} style={{marginRight: 4, width: 20, height: 20}}/>
       },
       {
