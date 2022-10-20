@@ -1,27 +1,17 @@
-import { useState, useEffect, useRef } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { Button } from 'react-daisyui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
+import WidthContext from '../contexts/width'
+
 import SidebarBody from './SidebarBody'
 
 const Sidebar = () => {
-  const [windowWidth, setWindowWidth] = useState(undefined)
+  const windowWidth = useContext(WidthContext)
   const [visible, setVisible] = useState(false)
   const ref = useRef()
   const range = 1024  // When the sidebar becomes toggleable
-
-  useEffect(() => {
-    const resize = () => {
-      setWindowWidth(window.innerWidth)
-    }
-
-    window.addEventListener('resize', resize)
-
-    resize()
-
-    return () => window.removeEventListener('resize', resize)
-  }, [])
 
   useEffect(() => {
     window.onclick = e => {

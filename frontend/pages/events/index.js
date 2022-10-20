@@ -15,7 +15,7 @@ const Events = ({ events }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-y-6 w-7/12 mx-auto sm:py-8 pb-8 pt-16">
+      <div className="flex flex-col gap-y-6 w-1/2 mx-auto sm:py-8 pb-8 pt-16">
         <div className="relative">
           <Input className='w-full focus:outline-none focus:border-primary text-lg' placeholder='Wyszukaj Wydarzenie...' />
           <Button color='ghost' className="absolute inset-y-0 right-0">
