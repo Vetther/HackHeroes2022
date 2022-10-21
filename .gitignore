@@ -36,10 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 
-### BACK_END ####
-
-backend/src/main/resources/application.properties
-
 #### FRONT_END ####
 
 # dependencies
@@ -64,3 +60,4 @@ frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
 
+backend/src/main/resources/application.properties
