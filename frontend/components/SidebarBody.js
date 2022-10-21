@@ -26,29 +26,35 @@ const SidebarBody = () => {
         {
             name: 'Wydarzenia',
             path: '/events',
-            icon: <FontAwesomeIcon icon={faCalendar} style={{marginRight: 4, width: 20, height: 20}}/>
+            icon: <FontAwesomeIcon icon={faCalendar} style={{marginRight: 4, width: 20, height: 20}}/>,
+            sub: [
+                {
+                    name: 'Archiwalne Wydarzenia',
+                    path: '/archived-events',
+                }
+            ]
         },
         {
             name: 'Ankiety',
             path: '/polls',
-            icon: <FontAwesomeIcon icon={faSquarePollVertical} style={{marginRight: 4, width: 20, height: 20}}/>
+            icon: <FontAwesomeIcon icon={faSquarePollVertical} style={{marginRight: 4, width: 20, height: 20}} />,
         },
         {
             name: 'Zrzutki Funduszy',
             path: '/zrzutki',
-            icon: <FontAwesomeIcon icon={faHandshakeAngle} style={{marginRight: 4, width: 20, height: 20}}/>
+            icon: <FontAwesomeIcon icon={faHandshakeAngle} style={{marginRight: 4, width: 20, height: 20}} />,
         },
         {
             name: 'Wiadomości',
             path: '/news',
-            icon: <FontAwesomeIcon icon={faNewspaper} style={{marginRight: 4, width: 20, height: 20}}/>
+            icon: <FontAwesomeIcon icon={faNewspaper} style={{marginRight: 4, width: 20, height: 20}} />,
         },
     ],
     'informacje o użytkowniku': !user ? [
       {
           name: 'Zaloguj się',
           path: '/login',
-          icon: <FontAwesomeIcon icon={faRightToBracket} style={{marginRight: 4, width: 20, height: 20}}/>
+          icon: <FontAwesomeIcon icon={faRightToBracket} style={{marginRight: 4, width: 20, height: 20}} />,
       },
       /* {
           name: 'Zarejestruj się',
@@ -61,39 +67,39 @@ const SidebarBody = () => {
       {
           name: `Profil ${user.sub}`,
           path: `/profile/${user.sub}`,
-          icon: <FontAwesomeIcon icon={faUser} style={{marginRight: 4, width: 20, height: 20}}/>
+          icon: <FontAwesomeIcon icon={faUser} style={{marginRight: 4, width: 20, height: 20}} />,
       },
       {
           name: 'Twoje Wydarzenia',
           path: `/profile/${user.sub}/events`,
-          icon: <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: 4, width: 20, height: 20}}/>
+          icon: <FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: 4, width: 20, height: 20}} />,
       },
       {
           name: 'Twoje Ankiety',
           path: `/profile/${user.sub}/polls`,
-          icon: <FontAwesomeIcon icon={faSquarePollHorizontal} style={{marginRight: 4, width: 20, height: 20}}/>
+          icon: <FontAwesomeIcon icon={faSquarePollHorizontal} style={{marginRight: 4, width: 20, height: 20}} />,
       },
       {
           name: 'Twoje Zrzutki',
           path: `/profile/${user.sub}/zrzutki`,
-          icon: <FontAwesomeIcon icon={faHandHoldingHeart} style={{marginRight: 4, width: 20, height: 20}}/>
+          icon: <FontAwesomeIcon icon={faHandHoldingHeart} style={{marginRight: 4, width: 20, height: 20}} />,
       },
       {
           name: 'Wyloguj się',
           path: '/logout',
-          icon: <FontAwesomeIcon icon={faRightFromBracket} style={{marginRight: 4, width: 20, height: 20}}/>
+          icon: <FontAwesomeIcon icon={faRightFromBracket} style={{marginRight: 4, width: 20, height: 20}} />,
       },
     ],
     'informacje o witrynie': [
         {
             name: 'O nas',
             path: '/about-us',
-            icon: <FontAwesomeIcon icon={faInfoCircle} style={{marginRight: 4, width: 20, height: 20}}/>
+            icon: <FontAwesomeIcon icon={faInfoCircle} style={{marginRight: 4, width: 20, height: 20}} />,
         },
         {
             name: 'Dane techniczne',
             path: '/dane-techniczne',
-            icon: <FontAwesomeIcon icon={faFlag} style={{marginRight: 4, width: 20, height: 20}}/>
+            icon: <FontAwesomeIcon icon={faFlag} style={{marginRight: 4, width: 20, height: 20}} />,
         },
     ]
   }
