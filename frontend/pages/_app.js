@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/globals.scss'
 import { AuthProvider } from '../contexts/auth'
 import { WidthProvider } from '../contexts/width'
 import Layout from '../components/Layout'

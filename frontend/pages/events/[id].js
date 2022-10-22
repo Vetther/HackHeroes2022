@@ -105,7 +105,7 @@ const UserEvent = ({ event }) => {
           <p className='text-md text-base-content/70 font-medium pt-1 mb-4'>{event.address}</p>
           <div className="flex justify-center gap-x-2">
             {event.tags.map(tag => (
-              <Tag tag={tag} selected={true} />
+              <Tag tag={tag} selected={false} />
             ))}
           </div>
         </div>
