@@ -95,24 +95,21 @@ const Register = () => {
             type='text' 
             placeholder='Nazwa Użytkownika' 
             value={input.username} 
-            onChange={e => setInput({ ...input, username: e.target.value })} 
-            onBlur={isCorrectUsername} 
+            onChange={e => { setInput({ ...input, username: e.target.value }); isCorrectUsername() }} 
           />
           <Input 
             error={errors.email} 
             type='email' 
             placeholder='Email' 
             value={input.email} 
-            onChange={e => setInput({ ...input, email: e.target.value })} 
-            onBlur={isCorrectEmail} 
+            onChange={e => { setInput({ ...input, email: e.target.value }); isCorrectEmail() }} 
           />
           <Input 
             error={errors.password} 
             type='password' 
             placeholder='Hasło' 
             value={input.password} 
-            onChange={e => setInput({ ...input, password: e.target.value })} 
-            onBlur={isCorrectPassword} 
+            onChange={e => { setInput({ ...input, password: e.target.value }); isCorrectPassword() }} 
             autoComplete='on'
           />
           <Button color='primary' disabled={isDisabled()}>Zarejestruj</Button>
