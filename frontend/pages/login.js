@@ -3,6 +3,7 @@ import { Button } from "react-daisyui"
 import Link from "next/link"
 
 import AuthContext from "../contexts/auth"
+import AlertContext from "../contexts/alert"
 
 import Box from "../components/Box"
 import Input from "../components/Input"
@@ -14,6 +15,7 @@ const Login = () => {
     password: { valid: false, message: '' },
   })
   const { login } = useContext(AuthContext)
+  const { setAlert } = useContext(AlertContext)
 
   const isCorrectUsername = () => {
     if(inputs.username.length < 3) {
@@ -38,9 +40,22 @@ const Login = () => {
       setErrors({ ...errors, password: { valid: true, message: '' } })
     }
   }
+  
+  const submitLogin = e => {
+    if(login(inputs.username, inputs.password)) {
+      reset()
+      setAlert({ visible: true, type: 'error', message: 'Podane dane są nieprawidłowe' })
+    }
+    e.preventDefault()
+  }
 
   const isDisabled = () => {
     return !errors.username.valid || !errors.password.valid
+  }
+
+  const reset = () => {
+    setInputs({ username: '', password: '' })
+    setErrors({ username: { valid: false, message: '' }, password: { valid: false, message: '' } })
   }
 
   useEffect(() => isCorrectUsername(), [inputs.username])
@@ -50,7 +65,7 @@ const Login = () => {
     <div className='flex justify-center items-center h-screen'>
       <Box className='lg:w-1/2 w-3/5'>
         <p className="font-bold text-3xl text-primary mb-12">Logowanie</p>
-        <form className='flex flex-col gap-y-8' onSubmit={e => { login(inputs.username, inputs.password); e.preventDefault() }}>
+        <form className='flex flex-col gap-y-8' onSubmit={submitLogin}>
           <Input
             error={errors.username}
             type='text' 

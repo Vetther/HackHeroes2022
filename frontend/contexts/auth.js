@@ -37,6 +37,9 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('tokens', JSON.stringify(data))
       router.push('/events')
     }
+    else {
+      return true
+    }
   }
 
   const logout = () => {

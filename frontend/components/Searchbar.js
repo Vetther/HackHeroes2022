@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react"
-import { Input } from "react-daisyui"
+import { Input, Button } from "react-daisyui"
 import Link from 'next/link'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
-const Searchbar = ({ allEvents, ...args }) => {
+const Searchbar = ({ allEvents, setEvents, ...args }) => {
   const [ value, setValue ] = useState('')
   const [ visible, setVisible ] = useState(true)
   const [ searches, setSearches ] = useState({
@@ -14,15 +16,23 @@ const Searchbar = ({ allEvents, ...args }) => {
   const ref = useRef()
 
   useEffect(() => {
-    window.onclick = e => {
+    const handeClick = e => {
       if(!(ref.current && ref.current.contains(e.target))) {
         setVisible(true)
       }
     }
-    window.onkeydown = e => {
+    const handleKeyPress = e => {
       if(e.key === 'Enter') {
         console.log('enter');
       }
+    }
+
+    document.addEventListener('click', handeClick)
+    // document.addEventListener('keydown', handleKeyPress)
+    
+    return () => {
+      document.removeEventListener('click', handeClick)
+      // document.removeEventListener('keydown', handleKeyPress)
     }
   }, [])
 
@@ -39,16 +49,26 @@ const Searchbar = ({ allEvents, ...args }) => {
     setVisible(!visible && value.length === 0)
   }, [value])
 
+  const commitSearch = () => {
+    const searchedEvents = [ ...new Set([].concat(...Object.values(searches))) ]
+
+    setEvents(searchedEvents.length === 0 ? [ ...allEvents ] : searchedEvents)
+  }
+
   return (
-    <>
-      <Input 
-        ref={ref}
-        value={value} 
-        onChange={e => setValue(e.target.value.toLowerCase())} 
-        className='w-full focus:outline-none focus:border-primary text-lg' 
-        {...args} 
-      />
-      <div ref={ref} className={`bg-base-100 p-3 mt-0.5 absolute w-full flex flex-col gap-y-6 gap-16 z-20 border border-base-200 rounded-lg drop-shadow-lg ${visible ? 'hidden' : ''}`}>
+    <div className='relative'>
+      <div className="relative">
+        <Input 
+          value={value} 
+          onChange={e => setValue(e.target.value.toLowerCase())} 
+          className='w-full focus:outline-none focus:border-primary text-lg' 
+          {...args} 
+        />
+        <Button color='ghost' className="absolute inset-y-0 right-0" onClick={commitSearch}>
+          <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
+        </Button>
+      </div>
+      <div ref={ref} className={`bg-base-100 p-3 absolute mt-0.5 w-full flex flex-col gap-y-6 gap-16 z-20 border border-base-200 rounded-lg drop-shadow-lg ${visible ? 'hidden' : ''}`}>
         {Object.entries(searches).map(search => (
           search[1].length > 0 && 
           <label key={search[0]}>
@@ -66,7 +86,7 @@ const Searchbar = ({ allEvents, ...args }) => {
             </div>
           </label>))}
       </div>
-    </>
+    </div>
   )
 }
 

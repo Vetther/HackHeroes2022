@@ -1,7 +1,5 @@
 import { useContext, useState, useEffect } from "react"
 import { Button } from "react-daisyui"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
 import AuthContext from "../../contexts/auth"
 
@@ -41,12 +39,7 @@ const Events = ({ queryEvents, queryTags }) => {
   return (
     <>
       <div className="flex flex-col gap-y-6 w-7/12 mx-auto sm:py-8 pb-8 pt-16">
-        <div className="relative">
-          <Searchbar allEvents={allEvents} placeholder='Wyszukaj Wydarzenie...' />
-          <Button color='ghost' className="absolute inset-y-0 right-0">
-            <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
-          </Button>
-        </div>
+        <Searchbar allEvents={allEvents} placeholder='Wyszukaj Wydarzenie...' setEvents={setEvents} />
         {user && <Button color='primary' onClick={() => setVisible(true)} className='ml-auto'>Stwórz</Button>}
         <div className="2xl:flex gap-x-2">
           <Box className='2xl:w-3/12 2xl:h-1/6 2xl:order-last 2xl:mb-0 mb-10'>
