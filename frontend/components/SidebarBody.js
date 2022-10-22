@@ -13,11 +13,11 @@ import {
   faNewspaper,
 } from "@fortawesome/free-solid-svg-icons"
 import { faCalendar, faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
+import { themeChange } from "theme-change";
 
 import AuthContext from '../contexts/auth'
 
 import SidebarTab from './SidebarTab'
-import {themeChange} from "theme-change";
 
 const SidebarBody = () => {
   const { user } = useContext(AuthContext)

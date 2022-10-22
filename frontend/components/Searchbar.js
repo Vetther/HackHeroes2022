@@ -10,14 +10,15 @@ const Searchbar = ({ searches, setSearches, ...args }) => {
   }, [])
 
   useEffect(() => {
-    if(allSearches.length > 0) {
-      setSearches(allSearches.filter(search => 
-        search.title.toLowerCase().includes(value) ||
-        search.shortDescription.toLowerCase().includes(value) ||
-        search.address.toLowerCase().includes(value) ||
-        search.creator.name.toLowerCase().includes(value)
-      ))
+    if(allSearches.length === 0) {
+      return
     }
+    setSearches(allSearches.filter(search => 
+      search.title.toLowerCase().includes(value) ||
+      search.shortDescription.toLowerCase().includes(value) ||
+      search.address.toLowerCase().includes(value) ||
+      search.creator.name.toLowerCase().includes(value)
+    ))
   }, [value])
 
   return (
