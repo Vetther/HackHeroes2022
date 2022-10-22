@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import {useContext, useEffect} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faInfoCircle,
@@ -16,10 +16,14 @@ import { faCalendar, faCalendarCheck } from "@fortawesome/free-regular-svg-icons
 
 import AuthContext from '../contexts/auth'
 
-import SidebarTab from './SidebarTab'
+import {themeChange} from "theme-change";
 
 const SidebarBody = () => {
   const { user } = useContext(AuthContext)
+
+    useEffect(() => {
+        themeChange(false)
+    }, [])
 
   const categories = {
     'główne dane' : [
@@ -105,7 +109,7 @@ const SidebarBody = () => {
   }
 
   return (
-    <div className='sticky top-0 flex flex-col lg:w-1/6 h-screen bg-base-100 border border-r-base-300'>
+    <div className='sticky top-0 flex flex-col lg:w-1/6 h-screen bg-base-100 border border-base-300'>
         <div className='flex p-6 mb-5'>
             <p className="font-bold xl:text-2xl text-xl text-primary">CitizenHub.pl</p>
             <label className="swap swap-rotate ml-3">

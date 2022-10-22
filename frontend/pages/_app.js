@@ -5,18 +5,19 @@ import Layout from '../components/Layout'
 import Head from 'next/head'
 
 const MyApp = ({ Component, pageProps }) => {
-  return (
-    <AuthProvider>
-      <Head>
-        
-      </Head>
-      <WidthProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </WidthProvider>
-    </AuthProvider>
-  )
+
+    return (
+        <AuthProvider>
+          <Head>
+
+          </Head>
+          <WidthProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+          </WidthProvider>
+        </AuthProvider>
+    )
 }
 
 export default MyApp
