@@ -7,7 +7,7 @@ import AuthContext from "../../../contexts/auth"
 import Box from "../../../components/Box"
 import EventModal from '../../../components/EventModal'
 
-const Events = ({ events }) => {
+const Events = ({ events, tags }) => {
   const { user } = useContext(AuthContext)
   const [ modal, setModal ] = useState(false)
   const maxTitleLength = 6
@@ -38,17 +38,23 @@ const Events = ({ events }) => {
           </Table>
         </Box>
       </div>
-      <EventModal open={modal} onClickBackdrop={() => setModal(false)} />
+      <EventModal open={modal} onClickBackdrop={() => setModal(false)} tags={tags?.data} />
     </>
   )
 }
 
 export const getServerSideProps = async () => {
-  const res = await fetch('http://141.147.1.251:5000/api/v1/events')
-  const events = await res.json()
+  const [ eventsRes, tagsRes ] = await Promise.all([
+    fetch('http://141.147.1.251:5000/api/v1/events'),
+    fetch('http://141.147.1.251:5000/api/v1/tags'),
+  ])
+  const [ events, tags ] = await Promise.all([
+    eventsRes.json(),
+    tagsRes.json(),
+  ])
 
   return {
-    props: { events }
+    props: { events, tags }
   }
 }
 

@@ -3,15 +3,31 @@ import { Button } from 'react-daisyui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-import WidthContext from '../contexts/width'
-
 import SidebarBody from './SidebarBody'
 
 const Sidebar = () => {
-  const windowWidth = useContext(WidthContext)
+  const [ windowWidth, setWindowWidth ] = useState(undefined)
   const [visible, setVisible] = useState(false)
   const ref = useRef()
   const range = 1024  // When the sidebar becomes toggleable
+
+  useEffect(() => {
+    const resize = () => {
+      setWindowWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', resize)
+
+    resize()
+
+    return () => window.removeEventListener('resize', resize)
+  }, [])
+
+  useEffect(() => {
+    if(windowWidth >= range) {
+      setVisible(false)
+    }
+  }, [windowWidth])
 
   useEffect(() => {
     window.onclick = e => {
@@ -21,15 +37,9 @@ const Sidebar = () => {
     }
   }, [])
 
-  useEffect(() => {
-    if(windowWidth >= range) {
-      setVisible(false)
-    }
-  }, [windowWidth])
-
   return (
-    windowWidth >= range ? 
-      <SidebarBody /> 
+    windowWidth >= range 
+    ? <SidebarBody /> 
     :
       <>
         <Button color='primary' className='fixed top-2 left-2' onClick={() => setVisible(true)}>

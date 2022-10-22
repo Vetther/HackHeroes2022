@@ -1,23 +1,19 @@
 import '../styles/globals.scss'
 import { AuthProvider } from '../contexts/auth'
-import { WidthProvider } from '../contexts/width'
 import Layout from '../components/Layout'
 import Head from 'next/head'
 
 const MyApp = ({ Component, pageProps }) => {
-
-    return (
-        <AuthProvider>
-          <Head>
-
-          </Head>
-          <WidthProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-          </WidthProvider>
-        </AuthProvider>
-    )
+  return (
+    <AuthProvider>
+      <Head>
+        
+      </Head>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+    </AuthProvider>
+  )
 }
 
 export default MyApp

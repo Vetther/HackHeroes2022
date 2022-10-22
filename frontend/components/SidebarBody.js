@@ -22,9 +22,7 @@ import SidebarTab from './SidebarTab'
 const SidebarBody = () => {
   const { user } = useContext(AuthContext)
 
-    useEffect(() => {
-        themeChange(false)
-    }, [])
+    useEffect(() => themeChange(false), [])
 
   const categories = {
     'główne dane' : [

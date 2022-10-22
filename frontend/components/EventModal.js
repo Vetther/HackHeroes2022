@@ -3,12 +3,14 @@ import { Modal, Button } from "react-daisyui"
 import Router from 'next/router'
 
 import AuthContext from '../contexts/auth'
+import AlertContext from '../contexts/alert'
 
 import Input from './Input'
 import Tag from './Tag'
 
-const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
+const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
   const { user, tokens } = useContext(AuthContext)
+  const { setAlert } = useContext(AlertContext)
   const [inputs, setInputs] = useState({
     img: '',
     title: '',
@@ -76,7 +78,7 @@ const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
     else {
       setErrors({ ...errors, title: { valid: true, message: '' } })
     }
-}
+  }
 
   const isCorrectSummary = () => {
     if(inputs.summary.length < 6) {
@@ -128,12 +130,16 @@ const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
   }
 
   const isDisabled = () => {
-    return Object.values(errors).some(error => !error.valid) || !addressError
+    return !errors.img.valid || !errors.title.valid || !errors.summary.valid ||
+      !errors.description.valid || !errors.datetime.valid && !id || !errors.tags.valid && !id ||
+      !addressError.valid
+
   }
   
   const reset = () => {
-    setInputs(Object.fromEntries(Object.keys(inputs).map(input => [input, ''])))
+    setInputs(Object.fromEntries(Object.keys(inputs).map(input => [ input, '' ])))
     setAddress('')
+    onClickBackdrop()
   }
 
   const addEvent = async () => {
@@ -159,9 +165,41 @@ const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
     if(data.success) {
       reset()
       Router.reload()
+      setAlert({ visible: true, type: 'success', message: 'Pomyślnie dodano Wydarzenie.' })
     }
     else {
-      console.log(data)
+      reset()
+      setAlert({ visible: true, type: 'error', message: 'Wystąpił błąd podczas tworzenia Wydarzenia.' })
+    }
+  }
+
+  const editEvent = async inputs => {
+    const response = await fetch(`http://141.147.1.251:5000/api/v1/event/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tokens.access_token}`,
+      },
+      body: JSON.stringify({
+        imageUrl: inputs.img,
+        title: inputs.title,
+        address: address,
+        shortDescription: inputs.summary,
+        longDescription: inputs.description,
+        creator_id: user.id,
+      })
+    })
+    const data = await response.json()
+    console.log(response, data)
+
+    if(data.success) {
+      reset()
+      // Router.reload()
+      setAlert({ visible: true, type: 'success', message: 'Pomyślnie zedytowano Wydarzenie.' })
+    }
+    else {
+      reset()
+      setAlert({ visible: true, type: 'error', message: 'Wystąpił błąd podczas edytowania Wydarzenia.' })
     }
   }
 
@@ -175,7 +213,7 @@ const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
   return (
     <Modal open={open} onClickBackdrop={onClickBackdrop} {...args}>
       <Modal.Header className='flex justify-between'>
-        <p className='font-bold text-2xl'>Stwórz Wydarzenie</p>
+        <p className='font-bold text-2xl'>{id ? 'Edytuj' : 'Stwórz'} Wydarzenie</p>
         <Button size='sm' onClick={onClickBackdrop} color='primary'>x</Button>
       </Modal.Header>
       <Modal.Body className='flex flex-col gap-y-8 p-1'>
@@ -185,6 +223,7 @@ const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
           placeholder='URL Zdjęcia'
           value={inputs.img}
           onChange={e => setInputs({ ...inputs, img: e.target.value })}
+          onBlur={isCorrectImg}
         />
         <Input
           error={errors.title}
@@ -192,8 +231,9 @@ const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
           placeholder='Tytuł'
           value={inputs.title}
           onChange={e => setInputs({ ...inputs, title: e.target.value })}
+          onBlur={isCorrectTitle}
         />
-        {!edit && <Input
+        <Input
           error={errors.address}
           type='address'
           placeholder='Adres'
@@ -201,13 +241,14 @@ const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
           onChange={e => setAddress(e.target.value)}
           onBlur={() => setAddressError({ valid: false, message: 'Nie Wybrano Adresu' })}
           onPlaceSelected={submitAddress}
-        />}
+        />
         <Input
           error={errors.summary}
           type='text'
           placeholder='Podsumowanie'
           value={inputs.summary}
           onChange={e => setInputs({ ...inputs, summary: e.target.value })}
+          onBlur={isCorrectSummary}
         />
         <Input
           error={errors.description}
@@ -215,15 +256,17 @@ const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
           placeholder='Opis'
           value={inputs.description}
           onChange={e => setInputs({ ...inputs, description: e.target.value })}
+          onBlur={isCorrectDescription}
         />
-        {!edit && <Input
+        {!id && <Input
           error={errors.datetime}
           type='datetime-local'
           placeholder='Data Wydarzenia'
           value={inputs.datetime}
           onChange={e => setInputs({ ...inputs, datetime: e.target.value })}
+          onBlur={isCorrectDatetime}
         />}
-        {!edit && <div>
+        {!id && <div>
           <div className="flex gap-x-1 mb-4">
             {tags?.map(tag => (
               <Tag 
@@ -240,7 +283,7 @@ const EventModal = ({ open, onClickBackdrop, tags, edit, ...args }) => {
           </div>
           {(!errors.tags.valid && errors.tags.message !== '') && <p className='text-red-700'>{errors.tags.message}</p>}
         </div>}
-        <Button color='primary' onClick={edit ? editEvent : addEvent} disabled={isDisabled()}>{edit ? 'Edytuj' : 'Stwórz'}</Button>
+        <Button color='primary' onClick={id ? editEvent : addEvent} disabled={isDisabled()}>{id ? 'Edytuj' : 'Stwórz'}</Button>
       </Modal.Body>
     </Modal>
   )
