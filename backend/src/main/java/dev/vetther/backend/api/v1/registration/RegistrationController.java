@@ -28,42 +28,42 @@ public class RegistrationController {
 
         if (request.getUsername() == null) {
             Response response = new Response(false, USERNAME_IS_NULL, null);
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok().body(response);
         }
 
         if (request.getEmail() == null) {
             Response response = new Response(false, EMAIL_IS_NULL, null);
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok().body(response);
         }
 
         if (request.getPassword() == null) {
             Response response = new Response(false, PASSWORD_IS_NULL, null);
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok().body(response);
         }
 
         if (!RegistrationUtils.isUsername(request.getUsername())) {
             Response response = new Response(false, INVALID_USERNAME, null);
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok().body(response);
         }
 
         if (!RegistrationUtils.isEmail(request.getEmail())) {
             Response response = new Response(false, INVALID_EMAIL, null);
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok().body(response);
         }
 
         if (!RegistrationUtils.isPassword(request.getPassword())) {
             Response response = new Response(false, INVALID_PASSWORD, null);
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok().body(response);
         }
 
         if (this.userService.getUser(request.getUsername()).isPresent()) {
             Response response = new Response(false, USERNAME_EXISTS, null);
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok().body(response);
         }
 
         if (this.userService.getUser(request.getEmail()).isPresent()) {
             Response response = new Response(false, EMAIL_EXISTS, null);
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok().body(response);
         }
 
         User user = this.userService.createUser(
