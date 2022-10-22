@@ -16,6 +16,7 @@ import { faCalendar, faCalendarCheck } from "@fortawesome/free-regular-svg-icons
 
 import AuthContext from '../contexts/auth'
 
+import SidebarTab from './SidebarTab'
 import {themeChange} from "theme-change";
 
 const SidebarBody = () => {
