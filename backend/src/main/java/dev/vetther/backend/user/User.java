@@ -29,7 +29,6 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
 
-    @Convert(converter = AesEncryptor.class)
     @JsonIgnore
     private String email;
 

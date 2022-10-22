@@ -25,6 +25,9 @@ public enum ResponseError {
     EVENT_ALREADY_INTERESTED,
     EVENT_NOT_INTERESTED,
 
+    /** User Controller **/
+    USER_NOT_FOUND,
+
     /** Auth **/
     AUTH_ERROR,
     ACCESS_DENIED,

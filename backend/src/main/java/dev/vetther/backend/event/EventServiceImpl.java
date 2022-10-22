@@ -84,7 +84,7 @@ public class EventServiceImpl {
             topic = "Wkrótce rozpocznie się wydarzenie " + event.getTitle() + "!";
             content = "Wydarzenie na które się zapisałeś rozpocznie się za mniej niż 1 godzinę!" +
                     "<br>Nazwa: <b>" + event.getTitle() + "</b>" +
-                    "<br>Nie możesz tego przegapić! Sprawdź wszystkie informacje na naszej witrynie <b>https://citizenshub.pl</b>" +
+                    "<br>Nie możesz tego przegapić! Sprawdź wszystkie informacje na naszej witrynie <b>https://citizenhub.pl</b>" +
                     "<br>Pozdrawiamy," +
                     "<br>Zespół CitizensHub.pl";
         }
@@ -93,7 +93,7 @@ public class EventServiceImpl {
             topic = "Rozpoczęło się wydarzenie " + event.getTitle() + "!";
             content = "Wydarzenie na które się zapisałeś właśnie rozpoczęło się!" +
                     "<br>Nazwa: <b>" + event.getTitle() + "</b>" +
-                    "<br>Nie możesz tego przegapić! Sprawdź wszystkie informacje na naszej witrynie <b>https://citizenshub.pl</b>" +
+                    "<br>Nie możesz tego przegapić! Sprawdź wszystkie informacje na naszej witrynie <b>https://citizenhub.pl</b>" +
                     "<br>Pozdrawiamy," +
                     "<br>Zespół CitizensHub.pl";
         }

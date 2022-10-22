@@ -18,7 +18,7 @@ import java.time.Instant;
 public class MailSchedule {
 
     private final EventServiceImpl eventService;
-    private static final int MINUTES = 5;
+    private static final int MINUTES = 30;
 
     @Scheduled(fixedDelay = 1000 * 60)
     public void scheduleFixedDelayTask() {
