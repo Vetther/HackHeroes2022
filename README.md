@@ -14,6 +14,7 @@
   <li>Spring Boot (backend)</li>
   <ul>
     <li>Spring Security</li>
+    <li>Spring Mail + Gmail</li>
     <li>Spring Data JPA</li>
     <li>Tokens JWT</li>
     <li>Hibernate</li>
