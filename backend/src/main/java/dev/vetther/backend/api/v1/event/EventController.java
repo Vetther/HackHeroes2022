@@ -53,10 +53,6 @@ public class EventController {
             return ResponseEntity.ok(new Response(false, INVALID_EVENT_IMAGE, null));
         }
 
-        if (principal == null) {
-            return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
-        }
-
         Optional<User> user = this.userService.getUser(principal.getName());
 
         if (user.isEmpty()) {
@@ -110,7 +106,6 @@ public class EventController {
             return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
         }
 
-        System.out.println(principal.getName());
         User user = this.userService.getUser(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         Optional<Event> eventOpt = this.eventService.getEvent(id);
@@ -124,6 +119,37 @@ public class EventController {
         }
 
         this.eventService.removeEvent(eventOpt.get().getId());
+
+        return ResponseEntity.ok(new Response(true, null, null));
+    }
+
+    @PutMapping("/event/{id}")
+    public ResponseEntity<Response> editEvent(@PathVariable long id, Principal principal, @RequestBody Event values) {
+
+        if (principal == null) {
+            return ResponseEntity.ok(new Response(false, ACCESS_DENIED, null));
+        }
+
+        User user = this.userService.getUser(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        Optional<Event> eventOpt = this.eventService.getEvent(id);
+
+        if (eventOpt.isEmpty()) {
+            return ResponseEntity.ok(new Response(false, EVENT_NOT_FOUND, null));
+        }
+
+        if (!Objects.equals(eventOpt.get().getCreator().getId(), user.getId())) {
+            return ResponseEntity.ok().body(new Response(false, ACCESS_DENIED, null));
+        }
+
+        Event event = eventOpt.get();
+
+        this.eventService.editEvent(event.getId(),
+                values.getTitle(),
+                values.getShortDescription(),
+                values.getLongDescription(),
+                values.getAddress(),
+                values.getImageUrl());
 
         return ResponseEntity.ok(new Response(true, null, null));
     }

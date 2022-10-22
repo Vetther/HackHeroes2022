@@ -6,6 +6,7 @@ import dev.vetther.backend.mail.MailService;
 import dev.vetther.backend.tag.Tag;
 import dev.vetther.backend.user.User;
 import dev.vetther.backend.user.UserService;
+import dev.vetther.backend.utils.EventUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -110,6 +111,28 @@ public class EventServiceImpl {
                         throw new RuntimeException(e);
                     }
                 });
+
+        this.eventRepository.save(event);
+    }
+
+    public void editEvent(long eventId, String title, String shortDescription, String longDescription, String address, String imageUrl) {
+        Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new NullPointerException("Event not found"));
+
+        if (title != null && EventUtils.isTitle(title) && !title.isBlank() && !title.isEmpty()) {
+            event.setTitle(title);
+        }
+        if (shortDescription != null && EventUtils.isShortDesc(shortDescription) && !shortDescription.isBlank() && !shortDescription.isEmpty()) {
+            event.setShortDescription(shortDescription);
+        }
+        if (longDescription != null && EventUtils.isLongDesc(longDescription) && !longDescription.isBlank() && !longDescription.isEmpty()) {
+            event.setLongDescription(longDescription);
+        }
+        if (address != null && !address.isBlank() && !address.isEmpty()) {
+            event.setAddress(address);
+        }
+        if (imageUrl != null && !imageUrl.isBlank() && !imageUrl.isEmpty()) {
+            event.setImageUrl(imageUrl);
+        }
 
         this.eventRepository.save(event);
     }
