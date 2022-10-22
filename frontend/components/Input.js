@@ -6,13 +6,17 @@ const Input = ({ type, error, onPlaceSelected, ...args }) => {
   return (
     <div>
       {type === 'address' ? 
-        <GoogleSearchbar className={className} onPlaceSelected={onPlaceSelected} { ...args } />
+        <GoogleSearchbar 
+          className={className} 
+          onPlaceSelected={onPlaceSelected} 
+          { ...args } 
+        />
       : type === 'textarea' ?
         <textarea className={className} { ...args } />
       :
         <input type={type} className={className} {...args} />
       }
-      {!error?.valid && <p className='text-red-700'>{error?.message}</p>}
+      {(!error?.valid && error?.message !== '') && <p className='text-red-700'>{error?.message}</p>}
     </div>
   )
 }

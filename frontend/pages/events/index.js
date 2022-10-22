@@ -72,7 +72,7 @@ const Events = ({ queryEvents, queryTags }) => {
           </div>
         </div>
       </div>
-      <EventModal open={visible} onClickBackdrop={() => setVisible(false)} />
+      <EventModal open={visible} onClickBackdrop={() => setVisible(false)} tags={queryTags?.data} />
     </>
   )
 }
