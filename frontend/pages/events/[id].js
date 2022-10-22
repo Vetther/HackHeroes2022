@@ -116,7 +116,7 @@ const UserEvent = ({ event }) => {
                 : <Button color='warning' onClick={quit}>Zrezygnuj</Button>
               :
                 <>
-                  <Button color='accent' onClick={edit}>Edytuj</Button>
+                  <Button color='info' onClick={edit}>Edytuj</Button>
                   <Button color='error' onClick={deleteEvent}>Usuń</Button>
                 </>
           )}

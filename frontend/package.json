@@ -20,6 +20,7 @@
     "react-daisyui": "^2.4.4",
     "react-dom": "18.2.0",
     "react-google-autocomplete": "^2.7.0",
+    "sass": "^1.55.0",
     "theme-change": "^2.2.0"
   },
   "devDependencies": {

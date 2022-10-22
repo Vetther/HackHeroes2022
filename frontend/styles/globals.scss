@@ -10,3 +10,24 @@ body {
 .pac-logo::after {
     display: none;
 }
+
+* {
+    scrollbar-track-color: transparent;
+    scrollbar-width: auto;
+    scrollbar-color: #8660da #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #8660da;
+    border-radius: 5px;
+    border: 3px solid transparent;
+}
