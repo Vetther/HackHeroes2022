@@ -27,7 +27,7 @@ const Event = ({ event }) => {
             </Tooltip>
             <Tooltip message='Tagi' className='flex items-center tooltip-left'>
               <FontAwesomeIcon icon={faTags} style={{color: '#6b7280', width:17, height: 17}}/>
-              <div className="flex gap-x-1 ml-1">
+              <div className="flex gap-x-1 ml-2">
                 {event.tags.map(tag => (
                   <Tag key={tag.id} tag={tag} small />
                 ))}
