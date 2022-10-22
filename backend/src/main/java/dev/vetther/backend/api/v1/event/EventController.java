@@ -120,7 +120,7 @@ public class EventController {
         }
 
         if (!Objects.equals(eventOpt.get().getCreator().getId(), user.getId())) {
-            return ResponseEntity.badRequest().body(new Response(false, ACCESS_DENIED, null));
+            return ResponseEntity.ok().body(new Response(false, ACCESS_DENIED, null));
         }
 
         this.eventService.removeEvent(eventOpt.get().getId());
@@ -148,14 +148,14 @@ public class EventController {
         }
 
         if (Objects.equals(eventOpt.get().getCreator().getId(), user.getId())) {
-            return ResponseEntity.badRequest().body(new Response(false, EVENT_CREATOR_ERROR, null));
+            return ResponseEntity.ok().body(new Response(false, EVENT_CREATOR_ERROR, null));
         }
 
         if (eventOpt.get().getInterested()
                 .stream()
                 .map(User::getName)
                 .anyMatch(userName -> userName.equalsIgnoreCase(user.getName()))) {
-            return ResponseEntity.badRequest().body(new Response(false, EVENT_ALREADY_INTERESTED, null));
+            return ResponseEntity.ok().body(new Response(false, EVENT_ALREADY_INTERESTED, null));
         }
 
         this.eventService.joinEvent(id, user);
@@ -183,7 +183,7 @@ public class EventController {
         }
 
         if (Objects.equals(eventOpt.get().getCreator().getId(), user.getId())) {
-            return ResponseEntity.badRequest().body(new Response(false, EVENT_CREATOR_ERROR, null));
+            return ResponseEntity.ok().body(new Response(false, EVENT_CREATOR_ERROR, null));
         }
 
         if (eventOpt.get().getInterested()
@@ -191,7 +191,7 @@ public class EventController {
                 .map(User::getName)
                 .noneMatch(userName -> userName.equalsIgnoreCase(user.getName()))) {
 
-            return ResponseEntity.badRequest().body(new Response(false, EVENT_NOT_INTERESTED, null));
+            return ResponseEntity.ok().body(new Response(false, EVENT_NOT_INTERESTED, null));
         }
 
         this.eventService.quitEvent(id, user);

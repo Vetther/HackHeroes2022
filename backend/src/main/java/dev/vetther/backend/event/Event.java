@@ -1,5 +1,6 @@
 package dev.vetther.backend.event;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.vetther.backend.image.Image;
 import dev.vetther.backend.tag.Tag;
 import dev.vetther.backend.user.User;
@@ -25,21 +26,25 @@ public class Event {
 
     private String shortDescription;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String longDescription;
 
     private Instant publicationDate;
 
     private Instant eventDate;
 
+    @JsonIgnore
+    private int mailReminderStage;
+
     @ManyToOne
     @JoinColumn(name = "creator_id")
     private User creator;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "event_interested")
     private Set<User> interested;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "event_tags")
     private Set<Tag> tags;
 }
