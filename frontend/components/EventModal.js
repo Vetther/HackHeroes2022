@@ -53,7 +53,7 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
 
   const submitAddress = address => {
     setAddress(address)
-    setAddressError({ valid: true, message: '' })
+    if(!id) setAddressError({ valid: true, message: '' })
   }
 
   const isCorrectImg = () => {
@@ -133,7 +133,6 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
     return !errors.img.valid || !errors.title.valid || !errors.summary.valid ||
       !errors.description.valid || !errors.datetime.valid && !id || !errors.tags.valid && !id ||
       !addressError.valid
-
   }
   
   const reset = () => {
@@ -202,14 +201,12 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
     }
   }
 
-  if(!id) {
-    useEffect(() => isCorrectImg(), [inputs.img])
-    useEffect(() => isCorrectTitle(), [inputs.title])
-    useEffect(() => isCorrectSummary(), [inputs.summary])
-    useEffect(() => isCorrectDescription(), [inputs.description])
-    useEffect(() => isCorrectDatetime(), [inputs.datetime])
-    useEffect(() => isCorrectTags(), [inputs.tags])
-  }
+  useEffect(() => {if(!id) isCorrectImg()}, [inputs.img])
+  useEffect(() => {if(!id) isCorrectTitle()}, [inputs.title])
+  useEffect(() => {if(!id) isCorrectSummary()}, [inputs.summary])
+  useEffect(() => {if(!id) isCorrectDescription()}, [inputs.description])
+  useEffect(() => {if(!id) isCorrectDatetime()}, [inputs.datetime])
+  useEffect(() => {if(!id) isCorrectTags()}, [inputs.tags])
 
   return (
     <Modal open={open} onClickBackdrop={onClickBackdrop} {...args}>
@@ -224,7 +221,7 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
           placeholder='URL Zdjęcia'
           value={inputs.img}
           onChange={e => setInputs({ ...inputs, img: e.target.value })}
-          onBlur={isCorrectImg}
+          onBlur={() => {if(!id || inputs.title.length !== 0) isCorrectImg()}}
         />
         <Input
           error={errors.title}
@@ -232,7 +229,7 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
           placeholder='Tytuł'
           value={inputs.title}
           onChange={e => setInputs({ ...inputs, title: e.target.value })}
-          onBlur={isCorrectTitle}
+          onBlur={() => {if(!id || inputs.title.length !== 0) isCorrectTitle()}}
         />
         <Input
           error={errors.address}
@@ -249,7 +246,7 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
           placeholder='Podsumowanie'
           value={inputs.summary}
           onChange={e => setInputs({ ...inputs, summary: e.target.value })}
-          onBlur={isCorrectSummary}
+          onBlur={() => {if(!id || inputs.title.length !== 0) isCorrectSummary()}}
         />
         <Input
           error={errors.description}
@@ -257,7 +254,7 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
           placeholder='Opis'
           value={inputs.description}
           onChange={e => setInputs({ ...inputs, description: e.target.value })}
-          onBlur={isCorrectDescription}
+          onBlur={() => {if(!id || inputs.title.length !== 0) isCorrectDescription()}}
         />
         {!id && <Input
           error={errors.datetime}
@@ -265,7 +262,7 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
           placeholder='Data Wydarzenia'
           value={inputs.datetime}
           onChange={e => setInputs({ ...inputs, datetime: e.target.value })}
-          onBlur={isCorrectDatetime}
+          onBlur={() => {if(!id || inputs.title.length !== 0) isCorrectDatetime()}}
         />}
         {!id && <div>
           <div className="flex gap-x-1 mb-4">
@@ -284,7 +281,7 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
           </div>
           {(!errors.tags.valid && errors.tags.message !== '') && <p className='text-red-700'>{errors.tags.message}</p>}
         </div>}
-        <Button color='primary' onClick={id ? editEvent : addEvent} disabled={isDisabled()}>{id ? 'Edytuj' : 'Stwórz'}</Button>
+        <Button color='primary' onClick={id ? editEvent : addEvent} disabled={id ? true : isDisabled()}>{id ? 'Edytuj' : 'Stwórz'}</Button>
       </Modal.Body>
     </Modal>
   )
