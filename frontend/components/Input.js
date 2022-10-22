@@ -1,7 +1,7 @@
 import GoogleSearchbar from './GoogleSearchbar'
 
 const Input = ({ type, error, onPlaceSelected, ...args }) => {
-  const className = 'border-b border-b-base-content input focus:outline-none focus:border-primary w-full mb-1'
+  const className = 'border-b border-b-base-content/25 bg-base-100 focus:outline-none focus:border-primary w-full mb-1 py-2'
 
   return (
     <div>
