@@ -1,11 +1,12 @@
-import { useContext } from "react"
+import {useContext, useEffect} from "react"
 
 import AuthContext from "../contexts/auth"
 
 const Logout = () => {
+
   const { logout } = useContext(AuthContext)
 
-  logout()
+  useEffect(() => logout(), [])
 
   return (
     <></>
