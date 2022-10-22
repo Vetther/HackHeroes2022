@@ -18,6 +18,7 @@
     <li>Spring Data JPA</li>
     <li>Tokens JWT</li>
     <li>Hibernate</li>
+    <li>AES Encryption (db protection)</li>
   </ul>
   <br>
   <li>React.js + Next.js (frontend)</li>
