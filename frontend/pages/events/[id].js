@@ -113,7 +113,7 @@ const UserEvent = ({ event }) => {
           <div className='flex justify-center items-center text-center mt-6 gap-x-1.5'>
             {user && (user?.id !== event.creator.id
                 ? !event.interested.some(int => int.id === user?.id) 
-                  ? <Button color='success' onClick={join}>Dołącz</Button>
+                  ? <Button color='success' onClick={join}>Zapisz się</Button>
                   : <Button color='warning' onClick={quit}>Zrezygnuj</Button>
                 :
                   <>

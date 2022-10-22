@@ -74,7 +74,7 @@ const Searchbar = ({ allEvents, setEvents, ...args }) => {
           <label key={search[0]}>
             <p className="font-bold text-base-content/50 text-sm">{search[0]}</p>
             <div className="flex flex-col">
-              {search[1].slice(0, search[1].length > 5 ? 5 : search[1].length).map(s => (
+              {search[1].slice(0, 5).map(s => (
               <Link key={s.id} href={`/events/${s.id}`}>
                 <a className='flex justify-between py-1 px-2 hover:bg-base-content/10'>
                   <span>{s.title}</span>

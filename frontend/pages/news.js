@@ -1,10 +1,6 @@
 import Link from 'next/link'
 
 const news = ({ news }) => {
-  const getNews = async () => {
-
-  }
-  console.log(news.articles);
   return (
     <div className="columns-xs w-4/5 mx-auto gap-y-8 pt-16">
       {news.articles.map((article, i) => (
