@@ -42,7 +42,7 @@ const Login = () => {
   }
   
   const submitLogin = e => {
-    if(login(inputs.username, inputs.password)) {
+    if(!login(inputs.username, inputs.password)) {
       reset()
       setAlert({ visible: true, type: 'error', message: 'Podane dane są nieprawidłowe' })
     }

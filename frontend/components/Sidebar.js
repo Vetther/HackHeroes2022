@@ -6,7 +6,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import SidebarBody from './SidebarBody'
 
 const Sidebar = () => {
-  const [ windowWidth, setWindowWidth ] = useState(undefined)
+  const [ windowWidth, setWindowWidth ] = useState(1920)
   const [visible, setVisible] = useState(false)
   const ref = useRef()
   const range = 1024  // When the sidebar becomes toggleable

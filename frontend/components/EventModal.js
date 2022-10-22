@@ -173,7 +173,7 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
     }
   }
 
-  const editEvent = async inputs => {
+  const editEvent = async () => {
     const response = await fetch(`http://141.147.1.251:5000/api/v1/event/${id}`, {
       method: 'PUT',
       headers: {
@@ -190,11 +190,10 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
       })
     })
     const data = await response.json()
-    console.log(response, data)
 
     if(data.success) {
       reset()
-      // Router.reload()
+      Router.reload()
       setAlert({ visible: true, type: 'success', message: 'Pomyślnie zedytowano Wydarzenie.' })
     }
     else {
@@ -203,12 +202,14 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
     }
   }
 
-  useEffect(() => isCorrectImg(), [inputs.img])
-  useEffect(() => isCorrectTitle(), [inputs.title])
-  useEffect(() => isCorrectSummary(), [inputs.summary])
-  useEffect(() => isCorrectDescription(), [inputs.description])
-  useEffect(() => isCorrectDatetime(), [inputs.datetime])
-  useEffect(() => isCorrectTags(), [inputs.tags])
+  if(!id) {
+    useEffect(() => isCorrectImg(), [inputs.img])
+    useEffect(() => isCorrectTitle(), [inputs.title])
+    useEffect(() => isCorrectSummary(), [inputs.summary])
+    useEffect(() => isCorrectDescription(), [inputs.description])
+    useEffect(() => isCorrectDatetime(), [inputs.datetime])
+    useEffect(() => isCorrectTags(), [inputs.tags])
+  }
 
   return (
     <Modal open={open} onClickBackdrop={onClickBackdrop} {...args}>

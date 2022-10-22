@@ -29,17 +29,18 @@ export const AuthProvider = ({ children }) => {
         password: password,
       })
     })
-    const data = await response.json()
+    if(response.status === 403) {
+      return false
+    }
+    else{
+      const data = await response.json()
 
-    if(response.ok) {
       setTokens(data)
       setUser(jwt_decode(data.access_token))
       localStorage.setItem('tokens', JSON.stringify(data))
       router.push('/events')
-    }
-    else {
       return true
-    }
+    } 
   }
 
   const logout = () => {
