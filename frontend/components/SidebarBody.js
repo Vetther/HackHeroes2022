@@ -16,7 +16,7 @@ import { faCalendar, faCalendarCheck } from "@fortawesome/free-regular-svg-icons
 
 import AuthContext from '../contexts/auth'
 
-import Tab from './Tab'
+import SidebarTab from './SidebarTab'
 
 const SidebarBody = () => {
   const { user } = useContext(AuthContext)
@@ -120,7 +120,7 @@ const SidebarBody = () => {
         </div>
       <div className='flex flex-col gap-y-7 ml-2'>
         {Object.entries(categories).map(category => (
-          <Tab key={category[0]} title={category[0]} data={category[1]} />
+          <SidebarTab key={category[0]} title={category[0]} data={category[1]} />
         ))}
       </div>
     </div>

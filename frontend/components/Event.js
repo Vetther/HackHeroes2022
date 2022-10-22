@@ -1,14 +1,15 @@
 import { Tooltip, Button } from "react-daisyui"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faLocationDot, faUser} from "@fortawesome/free-solid-svg-icons"
+import { faLocationDot, faUser, faTags } from "@fortawesome/free-solid-svg-icons"
 import { faHand } from "@fortawesome/free-regular-svg-icons"
 import Link from "next/link"
 
 import Box from "./Box"
+import Tag from "./Tag"
 
 const Event = ({ event }) => {
   return (
-    <Box xl='flex' className='justify-between'>
+    <Box className='xl:flex justify-between'>
       <div className="sm:flex">
         <img src={event.imageUrl} className='rounded-lg object-cover shadow-md w-32 h-32' />
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
@@ -18,11 +19,19 @@ const Event = ({ event }) => {
               <FontAwesomeIcon icon={faLocationDot} className={'info-content'} style={{color: '#6b7280', width:17, height: 17}}/>
               <p className='ml-2 text-sm text-base-content/70 text-left'>{event.address}</p>
             </Tooltip>
-            <Tooltip message='Organizator' className='flex tooltip-left'>
+            <Tooltip message='Organizator' className='flex tooltip-left mb-2'>
               <FontAwesomeIcon icon={faUser} style={{color: '#6b7280', width:17, height: 17}}/>
               <Link href={`/profile/${event.creator.name}`}>
                 <a className='text-base-content/70 ml-2 text-sm'>{event.creator.name}</a>
               </Link>
+            </Tooltip>
+            <Tooltip message='Tagi' className='flex items-center tooltip-left'>
+              <FontAwesomeIcon icon={faTags} style={{color: '#6b7280', width:17, height: 17}}/>
+              <div className="flex gap-x-1 ml-1">
+                {event.tags.map(tag => (
+                  <Tag key={tag.id} tag={tag} small />
+                ))}
+              </div>
             </Tooltip>
           </div>
           <p className="font-medium pr-3 text-md font-normal base-content mt-2 break-all">{event.shortDescription}</p>

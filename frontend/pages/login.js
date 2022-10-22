@@ -13,7 +13,7 @@ const Login = () => {
 
   return (
     <div className='flex justify-center items-center h-screen'>
-      <Box lg='w-1/2' className='md:w-2/5 w-2/3'>
+      <Box className='lg:w-1/2 w-3/5'>
         <p className="font-bold text-3xl text-primary mb-12">Logowanie</p>
         <form className='flex flex-col gap-y-8' onSubmit={e => { login(input.username, input.password); e.preventDefault() }}>
           <Input 

@@ -1,10 +1,10 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { Modal, Button } from "react-daisyui"
 import Router from 'next/router'
 
 import AuthContext from '../contexts/auth'
 
-import Input from '../components/Input'
+import Input from './Input'
 
 const EventModal = ({ open, onClickBackdrop, ...args }) => {
   const { user, tokens } = useContext(AuthContext)
@@ -64,9 +64,9 @@ const EventModal = ({ open, onClickBackdrop, ...args }) => {
     else if(input.title.length > 60) {
       setErrors({ ...errors, title: { valid: false, message: 'Tytuł za długi (>60)' } })
     }
-    // else if(!input.title.match('/^[a-zA-Z0-9 ]*$/')) {
-    //   setErrors({ ...errors, title: { valid: false, message: 'Błędny Tytuł' } })
-    // }
+    else if(!input.title.match('^[\w\s]+$')) {
+      setErrors({ ...errors, title: { valid: false, message: 'Błędny Tytuł' } })
+    }
     else {
       setErrors({ ...errors, title: { valid: true, message: '' } })
     }
@@ -109,14 +109,6 @@ const EventModal = ({ open, onClickBackdrop, ...args }) => {
     }
   }
 
-  /* useEffect(() => {
-    isCorrectImg()
-    isCorrectTitle()
-    isCorrectSummary()
-    isCorrectDescription()
-    isCorrectDatetime()
-  }, [input]) */
-
   const isDisabled = () => {
     return Object.values(errors).some(error => !error.valid)
   }
@@ -126,7 +118,7 @@ const EventModal = ({ open, onClickBackdrop, ...args }) => {
   }
 
   const addEvent = async () => {
-    await fetch('http://141.147.1.251:5000/api/v1/event/create', {
+    const response = await fetch('http://141.147.1.251:5000/api/v1/event/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -143,6 +135,7 @@ const EventModal = ({ open, onClickBackdrop, ...args }) => {
         tagId: [1],
       })
     })
+    const data = await response.json()
 
     reset()
 

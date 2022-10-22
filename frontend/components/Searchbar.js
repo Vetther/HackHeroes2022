@@ -13,9 +13,9 @@ const Searchbar = ({ searches, setSearches, ...args }) => {
     if(allSearches.length > 0) {
       setSearches(allSearches.filter(search => 
         search.title.toLowerCase().includes(value) ||
-        search.shortDescription.includes(value) ||
-        search.address.includes(value) ||
-        search.creator.name.includes(value)
+        search.shortDescription.toLowerCase().includes(value) ||
+        search.address.toLowerCase().includes(value) ||
+        search.creator.name.toLowerCase().includes(value)
       ))
     }
   }, [value])
@@ -23,7 +23,7 @@ const Searchbar = ({ searches, setSearches, ...args }) => {
   return (
     <Input 
       value={value} 
-      onChange={e => setValue(e.target.value)} 
+      onChange={e => setValue(e.target.value.toLowerCase())} 
       className='w-full focus:outline-none focus:border-primary text-lg' 
       {...args} 
     />

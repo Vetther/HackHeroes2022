@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import {useContext} from "react"
 import AuthContext from "../contexts/auth"
 
-const Tab = ({ title, data }) => {
+const SidebarTab = ({ title, data }) => {
   const { user } = useContext(AuthContext)
   const router = useRouter()
 
@@ -16,15 +16,14 @@ const Tab = ({ title, data }) => {
             key={tab.name}
             className={`${tab.path !== router.pathname.replace("[user]", user?.sub) ? 'text-base-content/70' : 'border-r-4 border-primary text-base-content'} mb-1 -mr-1.5`}
           >
-              <Link href={tab.path} className='p-2'>
-                  <a className='flex'>
-                      <span className={`flex ${tab.path !== router.pathname.replace("[user]", user?.sub) ? 'text-gray-500' : 'text-primary'}`}>
-                        {tab.icon}
-                      </span>
-                      <span>{tab.name}</span>
-                  </a>
-              </Link>
-
+            <Link href={tab.path} className='p-2'>
+                <a className='flex'>
+                    <span className={`flex ${tab.path !== router.pathname.replace("[user]", user?.sub) ? 'text-gray-500' : 'text-primary'}`}>
+                      {tab.icon}
+                    </span>
+                    <span>{tab.name}</span>
+                </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -32,4 +31,4 @@ const Tab = ({ title, data }) => {
   )
 }
 
-export default Tab
+export default SidebarTab

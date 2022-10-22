@@ -27,7 +27,7 @@ const Events = ({ events }) => {
               <span>Data Wydarzenia</span>
             </Table.Head>
             <Table.Body>
-              {events?.data.content.filter(event => event.creator.id === user?.id).map(event => (
+              {events?.data?.content.filter(event => event.creator.id === user?.id).map(event => (
                 <Table.Row hover key={event.id}>
                   <span>{event.title.length > maxTitleLength ? `${event.title.substring(0, maxTitleLength)}...` : event.title}</span>
                   <span>{new Date(event.publicationDate).toLocaleString()}</span>
