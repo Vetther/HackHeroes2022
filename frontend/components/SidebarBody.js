@@ -44,14 +44,14 @@ const SidebarBody = () => {
             icon: <FontAwesomeIcon icon={faSquarePollVertical} style={{marginRight: 4, width: 20, height: 20}} />,
         },
         {
-            name: 'Zrzutki Funduszy',
-            path: '/zrzutki',
-            icon: <FontAwesomeIcon icon={faHandshakeAngle} style={{marginRight: 4, width: 20, height: 20}} />,
-        },
-        {
             name: 'Wiadomości',
             path: '/news',
             icon: <FontAwesomeIcon icon={faNewspaper} style={{marginRight: 4, width: 20, height: 20}} />,
+        },
+        {
+            name: 'Zrzutki Funduszy',
+            path: '/zrzutki',
+            icon: <FontAwesomeIcon icon={faHandshakeAngle} style={{marginRight: 4, width: 20, height: 20}} />,
         },
     ],
     'informacje o użytkowniku': !user ? [
@@ -102,7 +102,7 @@ const SidebarBody = () => {
         },
         {
             name: 'Dane techniczne',
-            path: '/dane-techniczne',
+            path: '/technical-data',
             icon: <FontAwesomeIcon icon={faFlag} style={{marginRight: 4, width: 20, height: 20}} />,
         },
     ]

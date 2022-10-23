@@ -30,7 +30,7 @@ const Events = ({ events, tags }) => {
       <div className="w-full pt-16">
         <Box className='w-2/3 mx-auto'>
           <div className="sm:flex justify-between items-center mb-6">
-            <p className="text-primary text-2xl font-bold sm:mb-0 mb-4">Twoje Wydarzenia</p>
+            <p className="text-primary text-2xl font-bold sm:mb-0 mb-4">Wydarzenia Użytkownika {user.user?.name}</p>
             <Button color='primary' size='sm' onClick={() => setModal(true)}>Stwórz</Button>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
