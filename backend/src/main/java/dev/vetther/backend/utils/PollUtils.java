@@ -17,7 +17,7 @@ public class PollUtils {
     }
 
     public boolean isChoiceName(String choiceName) {
-        return choiceName != null && choiceName.length() >= 6 && choiceName.length() <= 60 &&
+        return choiceName != null && choiceName.length() >= 3 && choiceName.length() <= 60 &&
                 !choiceName.isBlank();
     }
 }
