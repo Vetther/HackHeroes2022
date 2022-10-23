@@ -29,10 +29,11 @@ public class PollServiceImpl {
     public void deletePoll(Long pollId) {
         Poll poll = this.pollRepository.findById(pollId).orElseThrow(() -> new NullPointerException("Poll not found"));
 
-        poll.getChoices().forEach(choice -> deletePollChoice(choice.getId()));
         poll.setChoices(new HashSet<>());
+        this.pollRepository.save(poll);
 
         this.pollRepository.delete(poll);
+        poll.getChoices().forEach(choice -> deletePollChoice(choice.getId()));
     }
 
     public PollChoice createPollChoice(String name) {
@@ -50,14 +51,17 @@ public class PollServiceImpl {
     }
 
     public void deletePollChoice(Long pollChoiceId) {
-        Poll poll = this.pollRepository.findByChoices_Id(pollChoiceId).orElseThrow(() -> new NullPointerException("Poll not found"));
         PollChoice pollChoice = this.pollChoiceRepository.findById(pollChoiceId).orElseThrow(() -> new NullPointerException("PollChoice not found"));
 
-        Set<PollChoice> choices = poll.getChoices();
-        choices.remove(pollChoice);
-        poll.setChoices(choices);
+        Optional<Poll> pollOpt = this.pollRepository.findByChoices_Id(pollChoiceId);
+        if (pollOpt.isPresent()) {
+            Poll poll = pollOpt.get();
+            Set<PollChoice> choices = poll.getChoices();
+            choices.remove(pollChoice);
+            poll.setChoices(choices);
+            this.pollRepository.save(poll);
+        }
 
-        this.pollRepository.save(poll);
         this.pollChoiceRepository.delete(pollChoice);
     }
 

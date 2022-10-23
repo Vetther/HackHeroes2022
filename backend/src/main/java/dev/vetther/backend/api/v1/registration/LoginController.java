@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static dev.vetther.backend.api.v1.response.ResponseError.WRONG_PARAMETERS;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -41,8 +42,13 @@ public class LoginController {
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest,
                                               HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        }catch (Exception e) {
+            return ResponseEntity.ok(new Response(false, WRONG_PARAMETERS, null));
+        }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

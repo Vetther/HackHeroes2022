@@ -28,6 +28,9 @@ public enum ResponseError {
     /** User Controller **/
     USER_NOT_FOUND,
 
+    /** Login Controller **/
+    WRONG_PARAMETERS,
+
     /** Poll Controller **/
     INVALID_POLL_DESCRIPTION,
     INVALID_POLL_TITLE,
