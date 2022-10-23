@@ -47,6 +47,9 @@ const Login = () => {
       reset()
       setAlert({visible: true, type: 'error', message: 'Podane dane są nieprawidłowe'})
     }
+    else {
+      
+    }
   }
 
   const isDisabled = () => {

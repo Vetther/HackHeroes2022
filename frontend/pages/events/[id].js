@@ -77,8 +77,8 @@ const UserEvent = ({ event }) => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
-        <Box className='items-center md:w-3/6 sm:mt-0 mt-8'>
+      <div className="w-full py-8">
+        <Box className='mx-auto items-center md:w-1/2 w-4/5 sm:mt-0 mt-8 py-8'>
           <div className="avatar w-full justify-center mt-4">
             <div className="w-48 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img src={event.imageUrl}/>
