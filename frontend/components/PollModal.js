@@ -3,30 +3,28 @@ import { Modal, Button } from 'react-daisyui'
 import Router from 'next/router'
 
 import AuthContext from '../contexts/auth'
+import AlertContext from '../contexts/alert'
 
 import Input from '../components/Input'
 
 const PollModal = ({ open, onClickBackdrop, ...args }) => {
   const { tokens } = useContext(AuthContext)
+  const { setAlert } = useContext(AlertContext)
   const [ inputs, setInputs ] = useState({
     title: '',
     description: '',
-    choices: [''],
+    choices: [],
   })
   const [ errors, setErrors ] = useState({
     title: '',
     description: '',
-    choices: [''],
+    choices: [],
   })
   
   useEffect(() => {
     if(inputs.choices.at(-1) !== '' && inputs.choices.length < 5) {
       setInputs({ ...inputs, choices: [ ...inputs.choices, '' ] })
       setErrors({ ...errors, choices: [ ...errors.choices, '' ] })
-    }
-    else if(inputs.choices.at(-2) === '') {
-      setInputs({ ...inputs, choices: [ ...inputs.choices.slice(0, -1) ] })
-      setErrors({ ...errors, choices: [ ...errors.choices.slice(0, -1) ] })
     }
   }, [ inputs.choices ])
   
@@ -48,6 +46,10 @@ const PollModal = ({ open, onClickBackdrop, ...args }) => {
       reset()
       Router.reload()
     } 
+    else {
+      reset()
+      setAlert({ visible: true, type: 'error', message: 'Wystąpił błąd podczas tworzenia na Ankietę' })
+    }
   }
 
   const reset = () => {
@@ -67,7 +69,7 @@ const PollModal = ({ open, onClickBackdrop, ...args }) => {
   const isDisabled = () => 
     inputs.title.length < 6 || inputs.title.length > 60 || !inputs.title.match('^[\\w\\s]+$') || 
     inputs.description.length < 6 || inputs.description.length > 100 ||
-    inputs.choices.length < 3 || inputs.choices.filter(choice => choice !== '').some(choice => choice.length < 6 || choice.length > 60)
+    inputs.choices.length < 3 || inputs.choices.filter(choice => choice !== '').some(choice => choice.length < 3 || choice.length > 60)
 
   return (
     <Modal open={open} onClickBackdrop={onClickBackdrop} {...args}>
@@ -118,14 +120,19 @@ const PollModal = ({ open, onClickBackdrop, ...args }) => {
                 newChoices[i] = e.target.value
                 setInputs({ ...inputs, choices: [ ...newChoices ] })
               }}
-              onBlur={() => {
-                let newErrors = [ ...errors.choices ]
-                newErrors[i] = choice.length < 6
-                  ? 'Opcja za krótka (<6)'
-                  : choice.length > 60
-                  ? 'Opcja za długa (>60)'
-                  : ''
-                setErrors({ ...errors, choices: [ ...newErrors ] })
+              onBlur={e => {
+                if(e.target.value === '') {
+                  setInputs({ ...inputs, choices: [ ...inputs.choices.filter(choice => choice.trim() !== '') ] })
+                }
+                else {
+                  let newErrors = [ ...errors.choices ]
+                  newErrors[i] = choice.length < 3
+                    ? 'Opcja za krótka (<3)'
+                    : choice.length > 60
+                    ? 'Opcja za długa (>60)'
+                    : ''
+                  setErrors({ ...errors, choices: [ ...newErrors ] })
+                }
               }}
               error={{ valid: false, message: errors.choices[i] }}
             />
