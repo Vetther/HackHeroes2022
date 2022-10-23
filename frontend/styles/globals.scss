@@ -31,3 +31,67 @@ body {
     border-radius: 5px;
     border: 3px solid transparent;
 }
+
+.blobs-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.blobs {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.blobs2 {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.blob {
+    position: absolute;
+}
+
+.blob1 {
+    top: 10vh;
+    left: 75vw;
+    height: 100vh;
+}
+
+.blob2 {
+    top: 65vh;
+    right: 65vw;
+    height: 50vh;
+}
+
+.blob3 {
+    top: 10vh;
+    left: 53vw;
+    opacity: .15;
+    height: 100vh;
+}
+
+.blob4 {
+    top: 30vh;
+    right: 54vw;
+    opacity: .15;
+    height: 50vh;
+}
+
+.blob6 {
+    top: 50vh;
+    left: 75vw;
+    opacity: 1;
+    height: 70vh;
+}
+
+.blob5 {
+    top: 150vh;
+    right: 70vw;
+    opacity: 1;
+    height: 80vh;
+}

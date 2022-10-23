@@ -40,13 +40,14 @@ const Login = () => {
       setErrors({ ...errors, password: { valid: true, message: '' } })
     }
   }
-  
-  const submitLogin = e => {
-    if(login(inputs.username, inputs.password) === 403) {
-      reset()
-      setAlert({ visible: true, type: 'error', message: 'Podane dane są nieprawidłowe' })
-    }
+
+  const submitLogin = async e => {
     e.preventDefault()
+    const status = await login(inputs.username, inputs.password);
+    if (status === false) {
+      reset()
+      setAlert({visible: true, type: 'error', message: 'Podane dane są nieprawidłowe'})
+    }
   }
 
   const isDisabled = () => {

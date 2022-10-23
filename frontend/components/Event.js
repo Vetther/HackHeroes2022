@@ -11,7 +11,7 @@ const Event = ({ event }) => {
   return (
     <Box className='xl:flex justify-between'>
       <div className="sm:flex">
-        <img src={event.imageUrl} className='rounded-lg object-cover shadow-md w-32 h-32' />
+        <img src={event.imageUrl} className='rounded-lg object-cover shadow-md w-32 h-32' onError={(event) => {event.target.src="https://dps.iowa.gov/sites/default/files/styles/missing_person_thumb/public/default_images/mpic-photo-ph-2_0.png?itok=hcvSycbh"}} />
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
           <div>
             <p className='text-base-content text-xl font-semibold mb-2 break-all'>{event.title}</p>
@@ -27,7 +27,7 @@ const Event = ({ event }) => {
             </Tooltip>
             <Tooltip message='Tagi' className='flex items-center tooltip-left'>
               <FontAwesomeIcon icon={faTags} style={{color: '#6b7280', width:17, height: 17}}/>
-              <div className="flex gap-x-1 ml-2">
+              <div className="flex gap-x-1 ml-2 flex-wrap">
                 {event.tags.map(tag => (
                   <Tag key={tag.id} tag={tag} small />
                 ))}

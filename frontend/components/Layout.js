@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
     <div className='lg:flex bg-base-200 min-h-screen'>
         {sidebar}
       <AlertProvider>
-        <div className="w-full min-h-screen">
+        <div className="w-full z-20">
           <Alert />
           { children }
         </div>

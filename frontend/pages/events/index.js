@@ -8,6 +8,7 @@ import Box from "../../components/Box"
 import Event from "../../components/Event"
 import EventModal from "../../components/EventModal"
 import Tag from "../../components/Tag"
+import Router from "next/router";
 
 const Events = ({ queryEvents, queryTags }) => {
   const { user } = useContext(AuthContext)
@@ -40,11 +41,15 @@ const Events = ({ queryEvents, queryTags }) => {
     <>
       <div className="flex flex-col gap-y-6 w-7/12 mx-auto sm:py-8 pb-8 pt-16">
         <Searchbar allEvents={allEvents} placeholder='Wyszukaj Wydarzenie...' setEvents={setEvents} />
-        {user && <Button color='primary' onClick={() => setVisible(true)} className='ml-auto'>Stwórz</Button>}
+        <Button color='primary' onClick={() => {
+          (user)
+            ? setVisible(true)
+            : Router.push("/login")
+        }} className='ml-auto'>Stwórz</Button>
         <div className="2xl:flex gap-x-2">
           <Box className='2xl:w-3/12 2xl:h-1/6 2xl:order-last 2xl:mb-0 mb-10'>
             <p className='text-sm text-gray-400'>TAGI</p>
-            <div className="flex 2xl:flex-col gap-2 mt-2">
+            <div className="flex 2xl:flex-col gap-2 mt-2 flex-wrap">
               {queryTags?.data
                 .sort((a, b) => 
                   a.name.toLowerCase() < b.name.toLowerCase() 

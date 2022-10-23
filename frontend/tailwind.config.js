@@ -14,18 +14,18 @@ module.exports = {
       {
         dark: {
           ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
-          primary: "#8660da",
-          "primary-focus": "#8660da",
+          primary: "#8263FF",
+          "primary-focus": "#8263FF",
           "info": "#0784b5",
           "error": "#8c453f",
           "success": "#517349",
           "warning": "#836236",
         },
-        // light: {
-        //   ...require("daisyui/src/colors/themes")["[data-theme=light]"],
-        //   primary: "#8957f4",
-        //   "primary-focus": "#8957f4",
-        // },
+         light: {
+           ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+           primary: "#8263FF",
+           "primary-focus": "#8263FF",
+         },
       },
       "light",
     ],

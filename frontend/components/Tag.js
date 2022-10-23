@@ -4,7 +4,7 @@ import { faDiamond } from "@fortawesome/free-solid-svg-icons"
 const Tag = ({ tag, selected, small, ...args }) => {
   return (
     <label 
-      className={`flex items-center gap-x-2 border border-base-content/25 rounded-full py-1 px-2 ${small ? 'text-xs' : 'text-sm'} ${selected && 'bg-base-100'} hover:cursor-pointer transition ease-in-out duration-300`}
+      className={`flex items-center gap-x-2 mb-1 border border-base-content/25 rounded-full py-1 px-2 ${small ? 'text-xs' : 'text-sm'} ${selected && 'bg-base-100'} hover:cursor-pointer transition ease-in-out duration-300`}
       style={{ backgroundColor: selected ? `#${tag.hex}95` : 'transparent' }}
       { ...args }
     >
