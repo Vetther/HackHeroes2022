@@ -13,7 +13,7 @@ const polls = ({ polls }) => {
   useEffect(() => {
     fetch(`http://141.147.1.251:5000/api/v1/user/${router.asPath.split('/').at(-2)}`)
     .then(res => res.json())
-    .then(data => setUser({
+    .then(data => !data.data?.id ? router.push('/') : setUser({
       user: data.data,
       polls: [ 
         ...polls.data

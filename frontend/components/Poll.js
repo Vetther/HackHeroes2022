@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { Radio, Button, Tooltip } from "react-daisyui"
 import Link from "next/link"
+import Router from "next/router"
 
 import AuthContext from "../contexts/auth"
 
@@ -9,6 +10,7 @@ import Input from "../components/Input"
 
 const Poll = ({ poll, radio, setRadio, vote, edit, setEdit, editPoll, deletePoll }) => {
   const { user } = useContext(AuthContext)
+  console.log(user);
 
   return (
     <Box>
@@ -37,7 +39,7 @@ const Poll = ({ poll, radio, setRadio, vote, edit, setEdit, editPoll, deletePoll
                 </div>
               ))}
             </div>
-            <Button size='sm' color='primary' disabled={radio?.id !== poll.id} onClick={vote}>Zagłosuj</Button>
+            <Button size='sm' color='primary' disabled={radio?.id !== poll.id} onClick={user ? vote : () => Router.push('/login')}>Zagłosuj</Button>
           </>
         : <>
             <div className='flex flex-col gap-y-2 mb-4'>
