@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       })
     })
     if(response.status === 403) {
-      return false
+      return response.status
     }
     else{
       const data = await response.json()

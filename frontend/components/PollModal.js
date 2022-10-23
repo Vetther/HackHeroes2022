@@ -69,7 +69,8 @@ const PollModal = ({ open, onClickBackdrop, ...args }) => {
   const isDisabled = () => 
     inputs.title.length < 6 || inputs.title.length > 60 || !inputs.title.match('^[\\w\\s]+$') || 
     inputs.description.length < 6 || inputs.description.length > 100 ||
-    inputs.choices.length < 3 || inputs.choices.filter(choice => choice !== '').some(choice => choice.length < 3 || choice.length > 60)
+    inputs.choices.length < 3 || inputs.choices.filter(choice => choice !== '').some(choice => choice.length < 3 || choice.length > 60) ||
+    !inputs.choices.every(choice => inputs.choices.indexOf(choice) === inputs.choices.lastIndexOf(choice))
 
   return (
     <Modal open={open} onClickBackdrop={onClickBackdrop} {...args}>

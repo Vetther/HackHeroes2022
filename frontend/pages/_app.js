@@ -5,6 +5,7 @@ import Head from 'next/head'
 
 const MyApp = ({ Component, pageProps }) => {
   return (
+    
     <AuthProvider>
       <Head>
         
