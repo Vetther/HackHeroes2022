@@ -8,7 +8,6 @@ import Box from '../../../components/Box'
 
 const User = ({ events }) => {
   const { user } = useContext(AuthContext)
-  console.log(events);
 
   return (
     <div className="w-2/3 mx-auto pt-8">
