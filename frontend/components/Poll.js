@@ -16,9 +16,9 @@ const Poll = ({ poll, radio, setRadio, vote, edit, setEdit, editPoll, deletePoll
       <h1 className='font-bold text-xl uppercase mb-0.5'>{poll.title}</h1>
       <p className='text-base-content/70 text-sm mb-2'>
         <Link href={`/profile/${poll?.creator.name}`}>
-          <a>{poll?.creator.name} </a>
+          <a>{poll?.creator.name}</a>
         </Link>
-        &#8226; 
+        <span> &#8226; </span>
         {poll.publicationDate.toLocaleTimeString([], {
           year: 'numeric',
           month: '2-digit',
@@ -53,8 +53,12 @@ const Poll = ({ poll, radio, setRadio, vote, edit, setEdit, editPoll, deletePoll
                             style={{ width: `${Math.floor(choice.voters.length / poll.choices.reduce((sum, choice) => sum + choice.voters.length, 0) * 100)}%` }}
                           ></div>
                         }
-                        <Tooltip color='accent' position="right" className='ml-1 absolute top-0 text-base-100' message={choice.voters.length}>
-                          {Math.floor(choice.voters.length / poll.choices.reduce((sum, choice) => sum + choice.voters.length, 0) * 100)}%
+                        <Tooltip color='accent' position="right" className='ml-3 absolute top-0 text-base-100' message={`Głosów: ${choice.voters.length}`}>
+
+                            {isNaN(Math.floor(choice.voters.length / poll.choices.reduce((sum, choice) => sum + choice.voters.length, 0) * 100))
+                            ? 0
+                            : Math.floor(choice.voters.length / poll.choices.reduce((sum, choice) => sum + choice.voters.length, 0) * 100)}%
+
                         </Tooltip>
                       </div>
                       <p>{choice.name}</p>

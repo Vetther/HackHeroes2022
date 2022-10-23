@@ -30,7 +30,6 @@ export const AuthProvider = ({ children }) => {
       })
     })
     const data = await response.json()
-    console.log(response, data);
     if(data.success !== undefined) {
       return false
     }

@@ -16,7 +16,7 @@ export default function Home() {
       <>
           <div className="hero min-h-screen bg-base-200">
               <div className="hero-content flex-col lg:flex-row-reverse">
-                  <img src="/event2.svg" className="max-w-sm rounded-lg"/>
+                  <img src="/event2.svg" className="max-w-sm rounded-lg" style={{overflow:"hidden"}}/>
                   <div>
                       <h1 className="text-5xl font-bold">CitizenHub</h1>
                       <h3 className="text-2xl font-semibold">Twoje centrum wydarzeń</h3>
