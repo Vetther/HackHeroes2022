@@ -10,7 +10,6 @@ import Input from "../components/Input"
 
 const Poll = ({ poll, radio, setRadio, vote, edit, setEdit, editPoll, deletePoll }) => {
   const { user } = useContext(AuthContext)
-  console.log(user);
 
   return (
     <Box>

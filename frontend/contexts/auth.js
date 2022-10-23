@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       })
     })
     const data = await response.json()
-    if(data.success === false) {
+    if(!data.success) {
       return false
     }
     else{

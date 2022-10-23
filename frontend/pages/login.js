@@ -40,11 +40,10 @@ const Login = () => {
       setErrors({ ...errors, password: { valid: true, message: '' } })
     }
   }
-
+  
   const submitLogin = async e => {
     e.preventDefault()
-    const status = await login(inputs.username, inputs.password);
-    if (status === false) {
+    if(!await login(inputs.username, inputs.password)) {
       reset()
       setAlert({visible: true, type: 'error', message: 'Podane dane są nieprawidłowe'})
     }
@@ -75,12 +74,12 @@ const Login = () => {
             onChange={e => { setInputs({ ...inputs, username: e.target.value }); isCorrectUsername() }} 
           />
           <Input
-            error={errors.password}
+            error={errors.password} 
             type='password' 
             placeholder='Hasło' 
             value={inputs.password} 
             onChange={e => { setInputs({ ...inputs, password: e.target.value }); isCorrectPassword() }} 
-            autoComplete='on' 
+            autoComplete='on'
           />
           <Button color='primary' disabled={isDisabled()}>Zaloguj</Button>
           <p>Nie masz konta? <Link href='/register'><a className='text-violet-300 hover:text-violet-400'>Zarejestruj się</a></Link></p>
