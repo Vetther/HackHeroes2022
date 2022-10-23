@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import Box from '../../../components/Box'
 import PollModal from '../../../components/PollModal'
 
-const polls = ({ polls }) => {
+const Polls = ({ polls }) => {
   const [ user, setUser ] = useState({ user: null, polls: [] })
   const [ modal, setModal ] = useState(false)
   const router = useRouter()
@@ -85,4 +85,4 @@ export const getServerSideProps = async () => {
   }
 }
 
-export default polls
+export default Polls

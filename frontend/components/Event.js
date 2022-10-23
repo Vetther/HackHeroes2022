@@ -6,12 +6,13 @@ import Link from "next/link"
 
 import Box from "./Box"
 import Tag from "./Tag"
+import errorImg from "../public/event3.svg"
 
 const Event = ({ event }) => {
   return (
     <Box className='xl:flex justify-between'>
       <div className="sm:flex">
-        <img src={event.imageUrl} className='rounded-lg object-cover shadow-md w-32 h-32' onError={(event) => {event.target.src="https://dps.iowa.gov/sites/default/files/styles/missing_person_thumb/public/default_images/mpic-photo-ph-2_0.png?itok=hcvSycbh"}} />
+        <img src={event.imageUrl} className='rounded-lg object-cover shadow-md w-32 h-32' onError={(event) => {event.target.src=errorImg.src}} />
         <div className="flex flex-col justify-between sm:ml-6 mt-1 md:mt-0">
           <div>
             <p className='text-base-content text-xl font-semibold mb-2 break-all'>{event.title}</p>
@@ -34,7 +35,7 @@ const Event = ({ event }) => {
               </div>
             </Tooltip>
           </div>
-          <p className="font-medium pr-3 text-md font-normal base-content mt-2 break-all">{event.shortDescription}</p>
+          <p className="font-medium pr-3 text-md font-normal base-content mt-2 break-word">{event.shortDescription}</p>
         </div>
       </div>
       <div className='flex flex-col justify-between'>

@@ -8,7 +8,7 @@ const MyApp = ({ Component, pageProps }) => {
     
     <AuthProvider>
       <Head>
-        
+        <title>CitizenHub.pl</title>
       </Head>
         <Layout>
           <Component {...pageProps} />

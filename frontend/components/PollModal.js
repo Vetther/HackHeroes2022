@@ -66,8 +66,8 @@ const PollModal = ({ open, onClickBackdrop, ...args }) => {
     onClickBackdrop()
   }
 
-  const isDisabled = () => 
-    inputs.title.length < 6 || inputs.title.length > 60 || !inputs.title.match('^[\\w\\s]+$') || 
+  const isDisabled = () =>
+    inputs.title.length < 6 || inputs.title.length > 60 ||
     inputs.description.length < 6 || inputs.description.length > 100 ||
     inputs.choices.length < 3 || inputs.choices.filter(choice => choice !== '').some(choice => choice.length < 3 || choice.length > 60) ||
     !inputs.choices.every(choice => inputs.choices.indexOf(choice) === inputs.choices.lastIndexOf(choice))
@@ -89,9 +89,9 @@ const PollModal = ({ open, onClickBackdrop, ...args }) => {
               inputs.title.length < 6 
               ? 'Tytuł za krótki (<6)'
               : inputs.title.length > 60 
-              ? 'Tytuł za długi (>60)' 
-              : !inputs.title.match('^[\\w\\s]+$')
-              ? 'Tytuł nieprawidłowy'
+              ? 'Tytuł za długi (>60)'
+              // : !inputs.title.match('^[\\w\\s]+$')
+              // ? 'Tytuł nieprawidłowy'
               : '' 
             })}
             error={{ valid: false, message: errors.title }}

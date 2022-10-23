@@ -122,7 +122,7 @@ const UserEvent = ({ event }) => {
                   </>
             )}
           </div>
-          <p className='mt-12 break-all'>{event.longDescription}</p>
+          <p className='mt-12 break-word'>{event.longDescription}</p>
           <div className="stats stats-vertical lg:stats-horizontal mt-12 w-full justify-center items-center text-center">
             <div className="stat">
               <div className="stat-title text-right">Zainteresowani</div>

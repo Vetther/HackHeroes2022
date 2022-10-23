@@ -8,7 +8,7 @@ public class EventUtils {
     public static final String ALPHANUMERATIC_REGEX = "^[\\w\\s]+$";
 
     public boolean isTitle(String title) {
-        return title.length() >= 6 && title.length() <= 60 && title.matches(ALPHANUMERATIC_REGEX);
+        return title.length() >= 6 && title.length() <= 60;
     }
 
     public boolean isShortDesc(String shortDescription) {

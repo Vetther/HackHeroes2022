@@ -265,10 +265,10 @@ const EventModal = ({ open, onClickBackdrop, tags, id, ...args }) => {
           onBlur={() => {if(!id || inputs.title.length !== 0) isCorrectDatetime()}}
         />}
         {!id && <div>
-          <div className="flex gap-x-1 mb-4">
+          <div className="flex gap-x-1 mb-4 flex-wrap">
             {tags?.map(tag => (
-              <Tag 
-                key={tag.id} 
+              <Tag
+                key={tag.id}
                 tag={tag}
                 onClick={() => 
                   !inputs.tags.includes(tag.id) 
