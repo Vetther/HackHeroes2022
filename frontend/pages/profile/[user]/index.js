@@ -26,7 +26,7 @@ const User = ({ events, polls }) => {
         .map(poll => ({ ...poll, publicationDate: new Date(poll.publicationDate) })) 
       ] 
     }))
-  }, [])
+  }, [ router.asPath ])
 
   return (
     <div className="w-2/3 mx-auto pt-8">
@@ -57,7 +57,7 @@ const User = ({ events, polls }) => {
                         })}
                       </p>
                     </Tooltip>
-                    <Tooltip message='Podsumowanie' position='left' className='text-left'>
+                    <Tooltip message='Podsumowanie' position='left' className='text-left break-all'>
                       <p className='text-sm'>{event.shortDescription}</p>
                     </Tooltip>
                     <div className="flex flex-wrap gap-1">
