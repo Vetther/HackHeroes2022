@@ -97,8 +97,12 @@ const User = ({ events, polls }) => {
                               style={{ width: `${Math.floor(choice.voters.length / poll.choices.reduce((sum, choice) => sum + choice.voters.length, 0) * 100)}%` }}
                             ></div>
                           }
-                          <Tooltip color='accent' position="right" className='ml-1 absolute top-0 text-base-100' message={choice.voters.length}>
-                            {Math.floor(choice.voters.length / poll.choices.reduce((sum, choice) => sum + choice.voters.length, 0) * 100)}%
+                          <Tooltip color='accent' position="right" className='ml-3 absolute top-0 text-base-100' message={`Głosów: ${choice.voters.length}`}>
+
+                            {isNaN(Math.floor(choice.voters.length / poll.choices.reduce((sum, choice) => sum + choice.voters.length, 0) * 100))
+                                ? 0
+                                : Math.floor(choice.voters.length / poll.choices.reduce((sum, choice) => sum + choice.voters.length, 0) * 100)}%
+
                           </Tooltip>
                         </div>
                         <p className='pl-1'>{choice.name}</p>
